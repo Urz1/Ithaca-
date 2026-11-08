@@ -333,7 +333,7 @@ export function CanvasEmptyState({
         </p>
 
         {/* Curated Dialectic Starters */}
-        <div className="mt-8 w-full text-left">
+        <div data-tour="curated-debates" className="mt-8 w-full text-left">
           <div className="mb-3 flex items-center justify-between px-1">
             <span className="text-muted-foreground flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase">
               <Sparkles className="text-primary size-3.5" />

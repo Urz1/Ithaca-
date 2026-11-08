@@ -114,12 +114,15 @@ export function CommandBar({
     };
 
     const openEvent = () => setOpen(true);
+    const closeEvent = () => setOpen(false);
 
     document.addEventListener("keydown", down);
     window.addEventListener("open-command-bar", openEvent);
+    window.addEventListener("close-command-bar", closeEvent);
     return () => {
       document.removeEventListener("keydown", down);
       window.removeEventListener("open-command-bar", openEvent);
+      window.removeEventListener("close-command-bar", closeEvent);
     };
   }, [open, setOpen]);
 

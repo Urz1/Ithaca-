@@ -276,6 +276,7 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
 
             {/* Global Search / Command Bar */}
             <div
+              data-tour="search"
               className="relative cursor-pointer flex-1"
               onClick={() =>
                 window.dispatchEvent(new Event("open-command-bar"))

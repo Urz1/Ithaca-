@@ -46,7 +46,10 @@ import {
 import { SaveGraphDialog } from "@/components/canvas/save-graph-dialog";
 import { NodeDragControl } from "@/components/canvas/node-drag-control";
 import { PaperCountControl } from "@/components/canvas/paper-count-control";
-import { RelationshipFocusControl } from "@/components/canvas/relationship-focus-control";
+import {
+  RelationshipFocusControl,
+  type RelationshipFocusType,
+} from "@/components/canvas/relationship-focus-control";
 import { PerspectiveControl } from "@/components/canvas/perspective-control";
 import { BattlefieldToggle } from "@/components/canvas/battlefield-toggle";
 import { SchoolsViewControl } from "@/components/canvas/schools-view-control";
@@ -97,7 +100,7 @@ import type { CanvasInteractionApi } from "@/types/graph";
 import type { PaperData } from "@/components/inspector/paper-inspector";
 import { graphAPI } from "@/lib/api/graph-api";
 import { Button } from "../ui/button";
-import { useCanvasStore } from "@/stores/canvas-store";
+import { useCanvasStore, type CanvasPerspective } from "@/stores/canvas-store";
 
 // Context hooks
 import {
@@ -224,11 +227,94 @@ export function ExploreCanvas() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const onboardingFinishedRef = useRef(false);
 
+  // Listen for interactive tutorial events to walk and talk the canvas live
   useEffect(() => {
+    const handleTourLoadDebate = (e: Event) => {
+      const customEvent = e as CustomEvent<{ topic?: string }>;
+      const topic =
+        customEvent.detail?.topic || "How do transformers handle long context?";
+      handleSearchPaper(topic);
+    };
+
+    const handleTourSetPerspective = (e: Event) => {
+      const customEvent = e as CustomEvent<{ perspective?: CanvasPerspective }>;
+      const perspective = customEvent.detail?.perspective || "battlefield";
+      actions.setPerspective(perspective);
+    };
+
+    const handleTourSetFocus = (e: Event) => {
+      const customEvent = e as CustomEvent<{ focus?: string }>;
+      const rawFocus = customEvent.detail?.focus || "contradicts";
+      const focus = (
+        rawFocus === "refutes" ? "contradicts" : rawFocus
+      ) as RelationshipFocusType;
+      actions.setRelationshipFocus(focus);
+    };
+
+    const handleTourToggleChat = () => {
+      actions.toggleChat();
+    };
+
+    const handleTourToggleSelection = () => {
+      actions.toggleSelectionMode();
+    };
+
+    const handleTourOpenShortcuts = () => {
+      actions.setKeyboardHelpOpen(true);
+    };
+
+    window.addEventListener("ithaca-tour-load-debate", handleTourLoadDebate);
+    window.addEventListener(
+      "ithaca-tour-set-perspective",
+      handleTourSetPerspective,
+    );
+    window.addEventListener("ithaca-tour-set-focus", handleTourSetFocus);
+    window.addEventListener("ithaca-tour-toggle-chat", handleTourToggleChat);
+    window.addEventListener(
+      "ithaca-tour-toggle-selection",
+      handleTourToggleSelection,
+    );
+    window.addEventListener(
+      "ithaca-tour-open-shortcuts",
+      handleTourOpenShortcuts,
+    );
+
+    return () => {
+      window.removeEventListener("ithaca-tour-load-debate", handleTourLoadDebate);
+      window.removeEventListener(
+        "ithaca-tour-set-perspective",
+        handleTourSetPerspective,
+      );
+      window.removeEventListener("ithaca-tour-set-focus", handleTourSetFocus);
+      window.removeEventListener(
+        "ithaca-tour-toggle-chat",
+        handleTourToggleChat,
+      );
+      window.removeEventListener(
+        "ithaca-tour-toggle-selection",
+        handleTourToggleSelection,
+      );
+      window.removeEventListener(
+        "ithaca-tour-open-shortcuts",
+        handleTourOpenShortcuts,
+      );
+    };
+  }, [actions, handleSearchPaper]);
+
+  const initialCheckDoneRef = useRef(false);
+
+  useEffect(() => {
+    if (initialCheckDoneRef.current) return;
+    initialCheckDoneRef.current = true;
+
     void needsOnboarding().then((needed) => {
-      if (needed) setShowOnboarding(true);
+      if (needed) {
+        setShowOnboarding(true);
+      } else if (!tutorial.hasSeenTutorial) {
+        tutorial.start();
+      }
     });
-  }, []);
+  }, [tutorial]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -681,16 +767,20 @@ export function ExploreCanvas() {
                 >
                   <List className="h-4 w-4" />
                 </Button>
-                <ChatToggleButton
-                  isOpen={state.chatOpen}
-                  onClick={() => actions.toggleChat()}
-                />
-                <NodeSelectionTool
-                  isActive={state.selectionMode}
-                  onToggle={() => actions.toggleSelectionMode()}
-                  selectedNodes={state.selectedNodes}
-                  nodeLabels={state.nodeLabels}
-                />
+                <div data-tour="ai-chat" className="inline-block">
+                  <ChatToggleButton
+                    isOpen={state.chatOpen}
+                    onClick={() => actions.toggleChat()}
+                  />
+                </div>
+                <div data-tour="selection-mode" className="inline-block">
+                  <NodeSelectionTool
+                    isActive={state.selectionMode}
+                    onToggle={() => actions.toggleSelectionMode()}
+                    selectedNodes={state.selectedNodes}
+                    nodeLabels={state.nodeLabels}
+                  />
+                </div>
                 <Button
                   variant={state.debateMatrixOpen ? "default" : "outline"}
                   size="icon"
@@ -856,16 +946,18 @@ export function ExploreCanvas() {
 
           {/* Bottom-left: footer (desktop/tablet only) */}
           {!isMobile && (
-            <BottomLeftZone>
-              <CanvasFooter
-                nodeCount={state.graphStats.nodeCount}
-                edgeCount={state.graphStats.edgeCount}
-                status={state.isLoading ? "loading" : "live"}
-                onKeyboardHelpClick={() => actions.setKeyboardHelpOpen(true)}
-                onTutorialClick={tutorial.start}
-                onTutorialRestart={tutorial.reset}
-                hasSeenTutorial={tutorial.hasSeenTutorial}
-              />
+            <BottomLeftZone className="z-40 pointer-events-auto">
+              <div data-tour="zoom-controls">
+                <CanvasFooter
+                  nodeCount={state.graphStats.nodeCount}
+                  edgeCount={state.graphStats.edgeCount}
+                  status={state.isLoading ? "loading" : "live"}
+                  onKeyboardHelpClick={() => actions.setKeyboardHelpOpen(true)}
+                  onTutorialClick={tutorial.start}
+                  onTutorialRestart={tutorial.reset}
+                  hasSeenTutorial={tutorial.hasSeenTutorial}
+                />
+              </div>
             </BottomLeftZone>
           )}
 
@@ -873,14 +965,18 @@ export function ExploreCanvas() {
           <BottomCenterZone>
             {/* Perspective & Relationship mode tabs — always visible */}
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <PerspectiveControl
-                disputeCount={disputeCount}
-                upstreamCount={upstreamCount}
-              />
-              <RelationshipFocusControl
-                value={state.relationshipFocus}
-                onChange={(focus) => actions.setRelationshipFocus(focus)}
-              />
+              <div data-tour="battlefield-mode">
+                <PerspectiveControl
+                  disputeCount={disputeCount}
+                  upstreamCount={upstreamCount}
+                />
+              </div>
+              <div data-tour="relationship-filters">
+                <RelationshipFocusControl
+                  value={state.relationshipFocus}
+                  onChange={(focus) => actions.setRelationshipFocus(focus)}
+                />
+              </div>
             </div>
             <SelectionPanel
               selectedNodes={state.selectedNodes}
