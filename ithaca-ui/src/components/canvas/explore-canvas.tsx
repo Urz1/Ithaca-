@@ -32,7 +32,7 @@ import { ExploreUrlHydrator } from "@/components/canvas/explore-url-hydrator";
 import { E2eEdgeOpener } from "@/components/canvas/e2e-edge-opener";
 import { PaperInspector } from "@/components/inspector/paper-inspector";
 import { PaperListPanel } from "@/components/canvas/paper-list-panel";
-import { List, Swords, Orbit, Table, Sparkles, Filter } from "lucide-react";
+import { List, Orbit, Table, Sparkles, Filter } from "lucide-react";
 import { GlobalFilters } from "@/components/filters/global-filters";
 import { DebateMatrixDialog } from "@/components/canvas/debate-matrix-dialog";
 import { LiteratureReviewDialog } from "@/components/canvas/literature-review-dialog";
@@ -226,6 +226,13 @@ export function ExploreCanvas() {
   const tutorial = useTutorial(CANVAS_TUTORIAL);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const onboardingFinishedRef = useRef(false);
+
+  // Active graph check: determines whether HUD overlays & controls should render
+  const hasActiveGraph =
+    state.graphStats.nodeCount > 0 ||
+    state.isLoading ||
+    Boolean(state.searchTarget) ||
+    tutorial.isActive;
 
   const handleCustomCommandAction = useCallback(
     (action: string) => {
@@ -688,39 +695,43 @@ export function ExploreCanvas() {
             <EdgeLabels />
 
             {/* Sigma controls: hide zoom buttons on mobile (pinch-to-zoom instead) */}
-            <ControlsContainer position={"top-right"}>
-              {!isMobile && <ZoomControl />}
-              {!isMobile && <FullScreenControl />}
-              {!isMobile && (
-                <ForceAtlasControl
-                  externalIsRunning={
-                    state.physicsEnabled && state.layoutMode === "force"
-                  }
-                  onToggle={() => {
-                    if (state.layoutMode === "temporal") {
-                      const graph = refs.graphRef.current;
-                      if (graph) {
-                        restoreForceLayout(graph);
-                        refs.sigmaRef.current?.refresh();
+            {hasActiveGraph && (
+              <>
+                <ControlsContainer position={"top-right"}>
+                  {!isMobile && <ZoomControl />}
+                  {!isMobile && <FullScreenControl />}
+                  {!isMobile && (
+                    <ForceAtlasControl
+                      externalIsRunning={
+                        state.physicsEnabled && state.layoutMode === "force"
                       }
-                      actions.setLayoutMode("force");
-                    }
-                    actions.togglePhysics();
-                  }}
-                  nodeCount={state.graphStats.nodeCount}
-                />
-              )}
-              {!isMobile && (
-                <TemporalLayoutControl
-                  layoutMode={state.layoutMode}
-                  onChange={(mode) => actions.setLayoutMode(mode)}
-                  minYear={state.dataRanges.minYear}
-                  maxYear={state.dataRanges.maxYear}
-                />
-              )}
-            </ControlsContainer>
+                      onToggle={() => {
+                        if (state.layoutMode === "temporal") {
+                          const graph = refs.graphRef.current;
+                          if (graph) {
+                            restoreForceLayout(graph);
+                            refs.sigmaRef.current?.refresh();
+                          }
+                          actions.setLayoutMode("force");
+                        }
+                        actions.togglePhysics();
+                      }}
+                      nodeCount={state.graphStats.nodeCount}
+                    />
+                  )}
+                  {!isMobile && (
+                    <TemporalLayoutControl
+                      layoutMode={state.layoutMode}
+                      onChange={(mode) => actions.setLayoutMode(mode)}
+                      minYear={state.dataRanges.minYear}
+                      maxYear={state.dataRanges.maxYear}
+                    />
+                  )}
+                </ControlsContainer>
 
-            {!isMobile && <ZoomIndicator />}
+                {!isMobile && <ZoomIndicator />}
+              </>
+            )}
           </SigmaContainer>
         </CanvasErrorBoundary>
 
@@ -753,7 +764,7 @@ export function ExploreCanvas() {
         {/* ========== STRUCTURED OVERLAY SYSTEM ========== */}
         <OverlayManager>
           {/* Top-left: filters & paper count (desktop/tablet only) */}
-          {!isMobile && (
+          {!isMobile && hasActiveGraph && (
             <TopLeftZone className="flex flex-col gap-2">
               <div className="bg-card/90 dark:bg-card/85 border-border/80 flex items-center gap-1.5 rounded-xl border p-1 shadow-md backdrop-blur-md">
                 <GlobalFilters
@@ -787,7 +798,7 @@ export function ExploreCanvas() {
           )}
 
           {/* Top-right: contextual action buttons (desktop only) */}
-          {!isMobile && (
+          {!isMobile && hasActiveGraph && (
             <TopRightZone>
               <div className="flex flex-col gap-2">
                 <Button
@@ -863,80 +874,6 @@ export function ExploreCanvas() {
                 </div>
               </div>
             )}
-            {state.perspective === "battlefield" && (
-              <div className="animate-in slide-in-from-top-2 fade-in duration-300">
-                <div className="flex items-center gap-2.5 rounded-full border border-red-400/30 bg-red-600/90 px-4 py-1.5 text-white shadow-lg backdrop-blur-md">
-                  <Swords className="h-3.5 w-3.5 animate-pulse" />
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    Battlefield Mode
-                  </span>
-                  <span className="text-[11px] opacity-85">
-                    {disputeCount > 0
-                      ? `${disputeCount} controversies active`
-                      : "Debate crucible (0% upstream noise)"}
-                  </span>
-                  <div className="mx-0.5 h-3.5 w-px bg-white/20" />
-                  <button
-                    onClick={() => actions.setDebateMatrixOpen(true)}
-                    className="flex items-center gap-1 rounded bg-white/15 px-2 py-0.5 text-[11px] font-bold transition-colors hover:bg-white/25"
-                    title="View Debate Matrix"
-                  >
-                    <Table className="h-3 w-3" />
-                    Matrix
-                  </button>
-                  <div className="mx-0.5 h-3.5 w-px bg-white/20" />
-                  <button
-                    onClick={() => actions.setPerspective("synthesis")}
-                    className="rounded px-1.5 py-0.5 text-[11px] font-bold transition-colors hover:bg-white/20"
-                    title="Show full 360° synthesis"
-                  >
-                    360° View
-                  </button>
-                </div>
-              </div>
-            )}
-            {state.perspective === "foundations" && (
-              <div className="animate-in slide-in-from-top-2 fade-in duration-300">
-                <div className="flex items-center gap-2.5 rounded-full border border-amber-400/30 bg-amber-600/90 px-4 py-1.5 text-white shadow-lg backdrop-blur-md">
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    🏛️ Lineage & Foundations
-                  </span>
-                  <span className="text-[11px] opacity-85">
-                    {upstreamCount > 0
-                      ? `${upstreamCount} foundational roots`
-                      : "Seminal ancestry"}
-                  </span>
-                  <div className="mx-0.5 h-3.5 w-px bg-white/20" />
-                  <button
-                    onClick={() => actions.setPerspective("battlefield")}
-                    className="rounded px-1.5 py-0.5 text-[11px] font-bold transition-colors hover:bg-white/20"
-                    title="Return to Battlefield"
-                  >
-                    Battlefield
-                  </button>
-                </div>
-              </div>
-            )}
-            {state.perspective === "synthesis" && (
-              <div className="animate-in slide-in-from-top-2 fade-in duration-300">
-                <div className="flex items-center gap-2.5 rounded-full border border-indigo-400/30 bg-indigo-600/90 px-4 py-1.5 text-white shadow-lg backdrop-blur-md">
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    🌐 360° Synthesis
-                  </span>
-                  <span className="text-[11px] opacity-85">
-                    West: Roots · Center: Claim · East: Debates
-                  </span>
-                  <div className="mx-0.5 h-3.5 w-px bg-white/20" />
-                  <button
-                    onClick={() => actions.setPerspective("battlefield")}
-                    className="rounded px-1.5 py-0.5 text-[11px] font-bold transition-colors hover:bg-white/20"
-                    title="Focus on Battlefield"
-                  >
-                    Battlefield
-                  </button>
-                </div>
-              </div>
-            )}
             {state.sovereignFilterActive && (
               <div className="animate-in slide-in-from-top-2 fade-in duration-300">
                 <div className="flex items-center gap-2.5 rounded-full border border-emerald-400/30 bg-emerald-700/90 px-4 py-1.5 text-white shadow-lg backdrop-blur-md">
@@ -973,11 +910,11 @@ export function ExploreCanvas() {
                   </button>
                 </div>
               )}
-            <HydrationStatusPill />
+            {hasActiveGraph && <HydrationStatusPill />}
           </TopCenterZone>
 
           {/* Bottom-left: footer (desktop/tablet only) */}
-          {!isMobile && (
+          {!isMobile && hasActiveGraph && (
             <BottomLeftZone className="z-40 pointer-events-auto">
               <div data-tour="zoom-controls">
                 <CanvasFooter
@@ -994,44 +931,46 @@ export function ExploreCanvas() {
           )}
 
           {/* Bottom-center: mode tabs + selection panel */}
-          <BottomCenterZone>
-            {/* Perspective & Relationship mode tabs — always visible */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <div data-tour="battlefield-mode">
-                <PerspectiveControl
-                  disputeCount={disputeCount}
-                  upstreamCount={upstreamCount}
-                />
+          {hasActiveGraph && (
+            <BottomCenterZone>
+              {/* Perspective & Relationship mode tabs — visible when graph active */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <div data-tour="battlefield-mode">
+                  <PerspectiveControl
+                    disputeCount={disputeCount}
+                    upstreamCount={upstreamCount}
+                  />
+                </div>
+                <div data-tour="relationship-filters">
+                  <RelationshipFocusControl
+                    value={state.relationshipFocus}
+                    onChange={(focus) => actions.setRelationshipFocus(focus)}
+                  />
+                </div>
               </div>
-              <div data-tour="relationship-filters">
-                <RelationshipFocusControl
-                  value={state.relationshipFocus}
-                  onChange={(focus) => actions.setRelationshipFocus(focus)}
-                />
-              </div>
-            </div>
-            <SelectionPanel
-              selectedNodes={state.selectedNodes}
-              nodeLabels={state.nodeLabels}
-              onClearSelection={handleClearSelection}
-              onRemoveNode={actions.removeSelectedNode}
-              onFocusSelection={handleFocusSelection}
-              onCompare={calculateAllPaths}
-              onExport={handleExportSelection}
-            />
-            <SelectionInstruction
-              isActive={state.selectionMode}
-              selectedCount={state.selectedNodes.length}
-            />
-            <NewArgumentToast
-              show={state.showToast}
-              message={state.toastMessage}
-              onClose={() => actions.setShowToast(false)}
-            />
-          </BottomCenterZone>
+              <SelectionPanel
+                selectedNodes={state.selectedNodes}
+                nodeLabels={state.nodeLabels}
+                onClearSelection={handleClearSelection}
+                onRemoveNode={actions.removeSelectedNode}
+                onFocusSelection={handleFocusSelection}
+                onCompare={calculateAllPaths}
+                onExport={handleExportSelection}
+              />
+              <SelectionInstruction
+                isActive={state.selectionMode}
+                selectedCount={state.selectedNodes.length}
+              />
+              <NewArgumentToast
+                show={state.showToast}
+                message={state.toastMessage}
+                onClose={() => actions.setShowToast(false)}
+              />
+            </BottomCenterZone>
+          )}
 
           {/* Bottom-right: active debates dock + save + share (desktop only) */}
-          {!isMobile && (
+          {!isMobile && hasActiveGraph && (
             <BottomRightZone className="flex flex-col items-end gap-2.5">
               <ActiveDebatesDock
                 graph={refs.graphRef.current}

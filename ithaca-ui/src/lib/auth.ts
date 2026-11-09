@@ -236,6 +236,12 @@ export const auth = betterAuth({
       process.env.NEXT_PUBLIC_E2E !== "1",
     window: 60, // 1 minute window
     max: 100, // 100 requests per window
+    customRules: {
+      "/sign-in/email": {
+        window: 60,
+        max: 100,
+      },
+    },
     storage: redis ? "secondary-storage" : "memory",
   },
 

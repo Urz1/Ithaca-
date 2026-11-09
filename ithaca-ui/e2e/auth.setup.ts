@@ -49,6 +49,9 @@ async function authenticatePilotUser(
       password: input.password,
     },
   });
+  if (!signInResponse.ok()) {
+    console.error("Sign-in failed for", input.email, signInResponse.status(), await signInResponse.text());
+  }
   expect(signInResponse.ok()).toBeTruthy();
 
   const authenticatedState = await isolated.storageState();
@@ -81,7 +84,8 @@ setup.describe.configure({ mode: "serial" });
 setup("seed pilot fixtures", async () => {
   const seedTargets = [
     testDatabaseUrl,
-    "postgresql://postgres:postgres@localhost:5434/ithaca_db?schema=public",
+    process.env.DATABASE_URL ??
+      "postgresql://postgres:ithaca_production_secret_2026@localhost:5434/ithaca_db?schema=public",
   ];
   for (const dbUrl of seedTargets) {
     try {

@@ -274,25 +274,29 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
               </div>
             ) : null}
 
-            {/* Global Search / Command Bar */}
+            {/* Global Search / Command Bar Trigger */}
             <div
               data-tour="search"
-              className="relative cursor-pointer flex-1"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  window.dispatchEvent(new Event("open-command-bar"));
+                }
+              }}
               onClick={() =>
                 window.dispatchEvent(new Event("open-command-bar"))
               }
+              className="border-input/70 bg-muted/30 hover:bg-muted/60 hover:border-border text-muted-foreground group flex h-9 max-w-xs flex-1 items-center justify-between rounded-lg border px-3 text-xs transition-all cursor-pointer shadow-2xs"
             >
-              <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
-              <input
-                readOnly
-                type="text"
-                placeholder={
-                  isExplore
-                    ? "Search literature, authors, disputes... (⌘K)"
-                    : "Search papers, authors, or topics... (⌘K)"
-                }
-                className="border-input bg-muted/40 hover:bg-muted/60 focus:ring-ring h-9 w-full cursor-pointer rounded-lg border pr-4 pl-9 text-xs transition-colors focus:ring-1 focus:outline-none"
-              />
+              <div className="flex items-center gap-2 truncate">
+                <Search className="text-muted-foreground/70 group-hover:text-foreground h-3.5 w-3.5 transition-colors shrink-0" />
+                <span className="truncate font-normal">Search or jump to...</span>
+              </div>
+              <kbd className="border-border/80 bg-background/80 text-muted-foreground group-hover:text-foreground inline-flex h-5 items-center gap-0.5 rounded border px-1.5 font-mono text-[10px] font-medium transition-colors shrink-0">
+                <span className="text-[11px]">⌘</span>K
+              </kbd>
             </div>
           </div>
 
