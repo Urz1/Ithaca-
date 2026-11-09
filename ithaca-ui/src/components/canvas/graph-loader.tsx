@@ -760,17 +760,17 @@ export const GraphLoader = memo(function GraphLoader({
           const hasControversy = (attrs.controversyScore || 0) > 0;
           const hasSupports = (attrs.supports || 0) > 0;
           if (hasControversy) {
-            color = edgeTokens.CONTRADICTS; // 🔴 Bold Red
+            color = edgeTokens.CONTRADICTS; // 🔴 Refined Rose
           } else if (hasSupports) {
-            color = edgeTokens.SUPPORTS; // 🟢 Bold Green
+            color = edgeTokens.SUPPORTS; // 🟢 Refined Emerald
           } else {
-            // Non-contested node: fade to ~15% opacity
+            // Non-contested node: clearly visible with gentle grounding (never invisible white)
             const raw =
               attrs.originalColor ||
               clusterPalette[attrs.cluster] ||
-              "#94a3b8";
-            const hex = raw.startsWith("#") ? raw.slice(0, 7) : "#94a3b8";
-            color = `${hex}26`;
+              (isDark ? "#94a3b8" : "#64748b");
+            const hex = raw.startsWith("#") ? raw.slice(0, 7) : (isDark ? "#94a3b8" : "#64748b");
+            color = isDark ? `${hex}88` : `${hex}a0`; // 53%-63% opacity, crisp & legible against canvas
           }
         } else if (sovereignFilterActive) {
           const isSovereign = Boolean(
@@ -782,9 +782,9 @@ export const GraphLoader = memo(function GraphLoader({
             const raw =
               attrs.originalColor ||
               clusterPalette[attrs.cluster] ||
-              "#94a3b8";
-            const hex = raw.startsWith("#") ? raw.slice(0, 7) : "#94a3b8";
-            color = `${hex}26`;
+              (isDark ? "#94a3b8" : "#64748b");
+            const hex = raw.startsWith("#") ? raw.slice(0, 7) : (isDark ? "#94a3b8" : "#64748b");
+            color = `${hex}88`;
           }
         } else if (attrs.controversyScore > 0) {
           color = edgeTokens.CONTRADICTS;
@@ -825,7 +825,7 @@ export const GraphLoader = memo(function GraphLoader({
           } else if (hasSupports) {
             size = Math.min(Math.max(baseSize * 1.05, 8), 10);
           } else {
-            size = Math.max(baseSize * 0.8, 5);
+            size = Math.max(baseSize * 0.85, 6);
           }
         } else if (sovereignFilterActive && !isSelected) {
           const isSovereign = Boolean(
@@ -885,21 +885,26 @@ export const GraphLoader = memo(function GraphLoader({
         const edgeType = (attrs as any).edgeType as string | undefined;
         const isUnknown = edgeType === "unknown";
         const isCites = edgeType === "cites" || isUnknown;
+        let renderedEdgeType: "line" | "arrow" = "line";
 
         if (battlefieldMode && !isPathActive) {
           if (edgeType === "contradicts") {
             edgeColor = edgeTokens.CONTRADICTS; // 🔴 refined rose
-            edgeSize = 1.3;
+            edgeSize = 1.25;
+            renderedEdgeType = "arrow";
           } else if (edgeType === "supports") {
             edgeColor = edgeTokens.SUPPORTS; // 🟢 refined emerald
             edgeSize = 1.15;
+            renderedEdgeType = "arrow";
           } else if (edgeType === "extends") {
             edgeColor = edgeTokens.EXTENDS; // 🔵 refined sapphire
             edgeSize = 1.05;
+            renderedEdgeType = "arrow";
           } else {
-            // Dim neutral cites edges
-            edgeColor = isDark ? "rgba(160, 160, 160, 0.1)" : "rgba(100, 116, 139, 0.15)";
-            edgeSize = 0.5;
+            // Neutral citations: crisp, visible slate filament (never invisible white or faint 0.1)
+            edgeColor = isDark ? "rgba(148, 163, 184, 0.35)" : "rgba(100, 116, 139, 0.45)";
+            edgeSize = 0.75;
+            renderedEdgeType = "line";
           }
         } else if (sovereignFilterActive && !isPathActive) {
           const sourceAttrs = graph.hasNode(source)
@@ -972,6 +977,7 @@ export const GraphLoader = memo(function GraphLoader({
           hidden: false,
           color: edgeColor,
           size: edgeSize,
+          type: renderedEdgeType,
           zIndex: edgeZIndex,
         };
       });
