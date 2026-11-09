@@ -48,7 +48,7 @@ export function ActiveDebatesDock({
   onOpenDebateMatrix,
   className,
 }: ActiveDebatesDockProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [graphVersion, setGraphVersion] = useState(0);
 
   useEffect(() => {
@@ -244,7 +244,10 @@ export function ActiveDebatesDock({
     >
       {/* Header Bar */}
       <div
-        className="flex cursor-pointer items-center justify-between border-b border-rose-500/20 px-3.5 py-2.5 transition-colors hover:bg-rose-500/5"
+        className={cn(
+          "flex cursor-pointer items-center justify-between px-3.5 py-2.5 transition-colors hover:bg-rose-500/5",
+          isExpanded && "border-b border-rose-500/20",
+        )}
         onClick={() => setIsExpanded((prev) => !prev)}
       >
         <div className="flex items-center gap-2">
