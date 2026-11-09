@@ -39,7 +39,7 @@ export function PaperCountControl({
           value={String(count)}
           onValueChange={(value) => onChange(Number(value))}
         >
-          <SelectTrigger className="h-7 w-[92px] border-0 bg-transparent px-1.5 py-0 text-xs font-medium focus:ring-0">
+          <SelectTrigger className="h-7 w-[80px] border-0 bg-transparent px-1 py-0 text-xs font-medium focus:ring-0">
             <SelectValue placeholder="Papers" />
           </SelectTrigger>
           <SelectContent align="start">

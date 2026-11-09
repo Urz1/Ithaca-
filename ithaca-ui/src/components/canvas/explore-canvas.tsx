@@ -655,7 +655,7 @@ export function ExploreCanvas() {
         <E2eEdgeOpener />
       </Suspense>
       {/* Main Canvas Area */}
-      <div className="relative h-full min-w-[320px] flex-1 overflow-x-auto bg-[#F6F7F8] dark:bg-[#0B0C10] transition-colors">
+      <div className="relative h-full min-w-[320px] flex-1 overflow-hidden bg-[#F6F7F8] dark:bg-[#0B0C10] transition-colors">
         <CanvasErrorBoundary
           onError={(error) => debug.error("Canvas rendering error:", error)}
         >
@@ -799,9 +799,9 @@ export function ExploreCanvas() {
 
             {/* UNIFIED TOP CONTROL RIBBON */}
             {!isMobile && hasActiveGraph && (
-              <div className="bg-card/95 dark:bg-card/90 border-border/80 flex flex-wrap items-center justify-between gap-2 rounded-2xl border px-3 py-1.5 shadow-xl backdrop-blur-xl pointer-events-auto max-w-5xl">
+              <div className="flex flex-nowrap items-center justify-between gap-1.5 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-background/90 dark:bg-[#0c0d0e]/90 px-2.5 py-1 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-2xl pointer-events-auto shrink-0 overflow-x-auto no-scrollbar max-w-fit">
                 {/* Scope & Filters */}
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 shrink-0">
                   <GlobalFilters
                     filters={state.filters}
                     onFiltersChange={actions.setFilters}
@@ -813,14 +813,11 @@ export function ExploreCanvas() {
                     maxYear={state.dataRanges.maxYear}
                     onOpenQueryBuilder={() => actions.setQueryBuilderOpen(true)}
                   />
-                  <div className="bg-border/60 h-4 w-px" />
                   <SchoolsViewControl schoolCount={state.schoolsOfThought.length} />
-                  <div className="bg-border/60 h-4 w-px" />
                   <InstitutionalArchiveToggle
                     active={state.sovereignFilterActive}
                     onToggle={() => actions.toggleSovereignFilter()}
                   />
-                  <div className="bg-border/60 h-4 w-px" />
                   <PaperCountControl
                     count={state.paperCount}
                     onChange={handlePaperCountChange}
@@ -830,57 +827,57 @@ export function ExploreCanvas() {
                   />
                 </div>
 
-                <div className="bg-border/60 hidden md:block h-5 w-px" />
+                <div className="bg-border/60 hidden md:block h-5 w-px shrink-0" />
 
                 {/* Perspective Modes */}
-                <div data-tour="battlefield-mode" className="flex items-center">
+                <div data-tour="battlefield-mode" className="flex items-center shrink-0">
                   <PerspectiveControl
                     disputeCount={disputeCount}
                     upstreamCount={upstreamCount}
                   />
                 </div>
 
-                <div className="bg-border/60 hidden lg:block h-5 w-px" />
+                <div className="bg-border/60 hidden lg:block h-5 w-px shrink-0" />
 
                 {/* Dialectic Tools & AI */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 shrink-0">
                   <Button
                     variant={state.debateMatrixOpen ? "default" : "ghost"}
                     size="sm"
-                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    className="h-7.5 gap-1.5 text-xs font-medium px-2 rounded-full"
                     onClick={() => actions.setDebateMatrixOpen(true)}
                     title="Open Debate Matrix (Dialectic Refutations & Confirmations)"
                   >
                     <Table className="h-3.5 w-3.5 text-indigo-500" />
-                    <span className="hidden xl:inline">Matrix</span>
+                    <span className="hidden 2xl:inline">Matrix</span>
                   </Button>
                   <Button
                     variant={state.literatureReviewOpen ? "default" : "ghost"}
                     size="sm"
-                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    className="h-7.5 gap-1.5 text-xs font-medium px-2 rounded-full"
                     onClick={() => actions.setLiteratureReviewOpen(true)}
                     title="Synthesize Literature Review (Foundations, Clashes & Horizons)"
                   >
                     <Sparkles className="h-3.5 w-3.5 text-violet-500" />
-                    <span className="hidden xl:inline">Review</span>
+                    <span className="hidden 2xl:inline">Review</span>
                   </Button>
                   <Button
                     variant={state.queryBuilderOpen ? "default" : "ghost"}
                     size="sm"
-                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    className="h-7.5 gap-1.5 text-xs font-medium px-2 rounded-full"
                     onClick={() => actions.setQueryBuilderOpen(true)}
                     title="Open Advanced Relational Query Builder"
                   >
                     <Filter className="h-3.5 w-3.5 text-emerald-500" />
-                    <span className="hidden xl:inline">Query</span>
+                    <span className="hidden 2xl:inline">Query</span>
                   </Button>
-                  <div data-tour="ai-chat" className="inline-block">
+                  <div data-tour="ai-chat" className="inline-block shrink-0">
                     <ChatToggleButton
                       isOpen={state.chatOpen}
                       onClick={() => actions.toggleChat()}
                     />
                   </div>
-                  <div data-tour="selection-mode" className="inline-block">
+                  <div data-tour="selection-mode" className="inline-block shrink-0">
                     <NodeSelectionTool
                       isActive={state.selectionMode}
                       onToggle={() => actions.toggleSelectionMode()}
@@ -891,7 +888,7 @@ export function ExploreCanvas() {
                   <Button
                     variant={state.listPanelOpen ? "default" : "ghost"}
                     size="icon"
-                    className="h-8 w-8 rounded-lg"
+                    className="h-8 w-8 rounded-full"
                     onClick={() => actions.setListPanelOpen(!state.listPanelOpen)}
                     title="Toggle List View"
                   >
@@ -905,7 +902,7 @@ export function ExploreCanvas() {
 
           {/* Bottom-center: unified utility dock + selection panel */}
           {hasActiveGraph && (
-            <BottomCenterZone className="flex flex-col items-center gap-2 pointer-events-none w-full max-w-5xl px-4">
+            <BottomCenterZone className="flex flex-col items-center gap-2 pointer-events-none w-auto max-w-full">
               {/* Zero-Edge Stance Hint */}
               {state.relationshipFocus !== "all" && state.graphStats.edgeCount === 0 && (
                 <div className="pointer-events-auto animate-in fade-in slide-in-from-bottom-2 bg-amber-500/15 text-amber-900 dark:text-amber-200 border-amber-500/30 flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs shadow-md backdrop-blur-md">
@@ -923,10 +920,10 @@ export function ExploreCanvas() {
               )}
 
               {/* UNIFIED BOTTOM UTILITY DOCK */}
-              <div className="bg-card/95 dark:bg-card/90 border-border/80 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-3.5 py-1.5 shadow-xl backdrop-blur-xl pointer-events-auto w-full">
+              <div className="flex flex-nowrap items-center justify-between gap-3 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-background/90 dark:bg-[#0c0d0e]/90 px-3.5 py-1.5 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-2xl pointer-events-auto w-auto max-w-fit shrink-0 overflow-x-auto no-scrollbar">
                 {/* Left: Telemetry & Help */}
-                <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                  <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono shrink-0">
+                  <div className="flex items-center gap-1.5 bg-muted/40 dark:bg-zinc-900/50 border border-black/[0.06] dark:border-white/[0.08] px-2.5 py-1 rounded-full text-[11px]">
                     <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span
                       data-testid="canvas-node-count"
@@ -942,10 +939,10 @@ export function ExploreCanvas() {
                       {state.graphStats.edgeCount} edges
                     </span>
                   </div>
-                  <div className="bg-border/60 h-4 w-px mx-1 hidden sm:block" />
+                  <div className="bg-border/60 h-4 w-px mx-0.5 hidden sm:block" />
                   <button
                     onClick={tutorial.start}
-                    className="hover:text-foreground hidden sm:flex items-center gap-1 text-[11px] font-sans font-medium transition-colors"
+                    className="hover:text-foreground hidden sm:flex items-center gap-1 text-[11px] font-sans font-medium transition-colors px-2 py-1 rounded-full hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
                     title="Interactive Tour"
                   >
                     <Sparkles className="h-3 w-3 text-primary" />
@@ -953,7 +950,7 @@ export function ExploreCanvas() {
                   </button>
                   <button
                     onClick={() => actions.setKeyboardHelpOpen(true)}
-                    className="hover:text-foreground hidden md:flex items-center text-[11px] transition-colors"
+                    className="hover:text-foreground hidden md:flex items-center text-[11px] transition-colors p-1.5 rounded-full hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
                     title="Keyboard Shortcuts (?)"
                   >
                     <Keyboard className="h-3.5 w-3.5 text-muted-foreground" />
@@ -961,7 +958,7 @@ export function ExploreCanvas() {
                 </div>
 
                 {/* Center: Relationship Filters */}
-                <div data-tour="relationship-filters" className="flex items-center">
+                <div data-tour="relationship-filters" className="flex items-center shrink-0">
                   <RelationshipFocusControl
                     value={state.relationshipFocus}
                     onChange={(focus) => actions.setRelationshipFocus(focus)}
@@ -969,25 +966,25 @@ export function ExploreCanvas() {
                 </div>
 
                 {/* Right: Viewport Controls, Save & Share */}
-                <div data-tour="zoom-controls" className="flex items-center gap-1.5">
-                  <div className="hidden sm:flex items-center bg-muted/40 rounded-lg border border-border/60 px-1 py-0.5">
+                <div data-tour="zoom-controls" className="flex items-center gap-1.5 shrink-0">
+                  <div className="hidden sm:flex items-center bg-muted/30 dark:bg-zinc-900/40 rounded-full border border-black/[0.06] dark:border-white/[0.08] px-1 py-0.5">
                     <button
                       onClick={() => refs.sigmaRef.current?.getCamera().animatedUnzoom({ duration: 200 })}
-                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded-full hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors"
                       title="Zoom Out (-)"
                     >
                       <Minus className="h-3.5 w-3.5" />
                     </button>
                     <button
                       onClick={() => refs.sigmaRef.current?.getCamera().animatedZoom({ duration: 200 })}
-                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded-full hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors"
                       title="Zoom In (+)"
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>
                     <button
                       onClick={() => refs.sigmaRef.current?.getCamera().animate({ ratio: 1, x: 0.5, y: 0.5 }, { duration: 300 })}
-                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded-full hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors"
                       title="Center View"
                     >
                       <Crosshair className="h-3.5 w-3.5" />
@@ -1003,10 +1000,10 @@ export function ExploreCanvas() {
                       }
                       actions.togglePhysics();
                     }}
-                    className={`h-7 px-2 rounded-lg text-[11px] font-medium border hidden sm:flex items-center gap-1 transition-colors ${
+                    className={`h-7 px-2.5 rounded-full text-[11px] font-medium border hidden sm:flex items-center gap-1 transition-colors ${
                       state.physicsEnabled
                         ? "bg-primary/10 text-primary border-primary/30"
-                        : "bg-muted/40 text-muted-foreground border-border/60 hover:text-foreground"
+                        : "bg-muted/30 dark:bg-zinc-900/40 text-muted-foreground border-black/[0.06] dark:border-white/[0.08] hover:text-foreground"
                     }`}
                     title="Toggle Physics"
                   >
@@ -1024,7 +1021,7 @@ export function ExploreCanvas() {
                         }
                       }
                     }}
-                    className="text-muted-foreground hover:text-foreground h-7 w-7 hidden md:flex items-center justify-center rounded-lg border border-border/60 bg-muted/40 hover:bg-muted transition-colors"
+                    className="text-muted-foreground hover:text-foreground h-7 w-7 hidden md:flex items-center justify-center rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-muted/30 dark:bg-zinc-900/40 hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors"
                     title="Toggle Fullscreen"
                   >
                     <Maximize2 className="h-3.5 w-3.5" />
@@ -1032,7 +1029,7 @@ export function ExploreCanvas() {
                   <div className="bg-border/60 h-4 w-px mx-0.5 hidden sm:block" />
                   <button
                     onClick={() => actions.setSaveDialogOpen(true)}
-                    className="text-muted-foreground hover:text-foreground h-7 px-2.5 rounded-lg border border-border/60 bg-muted/40 hover:bg-muted flex items-center gap-1 text-xs font-medium transition-colors"
+                    className="text-muted-foreground hover:text-foreground h-7 px-2.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-muted/30 dark:bg-zinc-900/40 hover:bg-black/[0.05] dark:hover:bg-white/[0.08] flex items-center gap-1 text-xs font-medium transition-colors"
                     title="Save graph"
                   >
                     <Bookmark className="h-3 w-3" />

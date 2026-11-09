@@ -956,12 +956,15 @@ export function ChatToggleButton({ isOpen, onClick }: ChatToggleButtonProps) {
       size="sm"
       onClick={onClick}
       className={cn(
-        "gap-2 transition-all shadow-xs",
-        isOpen && "bg-violet-600 hover:bg-violet-700 text-white border-violet-600",
+        "h-7.5 px-2.5 rounded-full gap-1.5 transition-all text-xs shadow-2xs border-black/[0.06] dark:border-white/[0.08]",
+        isOpen
+          ? "bg-violet-600 hover:bg-violet-700 text-white border-violet-600 font-semibold"
+          : "bg-muted/40 dark:bg-zinc-900/40 text-foreground hover:bg-black/[0.04] dark:hover:bg-white/[0.05]",
       )}
+      title="Toggle Dialectic AI Synthesis Copilot"
     >
-      <Sparkles className="h-3.5 w-3.5" />
-      <span className="hidden sm:inline font-medium">AI Chat</span>
+      <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+      <span className="hidden xl:inline font-medium">Chat</span>
     </Button>
   );
 }

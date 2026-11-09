@@ -78,11 +78,11 @@ export function LabQuickstart({ collapsed }: LabQuickstartProps) {
   const progressPercent = Math.round((completedCount / stepsList.length) * 100);
 
   return (
-    <div className="mx-2 my-2 rounded-xl border border-primary/25 bg-gradient-to-b from-primary/10 via-primary/5 to-transparent p-3 shadow-sm transition-all">
-      <div className="flex items-center justify-between pb-2 border-b border-border/40">
+    <div className="mx-2 my-2 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md p-3 shadow-[0_1px_2px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.06)] transition-all">
+      <div className="flex items-center justify-between pb-2 border-b border-black/[0.05] dark:border-white/[0.06]">
         <div className="flex items-center gap-1.5">
           <Sparkles className="size-3.5 text-primary animate-pulse" />
-          <span className="text-xs font-bold tracking-tight text-foreground">
+          <span className="text-xs font-semibold tracking-tight text-foreground">
             Lab Quickstart
           </span>
         </div>
@@ -94,7 +94,7 @@ export function LabQuickstart({ collapsed }: LabQuickstartProps) {
             variant="ghost"
             size="icon"
             onClick={handleDismiss}
-            className="h-5 w-5 text-muted-foreground hover:text-foreground"
+            className="h-5 w-5 text-muted-foreground hover:text-foreground rounded-md"
             title="Dismiss quickstart"
           >
             <X className="size-3" />
@@ -103,20 +103,20 @@ export function LabQuickstart({ collapsed }: LabQuickstartProps) {
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+      <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-muted/60 dark:bg-zinc-800/60 p-0.5">
         <div
-          className="h-full bg-primary transition-all duration-500 rounded-full"
+          className="h-full bg-primary transition-all duration-500 rounded-full shadow-[0_0_8px_rgba(var(--primary),0.3)]"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
       {/* Steps List */}
-      <div className="mt-2.5 space-y-1.5">
+      <div className="mt-2.5 space-y-1">
         {stepsList.map((step) => (
           <Link
             key={step.id}
             href={step.href}
-            className="group flex items-center justify-between rounded-md px-1.5 py-1 text-[11px] transition-colors hover:bg-muted/60"
+            className="group flex items-center justify-between rounded-lg px-2 py-1.5 text-[11px] transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
           >
             <div className="flex items-center gap-2 truncate">
               {step.done ? (

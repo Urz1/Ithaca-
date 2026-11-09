@@ -177,12 +177,12 @@ export function GlobalFilters({
     return (
       <button
         onClick={onToggle}
-        className="bg-card/95 border-border hover:bg-muted flex items-center gap-2 rounded-lg border px-3 py-2 shadow-lg backdrop-blur-sm transition-colors"
+        className="h-7.5 px-2.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-muted/40 dark:bg-zinc-900/40 hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-foreground flex items-center gap-1.5 text-xs font-semibold shadow-2xs backdrop-blur-md transition-colors"
       >
-        <SlidersHorizontal className="h-4 w-4" />
-        <span className="hidden text-sm font-medium md:inline">Filters</span>
+        <SlidersHorizontal className="h-3.5 w-3.5" />
+        <span className="hidden sm:inline">Filters</span>
         {activeFilterCount > 0 && (
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
             {activeFilterCount}
           </Badge>
         )}

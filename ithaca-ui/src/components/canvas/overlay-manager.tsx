@@ -27,19 +27,19 @@ interface OverlaySlot {
 
 const ZONE_POSITIONS: Record<OverlayZone, string> = {
   "top-left": "absolute top-4 left-4 z-30",
-  "top-center": "absolute top-4 left-1/2 -translate-x-1/2 z-30",
+  "top-center": "absolute top-3.5 left-0 right-0 px-4 pointer-events-none z-30",
   "top-right": "absolute top-4 right-4 z-30",
   "bottom-left": "absolute bottom-16 left-4 z-30",
-  "bottom-center": "absolute bottom-4 left-1/2 -translate-x-1/2 z-30",
-  "bottom-right": "absolute bottom-20 right-4 z-30",
+  "bottom-center": "absolute bottom-3.5 left-0 right-0 px-4 pointer-events-none z-30",
+  "bottom-right": "absolute bottom-16 right-4 z-30",
 };
 
 const ZONE_DEFAULTS: Record<OverlayZone, string> = {
   "top-left": "flex flex-col gap-3",
-  "top-center": "flex flex-col items-center gap-3",
+  "top-center": "flex flex-col items-center gap-2",
   "top-right": "flex flex-row items-start gap-3",
   "bottom-left": "",
-  "bottom-center": "flex flex-col items-center gap-3",
+  "bottom-center": "flex flex-col items-center gap-2",
   "bottom-right": "",
 };
 

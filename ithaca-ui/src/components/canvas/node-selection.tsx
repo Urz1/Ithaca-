@@ -58,18 +58,19 @@ export function NodeSelectionTool({
   return (
     <button
       onClick={onToggle}
-      className={`flex items-center gap-2 rounded-lg border px-3 py-2 shadow-lg transition-all ${
+      title={isActive ? "Exit Selection Mode" : "Select Nodes for Path & Dialectic Comparison"}
+      className={`h-7.5 px-2.5 rounded-full border flex items-center gap-1.5 text-xs font-semibold shadow-2xs backdrop-blur-md transition-all ${
         isActive
           ? "bg-primary text-primary-foreground border-primary"
-          : "bg-card/90 border-border hover:bg-muted backdrop-blur"
+          : "border-black/[0.06] dark:border-white/[0.08] bg-muted/40 dark:bg-zinc-900/40 hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-foreground"
       }`}
     >
-      <MousePointer className="h-4 w-4" />
-      <span className="hidden text-sm font-medium md:inline">
-        {isActive ? "Selecting..." : "Select Nodes"}
+      <MousePointer className="h-3.5 w-3.5" />
+      <span className="hidden 2xl:inline">
+        {isActive ? "Selecting..." : "Select"}
       </span>
       {selectedNodes.length > 0 && (
-        <Badge variant={isActive ? "secondary" : "default"} className="text-xs">
+        <Badge variant={isActive ? "secondary" : "default"} className="text-[10px] px-1 py-0 h-4">
           {selectedNodes.length}/2
         </Badge>
       )}

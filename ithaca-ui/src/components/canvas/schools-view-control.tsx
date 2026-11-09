@@ -24,7 +24,7 @@ export function SchoolsViewControl({
   return (
     <div
       className={cn(
-        "bg-card/95 border-border inline-flex items-center gap-0.5 rounded-full border p-1 shadow-lg backdrop-blur-md",
+        "bg-muted/40 dark:bg-zinc-900/40 border border-black/[0.06] dark:border-white/[0.08] inline-flex items-center gap-0.5 rounded-full p-0.5 shadow-2xs backdrop-blur-md",
         className,
       )}
     >
@@ -32,10 +32,10 @@ export function SchoolsViewControl({
         onClick={() => setClusterViewMode("papers")}
         title="View individual paper constellation"
         className={cn(
-          "relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200",
+          "relative flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium transition-all duration-200",
           clusterViewMode === "papers"
-            ? "bg-primary text-primary-foreground shadow-sm"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
+            ? "bg-white dark:bg-zinc-800 text-foreground font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.12)] border border-black/[0.04] dark:border-white/[0.06]"
+            : "text-muted-foreground hover:text-foreground hover:bg-black/[0.03] dark:hover:bg-white/[0.04] border border-transparent",
         )}
       >
         <Network className="h-3.5 w-3.5" />
@@ -46,21 +46,21 @@ export function SchoolsViewControl({
         onClick={() => setClusterViewMode("schools")}
         title="Group papers into high-level Schools of Thought macro-clusters"
         className={cn(
-          "relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200",
+          "relative flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium transition-all duration-200",
           clusterViewMode === "schools"
-            ? "bg-indigo-600 text-white shadow-sm"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
+            ? "bg-white dark:bg-zinc-800 text-foreground font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.12)] border border-black/[0.04] dark:border-white/[0.06]"
+            : "text-muted-foreground hover:text-foreground hover:bg-black/[0.03] dark:hover:bg-white/[0.04] border border-transparent",
         )}
       >
-        <Orbit className="h-3.5 w-3.5" />
+        <Orbit className="h-3.5 w-3.5 text-indigo-500" />
         <span>Schools</span>
         {schoolCount > 0 && (
           <span
             className={cn(
               "py-0.2 ml-0.5 rounded-full px-1.5 text-[10px] leading-none font-bold",
               clusterViewMode === "schools"
-                ? "bg-white text-indigo-700"
-                : "bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300",
+                ? "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400"
+                : "bg-black/[0.05] dark:bg-white/[0.06] text-muted-foreground",
             )}
           >
             {schoolCount}

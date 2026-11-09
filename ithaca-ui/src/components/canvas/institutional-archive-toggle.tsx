@@ -22,17 +22,18 @@ export function InstitutionalArchiveToggle({
       variant="outline"
       size="sm"
       onClick={onToggle}
-      className={`h-8 gap-1.5 text-xs shadow-sm transition-all ${
+      className={`h-7.5 px-2.5 rounded-full text-xs shadow-2xs transition-all ${
         active
           ? "border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white dark:border-emerald-600 dark:bg-emerald-600"
-          : "border-border hover:bg-muted text-foreground"
+          : "border-black/[0.06] dark:border-white/[0.08] bg-muted/40 dark:bg-zinc-900/40 hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-foreground"
       } ${className}`}
       title="Filter for verified open-access institutional repositories & university archives"
     >
       <Landmark
-        className={`h-3.5 w-3.5 ${active ? "text-white" : "text-emerald-600"}`}
+        className={`h-3.5 w-3.5 shrink-0 ${active ? "text-white" : "text-emerald-600"}`}
       />
-      <span className="font-semibold">Open Archives</span>
+      <span className="font-semibold hidden 2xl:inline">Open Archives</span>
+      <span className="font-semibold 2xl:hidden">Archives</span>
       {typeof count === "number" && count > 0 && (
         <span
           className={`py-0.2 ml-1 rounded-full px-1.5 text-[10px] font-bold ${

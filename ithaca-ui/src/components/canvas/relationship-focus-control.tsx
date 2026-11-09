@@ -33,42 +33,42 @@ const OPTIONS: {
   label: string;
   shortLabel: string;
   icon: React.ComponentType<{ className?: string }>;
-  activeColor: string;
+  dotColor: string;
 }[] = [
   {
     value: "all",
     label: "All Types",
     shortLabel: "All",
     icon: Layers,
-    activeColor: "bg-primary text-primary-foreground",
+    dotColor: "bg-foreground/70",
   },
   {
     value: "supports",
     label: "Supports Only",
     shortLabel: "Supports",
     icon: CheckCircle,
-    activeColor: "bg-emerald-600 text-white",
+    dotColor: "bg-emerald-500",
   },
   {
     value: "contradicts",
     label: "Refutes Only",
     shortLabel: "Refutes",
     icon: XCircle,
-    activeColor: "bg-red-600 text-white",
+    dotColor: "bg-rose-500",
   },
   {
     value: "extends",
     label: "Extends Only",
     shortLabel: "Extends",
     icon: ArrowRightCircle,
-    activeColor: "bg-blue-600 text-white",
+    dotColor: "bg-blue-500",
   },
   {
     value: "cites",
     label: "Cites Only",
     shortLabel: "Cites",
     icon: Link2,
-    activeColor: "bg-zinc-500 text-white",
+    dotColor: "bg-zinc-400",
   },
 ];
 
@@ -93,7 +93,7 @@ export function RelationshipFocusControl({
   return (
     <div
       className={cn(
-        "bg-card/95 border-border inline-flex items-center gap-0.5 rounded-full border p-1 shadow-lg backdrop-blur-md",
+        "bg-muted/40 dark:bg-zinc-900/60 border-border/60 inline-flex items-center gap-0.5 rounded-full border p-0.5 shadow-xs backdrop-blur-md",
         className,
       )}
     >
@@ -108,21 +108,21 @@ export function RelationshipFocusControl({
               onClick={() => onChange(opt.value)}
               title={opt.label}
               className={cn(
-                "relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200",
+                "relative flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium transition-all duration-200",
                 isActive
-                  ? cn(opt.activeColor, "shadow-sm")
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
+                  ? "bg-background text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.12)] border border-border/70 font-semibold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
               )}
             >
-              <Icon className="h-3.5 w-3.5" />
+              <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", opt.dotColor)} />
               <span>{opt.shortLabel}</span>
               {typeof count === "number" && counts.all > 0 && (
                 <span
                   className={cn(
-                    "ml-0.5 rounded-full px-1.5 py-0.2 text-[10px] font-bold tabular-nums",
+                    "ml-0.5 rounded-full px-1.5 py-0.2 text-[10px] font-mono tabular-nums font-bold",
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-muted text-muted-foreground",
+                      ? "bg-muted text-foreground"
+                      : "bg-muted/60 text-muted-foreground",
                   )}
                 >
                   {count}

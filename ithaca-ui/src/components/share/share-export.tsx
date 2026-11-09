@@ -743,10 +743,11 @@ export function ShareButton({ onClick }: { onClick: () => void }) {
       type="button"
       data-testid="canvas-share-button"
       onClick={onClick}
-      className="bg-card/95 border-border hover:bg-muted flex items-center gap-2 rounded-lg border px-3 py-2 shadow-lg backdrop-blur-sm transition-colors"
+      className="text-muted-foreground hover:text-foreground h-7 px-2.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-muted/30 dark:bg-zinc-900/40 hover:bg-black/[0.05] dark:hover:bg-white/[0.08] flex items-center gap-1 text-xs font-medium transition-colors"
+      title="Share or export graph"
     >
-      <Share2 className="h-4 w-4" />
-      <span className="text-sm font-medium">Share</span>
+      <Share2 className="h-3.5 w-3.5" />
+      <span className="hidden sm:inline">Share</span>
     </button>
   );
 }
