@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   Share2,
   History,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -117,6 +118,18 @@ export function UserMenu({ variant = "default" }: UserMenuProps) {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => {
+              if (window.location.pathname === "/explore") {
+                window.dispatchEvent(new CustomEvent("ithaca-start-tour"));
+              } else {
+                router.push("/explore?tour=true");
+              }
+            }}
+          >
+            <Sparkles className="text-primary mr-2 h-4 w-4" />
+            Guided Tour
+          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/dashboard?tab=settings">
               <Settings className="mr-2 h-4 w-4" />
@@ -191,6 +204,18 @@ export function UserMenu({ variant = "default" }: UserMenuProps) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            if (window.location.pathname === "/explore") {
+              window.dispatchEvent(new CustomEvent("ithaca-start-tour"));
+            } else {
+              router.push("/explore?tour=true");
+            }
+          }}
+        >
+          <Sparkles className="text-primary mr-2 h-4 w-4" />
+          Guided Tour
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/dashboard?tab=settings">
             <Settings className="mr-2 h-4 w-4" />

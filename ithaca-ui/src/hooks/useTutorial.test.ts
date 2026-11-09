@@ -1,5 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { CANVAS_TUTORIAL, getTutorialTarget } from "./useTutorial";
+import { renderHook, act } from "@testing-library/react";
+import { CANVAS_TUTORIAL, getTutorialTarget, useTutorial } from "./useTutorial";
 
 describe("CANVAS_TUTORIAL — Configuration & Interactive Actions", () => {
   it("defines the 7 signature dialectic walkthrough steps", () => {
@@ -85,5 +86,40 @@ describe("getTutorialTarget — Precision Area Marking & DOM Resolution", () => 
 
   it("handles null or undefined targets gracefully", () => {
     expect(getTutorialTarget(undefined)).toBeNull();
+  });
+});
+
+describe("useTutorial — State Management & Completion Lifecycle", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  it("initializes with inactive state and checks completion from localStorage", () => {
+    const { result } = renderHook(() => useTutorial(CANVAS_TUTORIAL));
+
+    expect(result.current.isActive).toBe(false);
+    expect(result.current.currentStepIndex).toBe(0);
+    expect(result.current.hasSeenTutorial).toBe(false);
+
+    // Starting the tutorial
+    act(() => {
+      result.current.start();
+    });
+
+    expect(result.current.isActive).toBe(true);
+    expect(result.current.currentStepIndex).toBe(0);
+
+    // Completing tutorial persists to localStorage
+    act(() => {
+      result.current.complete();
+    });
+
+    expect(result.current.isActive).toBe(false);
+    expect(result.current.hasSeenTutorial).toBe(true);
+
+    const stored = JSON.parse(
+      localStorage.getItem("ithaca_tutorials_completed") || "[]",
+    );
+    expect(stored).toContain("canvas-exploration");
   });
 });

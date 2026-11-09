@@ -26,6 +26,7 @@ import {
   Sun,
   Loader2,
   BookOpen,
+  Sparkles,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { graphAPI, SearchResult } from "@/lib/api/graph-api";
@@ -359,6 +360,14 @@ export function CommandBar({
 
           {/* Quick Actions */}
           <CommandGroup heading="Quick Actions" className="pt-2">
+            <CommandItem
+              onSelect={() => handleAction("tour")}
+              className="py-2.5"
+            >
+              <Sparkles className="text-primary mr-2 h-4 w-4" />
+              <span>Take Guided Tour</span>
+              <CommandShortcut>Tour</CommandShortcut>
+            </CommandItem>
             <CommandItem
               onSelect={() => handleAction("toggle-physics")}
               className="py-2.5"

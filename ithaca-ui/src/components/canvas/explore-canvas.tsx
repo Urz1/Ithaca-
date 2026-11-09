@@ -227,6 +227,21 @@ export function ExploreCanvas() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const onboardingFinishedRef = useRef(false);
 
+  const handleCustomCommandAction = useCallback(
+    (action: string) => {
+      if (
+        action === "tour" ||
+        action === "walkthrough" ||
+        action === "start-tour"
+      ) {
+        tutorial.start();
+        return;
+      }
+      handleCommandAction(action);
+    },
+    [tutorial, handleCommandAction],
+  );
+
   // Listen for interactive tutorial events to walk and talk the canvas live
   useEffect(() => {
     const handleTourLoadDebate = (e: Event) => {
@@ -263,6 +278,10 @@ export function ExploreCanvas() {
       actions.setKeyboardHelpOpen(true);
     };
 
+    const handleStartTour = () => {
+      tutorial.start();
+    };
+
     window.addEventListener("ithaca-tour-load-debate", handleTourLoadDebate);
     window.addEventListener(
       "ithaca-tour-set-perspective",
@@ -278,6 +297,7 @@ export function ExploreCanvas() {
       "ithaca-tour-open-shortcuts",
       handleTourOpenShortcuts,
     );
+    window.addEventListener("ithaca-start-tour", handleStartTour);
 
     return () => {
       window.removeEventListener("ithaca-tour-load-debate", handleTourLoadDebate);
@@ -298,8 +318,9 @@ export function ExploreCanvas() {
         "ithaca-tour-open-shortcuts",
         handleTourOpenShortcuts,
       );
+      window.removeEventListener("ithaca-start-tour", handleStartTour);
     };
-  }, [actions, handleSearchPaper]);
+  }, [actions, handleSearchPaper, tutorial]);
 
   const initialCheckDoneRef = useRef(false);
 
@@ -307,11 +328,23 @@ export function ExploreCanvas() {
     if (initialCheckDoneRef.current) return;
     initialCheckDoneRef.current = true;
 
+    // 1. Check if user explicitly requested the tour via URL parameter (e.g. /explore?tour=true)
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("tour") === "true") {
+        tutorial.start();
+        const url = new URL(window.location.href);
+        url.searchParams.delete("tour");
+        window.history.replaceState({}, "", url.pathname + url.search);
+        return;
+      }
+    }
+
+    // 2. Only newly signed-up users (who need onboarding) trigger the guided walkthrough.
+    // Returning users or casual visitors should NEVER have the walkthrough automatically triggered.
     void needsOnboarding().then((needed) => {
       if (needed) {
         setShowOnboarding(true);
-      } else if (!tutorial.hasSeenTutorial) {
-        tutorial.start();
       }
     });
   }, [tutorial]);
@@ -354,9 +387,8 @@ export function ExploreCanvas() {
     onboardingFinishedRef.current = true;
     setShowOnboarding(false);
     void completeOnboarding();
-    if (!tutorial.hasSeenTutorial) {
-      tutorial.start();
-    }
+    // This flow is only reached for new signups who need onboarding — start the live walking tour!
+    tutorial.start();
   }, [tutorial]);
 
   // Dispute count across the graph (direct from loaded graph edges)
@@ -1056,7 +1088,7 @@ export function ExploreCanvas() {
 
         <CommandBar
           onSelectPaper={handleSearchPaper}
-          onAction={handleCommandAction}
+          onAction={handleCustomCommandAction}
           hideTrigger={true}
         />
 
