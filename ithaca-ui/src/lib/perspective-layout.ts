@@ -272,7 +272,8 @@ export function applyBattlefieldLayout(
 }
 
 /**
- * Helper to position an array of nodes along an angular sector.
+ * Helper to position an array of nodes along an organic dialectic cluster.
+ * Uses staggered multi-tier depth and organic offsets to prevent artificial bicycle-wheel rings.
  */
 function placeStanceCluster(
   graph: Graph,
@@ -291,13 +292,23 @@ function placeStanceCluster(
   const step = count > 1 ? config.angleSpan / (count - 1) : 0;
 
   nodes.forEach((node, i) => {
-    const angle = count === 1 ? config.baseAngle : startAngle + i * step;
-    const radiusSpan = config.maxRadius - config.minRadius;
-    const radius =
-      config.minRadius + (count > 1 ? (i % 2) * (radiusSpan * 0.4) : 0);
+    // Natural jitter to angle to avoid robotic spoke alignment
+    const angleJitter = (hashCoord(node, 7) / 100) * (step * 0.35);
+    const angle =
+      count === 1
+        ? config.baseAngle
+        : startAngle + i * step + angleJitter;
 
-    const jitterX = hashCoord(node, 11) * 0.15;
-    const jitterY = hashCoord(node, 23) * 0.15;
+    // Organic 3-tier constellation depth
+    const tier = i % 3;
+    const radiusSpan = config.maxRadius - config.minRadius;
+    const depthRatio = tier === 0 ? 0.15 : tier === 1 ? 0.65 : 0.95;
+    const naturalRadiusJitter = (hashCoord(node, 19) / 100) * 25;
+    const radius =
+      config.minRadius + radiusSpan * depthRatio + naturalRadiusJitter;
+
+    const jitterX = hashCoord(node, 11) * 0.4;
+    const jitterY = hashCoord(node, 23) * 0.4;
 
     const x = Math.cos(angle) * radius + jitterX;
     const y = Math.sin(angle) * radius + jitterY;

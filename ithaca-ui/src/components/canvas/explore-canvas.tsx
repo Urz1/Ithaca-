@@ -16,7 +16,7 @@ import {
 import "@react-sigma/core/lib/react-sigma.min.css";
 import { useTheme } from "next-themes";
 import Graph from "graphology";
-import { NodeCircleProgram } from "sigma/rendering";
+import { NodeCircleProgram, createEdgeArrowProgram } from "sigma/rendering";
 import { ForceAtlasControl } from "@/components/canvas/force-atlas-control";
 import { TemporalLayoutControl } from "@/components/canvas/temporal-layout-control";
 import { restoreForceLayout } from "@/lib/temporal-layout";
@@ -126,6 +126,12 @@ const SIGMA_CONTAINER_STYLE: React.CSSProperties = {
   background: "transparent",
 };
 
+// Precision micro-arrowhead program: subtle, sleek vector indicator (not a cartoon wedge)
+const PrecisionEdgeArrowProgram = createEdgeArrowProgram({
+  lengthToThicknessRatio: 2.0,
+  widenessToThicknessRatio: 1.4,
+});
+
 const STATIC_SIGMA_SETTINGS = {
   allowInvalidContainer: true,
   renderLabels: true,
@@ -140,6 +146,7 @@ const STATIC_SIGMA_SETTINGS = {
   defaultEdgeType: "arrow",
   defaultNodeType: "circle",
   nodeProgramClasses: { circle: NodeCircleProgram },
+  edgeProgramClasses: { arrow: PrecisionEdgeArrowProgram },
   enableEdgeEvents: true,
   labelFont: LABELS.FONT,
   labelWeight: LABELS.WEIGHT,

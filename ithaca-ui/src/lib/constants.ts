@@ -32,9 +32,9 @@ export const ANIMATION = {
 
 export const GRAPH = {
   /** Size multiplier for edges connected to hovered node */
-  HOVER_EDGE_SIZE_MULTIPLIER: 2.5,
+  HOVER_EDGE_SIZE_MULTIPLIER: 1.6,
   /** Size for edges not connected to hovered node */
-  UNHOVER_EDGE_SIZE: 0.5,
+  UNHOVER_EDGE_SIZE: 0.35,
   /** Default camera zoom ratio for focus operations */
   CAMERA_ZOOM_RATIO: 0.5,
   /** Tight zoom ratio for focusing on single node */
@@ -48,9 +48,9 @@ export const GRAPH = {
   /** Z-index for highlighted elements */
   HIGHLIGHT_Z_INDEX: 10,
   /** Default node size */
-  DEFAULT_NODE_SIZE: 8,
+  DEFAULT_NODE_SIZE: 7,
   /** Default edge size */
-  DEFAULT_EDGE_SIZE: 1.5,
+  DEFAULT_EDGE_SIZE: 0.85,
   /** Edge flow animation settings */
   EDGE_FLOW: {
     /** Normal flow animation duration (ms) - subtle slow flow */
@@ -110,17 +110,17 @@ export const COLORS = {
   EDGES: {
     LIGHT: {
       CITES: "#64748b", // slate-500: crisp and clearly visible on #F6F7F8
-      CONTRADICTS: "#dc2626", // bold crimson (red-600)
-      SUPPORTS: "#16a34a", // rich green (green-600)
-      EXTENDS: "#2563eb", // royal blue (blue-600)
+      CONTRADICTS: "#e11d48", // refined rose-crimson (rose-600)
+      SUPPORTS: "#059669", // rich emerald (emerald-600)
+      EXTENDS: "#2563eb", // royal sapphire (blue-600)
       UNKNOWN: "#94a3b8",
     },
     DARK: {
-      CITES: "#475569", // luminous slate-600 on #0B0C10
-      CONTRADICTS: "#f43f5e", // neon rose
-      SUPPORTS: "#10b981", // vibrant emerald
-      EXTENDS: "#38bdf8", // electric sky
-      UNKNOWN: "#64748b",
+      CITES: "rgba(100, 116, 139, 0.45)", // luminous slate-500 filament on #0B0C10
+      CONTRADICTS: "#fb7185", // radiant rose-coral (rose-400), elegant and legible
+      SUPPORTS: "#34d399", // luminous emerald (emerald-400)
+      EXTENDS: "#38bdf8", // electric sky (sky-400)
+      UNKNOWN: "rgba(148, 163, 184, 0.35)",
     },
   },
   /** Ghost node opacity (hex alpha suffix) */

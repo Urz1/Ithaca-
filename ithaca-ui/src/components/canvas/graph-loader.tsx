@@ -465,9 +465,9 @@ export const GraphLoader = memo(function GraphLoader({
           const isContradiction = edge.edgeType === "contradicts";
           graph.mergeEdgeWithKey(edge.id, edge.source, edge.target, {
             ...edge,
-            originalColor: isContradiction ? "#f43f5e" : edge.color,
+            originalColor: isContradiction ? "#e11d48" : edge.color,
             originalSize: isContradiction
-              ? Math.max(edge.size || GRAPH.DEFAULT_EDGE_SIZE, 3.2)
+              ? 1.2
               : edge.size || GRAPH.DEFAULT_EDGE_SIZE,
             zIndex: isContradiction
               ? 10
@@ -619,9 +619,9 @@ export const GraphLoader = memo(function GraphLoader({
           const isContradiction = edge.edgeType === "contradicts";
           graph.mergeEdgeWithKey(edge.id, edge.source, edge.target, {
             ...edge,
-            originalColor: isContradiction ? "#f43f5e" : edge.color,
+            originalColor: isContradiction ? "#e11d48" : edge.color,
             originalSize: isContradiction
-              ? Math.max(edge.size || GRAPH.DEFAULT_EDGE_SIZE, 3.2)
+              ? 1.2
               : edge.size || GRAPH.DEFAULT_EDGE_SIZE,
             zIndex: isContradiction
               ? 10
@@ -821,20 +821,20 @@ export const GraphLoader = memo(function GraphLoader({
           const hasControversy = (attrs.controversyScore || 0) > 0;
           const hasSupports = (attrs.supports || 0) > 0;
           if (hasControversy) {
-            size = Math.max(baseSize * 1.4, 15);
+            size = Math.min(Math.max(baseSize * 1.1, 9), 11);
           } else if (hasSupports) {
-            size = Math.max(baseSize * 1.2, 12);
+            size = Math.min(Math.max(baseSize * 1.05, 8), 10);
           } else {
-            size = Math.max(baseSize * 0.75, 4);
+            size = Math.max(baseSize * 0.8, 5);
           }
         } else if (sovereignFilterActive && !isSelected) {
           const isSovereign = Boolean(
             attrs.isSovereignIndex || attrs.institutionSlug,
           );
           if (isSovereign) {
-            size = Math.max(baseSize * 1.35, 14);
+            size = Math.min(Math.max(baseSize * 1.15, 9), 12);
           } else {
-            size = Math.max(baseSize * 0.75, 4);
+            size = Math.max(baseSize * 0.8, 5);
           }
         }
 
@@ -875,7 +875,7 @@ export const GraphLoader = memo(function GraphLoader({
 
         const isOnPath = isPathActive && highlightedPath!.edgeIds.has(edgeKey);
         let edgeColor = attrs.originalColor || edgeTokens.CITES;
-        let edgeSize = attrs.originalSize || (isDark ? 0.9 : 1.0);
+        let edgeSize = attrs.originalSize || (isDark ? 0.8 : 0.85);
 
         // Confidence-based opacity scaling:
         // High confidence (80-100%) → full opacity
@@ -888,18 +888,18 @@ export const GraphLoader = memo(function GraphLoader({
 
         if (battlefieldMode && !isPathActive) {
           if (edgeType === "contradicts") {
-            edgeColor = edgeTokens.CONTRADICTS; // 🔴
-            edgeSize = Math.max(edgeSize * 3, 3.5);
+            edgeColor = edgeTokens.CONTRADICTS; // 🔴 refined rose
+            edgeSize = 1.3;
           } else if (edgeType === "supports") {
-            edgeColor = edgeTokens.SUPPORTS; // 🟢
-            edgeSize = Math.max(edgeSize * 2.2, 2.5);
+            edgeColor = edgeTokens.SUPPORTS; // 🟢 refined emerald
+            edgeSize = 1.15;
           } else if (edgeType === "extends") {
-            edgeColor = edgeTokens.EXTENDS; // 🔵
-            edgeSize = Math.max(edgeSize * 2.0, 2.2);
+            edgeColor = edgeTokens.EXTENDS; // 🔵 refined sapphire
+            edgeSize = 1.05;
           } else {
             // Dim neutral cites edges
-            edgeColor = isDark ? "rgba(160, 160, 160, 0.08)" : "rgba(100, 116, 139, 0.12)";
-            edgeSize = 0.4;
+            edgeColor = isDark ? "rgba(160, 160, 160, 0.1)" : "rgba(100, 116, 139, 0.15)";
+            edgeSize = 0.5;
           }
         } else if (sovereignFilterActive && !isPathActive) {
           const sourceAttrs = graph.hasNode(source)
@@ -916,25 +916,25 @@ export const GraphLoader = memo(function GraphLoader({
           );
           if (isConnectedToSovereign) {
             edgeColor = "#059669"; // Highlight connections to sovereign Ethiopian literature
-            edgeSize = Math.max(edgeSize * 1.5, 1.8);
+            edgeSize = 1.25;
           } else {
             edgeColor = isDark ? "rgba(160, 160, 160, 0.08)" : "rgba(100, 116, 139, 0.12)";
-            edgeSize = 0.4;
+            edgeSize = 0.5;
           }
         } else if (!isPathActive) {
           if (edgeType === "contradicts") {
             edgeColor = edgeTokens.CONTRADICTS;
-            edgeSize = Math.max(edgeSize * 2.5, 3.4);
+            edgeSize = 1.25;
           } else if (edgeType === "supports") {
             edgeColor = edgeTokens.SUPPORTS;
-            edgeSize = Math.max(edgeSize * 1.5, 2.0);
+            edgeSize = 1.1;
           } else if (edgeType === "extends") {
             edgeColor = edgeTokens.EXTENDS;
-            edgeSize = Math.max(edgeSize * 1.4, 1.8);
+            edgeSize = 1.0;
           } else if (isCites) {
             // "cites" edges: visible, crisp neutral slate line in light theme, luminous in dark
-            edgeColor = isDark ? "rgba(71, 85, 105, 0.6)" : "rgba(100, 116, 139, 0.7)";
-            edgeSize = isDark ? Math.max(edgeSize * 0.8, 0.8) : Math.max(edgeSize * 0.9, 0.95);
+            edgeColor = isDark ? "rgba(100, 116, 139, 0.45)" : "rgba(100, 116, 139, 0.65)";
+            edgeSize = 0.8;
           } else if (confidence != null && confidence < 80) {
             // Scale opacity: 0% confidence → 45% opacity, 80% → 100% opacity
             const opacity = 0.45 + (confidence / 80) * 0.55;
@@ -944,7 +944,7 @@ export const GraphLoader = memo(function GraphLoader({
             edgeColor = `${edgeColor.slice(0, 7)}${alpha}`;
             // Slightly thinner for low confidence
             if (confidence < 50) {
-              edgeSize = Math.max(edgeSize * 0.8, 0.6);
+              edgeSize = 0.6;
             }
           }
         }
