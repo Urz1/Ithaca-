@@ -192,10 +192,10 @@ export const UI = {
 export const LABELS = {
   /** Sigma label density setting */
   DENSITY: 0.07,
-  /** Sigma label grid cell size */
-  GRID_CELL_SIZE: 60,
-  /** Sigma label size threshold */
-  SIZE_THRESHOLD: 6,
+  /** Sigma label grid cell size - enlarged to prevent colliding/overlapping text */
+  GRID_CELL_SIZE: 85,
+  /** Sigma label size threshold - adaptive LOD so zoomed-out graph stays crisp */
+  SIZE_THRESHOLD: 8.5,
   /** Sigma label font */
   FONT: "Inter, system-ui, sans-serif",
   /** Sigma label weight */

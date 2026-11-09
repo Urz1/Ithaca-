@@ -80,25 +80,18 @@ export function createThemeAwareNodeLabelDrawer(isDark: boolean) {
     if (!data.label) return;
 
     const citations = typeof data.citations === "number" ? data.citations : 0;
-    const isSeminal = citations >= 1000 || data.isHighImpact;
+    const isSeminal = citations >= 2500 || Boolean(data.isHighImpact);
 
-    // 1. Orbital Ring / Halo for High-Impact & Seminal Landmark Papers
-    if (citations >= 200 || isSeminal) {
+    // 1. Subtle, elegant solid aura strictly for genuine seminal landmark papers (>= 2500 citations)
+    if (isSeminal) {
       context.save();
       context.beginPath();
-      const ringRadius = data.size + (isSeminal ? 5 : 3.5);
+      const ringRadius = data.size + 3.5;
       context.arc(data.x, data.y, ringRadius, 0, Math.PI * 2);
-      context.strokeStyle = isSeminal
-        ? isDark
-          ? "rgba(245, 158, 11, 0.75)"
-          : "rgba(217, 119, 6, 0.85)" // Amber / gold halo
-        : isDark
-          ? "rgba(99, 102, 241, 0.55)"
-          : "rgba(79, 70, 229, 0.65)"; // Indigo orbit
-      context.lineWidth = isSeminal ? 2 : 1.5;
-      if (isSeminal) {
-        context.setLineDash([4, 3]);
-      }
+      context.strokeStyle = isDark
+        ? "rgba(245, 158, 11, 0.5)"
+        : "rgba(217, 119, 6, 0.45)"; // Soft amber landmark aura
+      context.lineWidth = 1.5;
       context.stroke();
       context.restore();
     }

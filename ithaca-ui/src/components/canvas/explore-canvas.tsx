@@ -10,9 +10,6 @@ import {
 } from "react";
 import {
   SigmaContainer,
-  ControlsContainer,
-  ZoomControl,
-  FullScreenControl,
   useSetSettings,
   useSigma,
 } from "@react-sigma/core";
@@ -32,7 +29,21 @@ import { ExploreUrlHydrator } from "@/components/canvas/explore-url-hydrator";
 import { E2eEdgeOpener } from "@/components/canvas/e2e-edge-opener";
 import { PaperInspector } from "@/components/inspector/paper-inspector";
 import { PaperListPanel } from "@/components/canvas/paper-list-panel";
-import { List, Orbit, Table, Sparkles, Filter } from "lucide-react";
+import {
+  List,
+  Orbit,
+  Table,
+  Sparkles,
+  Filter,
+  Minus,
+  Plus,
+  Crosshair,
+  Activity,
+  Maximize2,
+  Bookmark,
+  Keyboard,
+  Info,
+} from "lucide-react";
 import { GlobalFilters } from "@/components/filters/global-filters";
 import { DebateMatrixDialog } from "@/components/canvas/debate-matrix-dialog";
 import { LiteratureReviewDialog } from "@/components/canvas/literature-review-dialog";
@@ -79,7 +90,6 @@ import { useCanvasKeyboard } from "@/hooks/useCanvasKeyboard";
 import { KeyboardShortcutsHelp } from "@/components/canvas/keyboard-shortcuts-help";
 import { useTutorial, CANVAS_TUTORIAL } from "@/hooks/useTutorial";
 import { TutorialOverlay } from "@/components/canvas/canvas-tutorial";
-import { CanvasFooter } from "@/components/canvas/canvas-footer";
 import { OnboardingDialog } from "@/components/auth/onboarding-dialog";
 import {
   completeOnboarding,
@@ -88,10 +98,7 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   OverlayManager,
-  TopLeftZone,
-  TopRightZone,
   TopCenterZone,
-  BottomLeftZone,
   BottomCenterZone,
   BottomRightZone,
 } from "@/components/canvas/overlay-manager";
@@ -694,44 +701,15 @@ export function ExploreCanvas() {
             />
             <EdgeLabels />
 
-            {/* Sigma controls: hide zoom buttons on mobile (pinch-to-zoom instead) */}
-            {hasActiveGraph && (
-              <>
-                <ControlsContainer position={"top-right"}>
-                  {!isMobile && <ZoomControl />}
-                  {!isMobile && <FullScreenControl />}
-                  {!isMobile && (
-                    <ForceAtlasControl
-                      externalIsRunning={
-                        state.physicsEnabled && state.layoutMode === "force"
-                      }
-                      onToggle={() => {
-                        if (state.layoutMode === "temporal") {
-                          const graph = refs.graphRef.current;
-                          if (graph) {
-                            restoreForceLayout(graph);
-                            refs.sigmaRef.current?.refresh();
-                          }
-                          actions.setLayoutMode("force");
-                        }
-                        actions.togglePhysics();
-                      }}
-                      nodeCount={state.graphStats.nodeCount}
-                    />
-                  )}
-                  {!isMobile && (
-                    <TemporalLayoutControl
-                      layoutMode={state.layoutMode}
-                      onChange={(mode) => actions.setLayoutMode(mode)}
-                      minYear={state.dataRanges.minYear}
-                      maxYear={state.dataRanges.maxYear}
-                    />
-                  )}
-                </ControlsContainer>
-
-                {!isMobile && <ZoomIndicator />}
-              </>
-            )}
+            {/* Sigma-managed internal components */}
+            <NodeDragControl />
+            <NodeTooltip
+              onExpand={handleTooltipExpand}
+              onExpandByTopic={handleTooltipExpandByTopic}
+              onFocus={handleEnterFocusMode}
+              onViewDetails={handleTooltipViewDetails}
+            />
+            <EdgeLabels />
           </SigmaContainer>
         </CanvasErrorBoundary>
 
@@ -763,101 +741,9 @@ export function ExploreCanvas() {
 
         {/* ========== STRUCTURED OVERLAY SYSTEM ========== */}
         <OverlayManager>
-          {/* Top-left: filters & paper count (desktop/tablet only) */}
-          {!isMobile && hasActiveGraph && (
-            <TopLeftZone className="flex flex-col gap-2">
-              <div className="bg-card/90 dark:bg-card/85 border-border/80 flex items-center gap-1.5 rounded-xl border p-1 shadow-md backdrop-blur-md">
-                <GlobalFilters
-                  filters={state.filters}
-                  onFiltersChange={actions.setFilters}
-                  hiddenEdgeCount={state.filterStats.hiddenEdges}
-                  open={state.filtersOpen}
-                  onToggle={() => actions.toggleFilters()}
-                  maxCitations={state.dataRanges.maxCitations}
-                  minYear={state.dataRanges.minYear}
-                  maxYear={state.dataRanges.maxYear}
-                  onOpenQueryBuilder={() => actions.setQueryBuilderOpen(true)}
-                />
-                <div className="bg-border/60 h-5 w-px" />
-                <SchoolsViewControl schoolCount={state.schoolsOfThought.length} />
-                <div className="bg-border/60 h-5 w-px" />
-                <InstitutionalArchiveToggle
-                  active={state.sovereignFilterActive}
-                  onToggle={() => actions.toggleSovereignFilter()}
-                />
-                <div className="bg-border/60 h-5 w-px" />
-                <PaperCountControl
-                  count={state.paperCount}
-                  onChange={handlePaperCountChange}
-                  onRefresh={() => actions.triggerRefresh()}
-                  isLoading={state.isLoading}
-                  embedded
-                />
-              </div>
-            </TopLeftZone>
-          )}
-
-          {/* Top-right: contextual action buttons (desktop only) */}
-          {!isMobile && hasActiveGraph && (
-            <TopRightZone>
-              <div className="flex flex-col gap-2">
-                <Button
-                  variant={state.listPanelOpen ? "default" : "outline"}
-                  size="icon"
-                  className="pointer-events-auto z-30 h-9 w-9 rounded-full shadow-md"
-                  onClick={() => actions.setListPanelOpen(!state.listPanelOpen)}
-                  title="Toggle List View"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-                <div data-tour="ai-chat" className="inline-block">
-                  <ChatToggleButton
-                    isOpen={state.chatOpen}
-                    onClick={() => actions.toggleChat()}
-                  />
-                </div>
-                <div data-tour="selection-mode" className="inline-block">
-                  <NodeSelectionTool
-                    isActive={state.selectionMode}
-                    onToggle={() => actions.toggleSelectionMode()}
-                    selectedNodes={state.selectedNodes}
-                    nodeLabels={state.nodeLabels}
-                  />
-                </div>
-                <Button
-                  variant={state.debateMatrixOpen ? "default" : "outline"}
-                  size="icon"
-                  className="pointer-events-auto z-30 h-9 w-9 rounded-full shadow-md transition-colors hover:border-indigo-500 hover:text-indigo-600"
-                  onClick={() => actions.setDebateMatrixOpen(true)}
-                  title="Open Debate Matrix (Dialectic Refutations & Confirmations)"
-                >
-                  <Table className="h-4 w-4 text-indigo-500" />
-                </Button>
-                <Button
-                  variant={state.literatureReviewOpen ? "default" : "outline"}
-                  size="icon"
-                  className="pointer-events-auto z-30 h-9 w-9 rounded-full shadow-md transition-colors hover:border-violet-500 hover:text-violet-600"
-                  onClick={() => actions.setLiteratureReviewOpen(true)}
-                  title="Synthesize Literature Review (Foundations, Clashes & Horizons)"
-                >
-                  <Sparkles className="h-4 w-4 text-violet-500" />
-                </Button>
-                <Button
-                  variant={state.queryBuilderOpen ? "default" : "outline"}
-                  size="icon"
-                  className="pointer-events-auto z-30 h-9 w-9 rounded-full shadow-md transition-colors hover:border-emerald-500 hover:text-emerald-600"
-                  onClick={() => actions.setQueryBuilderOpen(true)}
-                  title="Open Advanced Relational Query Builder"
-                >
-                  <Filter className="h-4 w-4 text-emerald-500" />
-                </Button>
-              </div>
-            </TopRightZone>
-          )}
-
-          <TopCenterZone className="flex flex-col items-center gap-2">
+          <TopCenterZone className="flex flex-col items-center gap-2 pointer-events-none">
             {state.focusModeNode && (
-              <div className="animate-in slide-in-from-top-2 fade-in duration-300">
+              <div className="animate-in slide-in-from-top-2 fade-in duration-300 pointer-events-auto">
                 <div className="bg-primary/90 text-primary-foreground border-primary-foreground/20 flex items-center gap-3 rounded-full border px-4 py-2 shadow-lg backdrop-blur-md">
                   <div className="flex flex-col items-center leading-none">
                     <span className="text-[10px] font-medium tracking-widest uppercase opacity-80">
@@ -875,7 +761,7 @@ export function ExploreCanvas() {
               </div>
             )}
             {state.sovereignFilterActive && (
-              <div className="animate-in slide-in-from-top-2 fade-in duration-300">
+              <div className="animate-in slide-in-from-top-2 fade-in duration-300 pointer-events-auto">
                 <div className="flex items-center gap-2.5 rounded-full border border-emerald-400/30 bg-emerald-700/90 px-4 py-1.5 text-white shadow-lg backdrop-blur-md">
                   <span className="text-sm leading-none">🏛️</span>
                   <span className="text-xs font-bold tracking-wide uppercase">
@@ -897,7 +783,7 @@ export function ExploreCanvas() {
             )}
             {state.graphStats.nodeCount > 40 &&
               state.clusterViewMode === "papers" && (
-                <div className="animate-in fade-in duration-300">
+                <div className="animate-in fade-in duration-300 pointer-events-auto">
                   <button
                     onClick={() => actions.setClusterViewMode("schools")}
                     className="flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-950/80 px-3 py-1 text-xs text-indigo-200 shadow-md backdrop-blur-md transition-colors hover:bg-indigo-900/90"
@@ -910,44 +796,252 @@ export function ExploreCanvas() {
                   </button>
                 </div>
               )}
-            {hasActiveGraph && <HydrationStatusPill />}
-          </TopCenterZone>
 
-          {/* Bottom-left: footer (desktop/tablet only) */}
-          {!isMobile && hasActiveGraph && (
-            <BottomLeftZone className="z-40 pointer-events-auto">
-              <div data-tour="zoom-controls">
-                <CanvasFooter
-                  nodeCount={state.graphStats.nodeCount}
-                  edgeCount={state.graphStats.edgeCount}
-                  status={state.isLoading ? "loading" : "live"}
-                  onKeyboardHelpClick={() => actions.setKeyboardHelpOpen(true)}
-                  onTutorialClick={tutorial.start}
-                  onTutorialRestart={tutorial.reset}
-                  hasSeenTutorial={tutorial.hasSeenTutorial}
-                />
-              </div>
-            </BottomLeftZone>
-          )}
+            {/* UNIFIED TOP CONTROL RIBBON */}
+            {!isMobile && hasActiveGraph && (
+              <div className="bg-card/95 dark:bg-card/90 border-border/80 flex flex-wrap items-center justify-between gap-2 rounded-2xl border px-3 py-1.5 shadow-xl backdrop-blur-xl pointer-events-auto max-w-5xl">
+                {/* Scope & Filters */}
+                <div className="flex items-center gap-1.5">
+                  <GlobalFilters
+                    filters={state.filters}
+                    onFiltersChange={actions.setFilters}
+                    hiddenEdgeCount={state.filterStats.hiddenEdges}
+                    open={state.filtersOpen}
+                    onToggle={() => actions.toggleFilters()}
+                    maxCitations={state.dataRanges.maxCitations}
+                    minYear={state.dataRanges.minYear}
+                    maxYear={state.dataRanges.maxYear}
+                    onOpenQueryBuilder={() => actions.setQueryBuilderOpen(true)}
+                  />
+                  <div className="bg-border/60 h-4 w-px" />
+                  <SchoolsViewControl schoolCount={state.schoolsOfThought.length} />
+                  <div className="bg-border/60 h-4 w-px" />
+                  <InstitutionalArchiveToggle
+                    active={state.sovereignFilterActive}
+                    onToggle={() => actions.toggleSovereignFilter()}
+                  />
+                  <div className="bg-border/60 h-4 w-px" />
+                  <PaperCountControl
+                    count={state.paperCount}
+                    onChange={handlePaperCountChange}
+                    onRefresh={() => actions.triggerRefresh()}
+                    isLoading={state.isLoading}
+                    embedded
+                  />
+                </div>
 
-          {/* Bottom-center: mode tabs + selection panel */}
-          {hasActiveGraph && (
-            <BottomCenterZone>
-              {/* Perspective & Relationship mode tabs — visible when graph active */}
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <div data-tour="battlefield-mode">
+                <div className="bg-border/60 hidden md:block h-5 w-px" />
+
+                {/* Perspective Modes */}
+                <div data-tour="battlefield-mode" className="flex items-center">
                   <PerspectiveControl
                     disputeCount={disputeCount}
                     upstreamCount={upstreamCount}
                   />
                 </div>
-                <div data-tour="relationship-filters">
+
+                <div className="bg-border/60 hidden lg:block h-5 w-px" />
+
+                {/* Dialectic Tools & AI */}
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant={state.debateMatrixOpen ? "default" : "ghost"}
+                    size="sm"
+                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    onClick={() => actions.setDebateMatrixOpen(true)}
+                    title="Open Debate Matrix (Dialectic Refutations & Confirmations)"
+                  >
+                    <Table className="h-3.5 w-3.5 text-indigo-500" />
+                    <span className="hidden xl:inline">Matrix</span>
+                  </Button>
+                  <Button
+                    variant={state.literatureReviewOpen ? "default" : "ghost"}
+                    size="sm"
+                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    onClick={() => actions.setLiteratureReviewOpen(true)}
+                    title="Synthesize Literature Review (Foundations, Clashes & Horizons)"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+                    <span className="hidden xl:inline">Review</span>
+                  </Button>
+                  <Button
+                    variant={state.queryBuilderOpen ? "default" : "ghost"}
+                    size="sm"
+                    className="h-8 gap-1.5 text-xs font-medium px-2.5"
+                    onClick={() => actions.setQueryBuilderOpen(true)}
+                    title="Open Advanced Relational Query Builder"
+                  >
+                    <Filter className="h-3.5 w-3.5 text-emerald-500" />
+                    <span className="hidden xl:inline">Query</span>
+                  </Button>
+                  <div data-tour="ai-chat" className="inline-block">
+                    <ChatToggleButton
+                      isOpen={state.chatOpen}
+                      onClick={() => actions.toggleChat()}
+                    />
+                  </div>
+                  <div data-tour="selection-mode" className="inline-block">
+                    <NodeSelectionTool
+                      isActive={state.selectionMode}
+                      onToggle={() => actions.toggleSelectionMode()}
+                      selectedNodes={state.selectedNodes}
+                      nodeLabels={state.nodeLabels}
+                    />
+                  </div>
+                  <Button
+                    variant={state.listPanelOpen ? "default" : "ghost"}
+                    size="icon"
+                    className="h-8 w-8 rounded-lg"
+                    onClick={() => actions.setListPanelOpen(!state.listPanelOpen)}
+                    title="Toggle List View"
+                  >
+                    <List className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </div>
+            )}
+            {hasActiveGraph && <HydrationStatusPill />}
+          </TopCenterZone>
+
+          {/* Bottom-center: unified utility dock + selection panel */}
+          {hasActiveGraph && (
+            <BottomCenterZone className="flex flex-col items-center gap-2 pointer-events-none w-full max-w-5xl px-4">
+              {/* Zero-Edge Stance Hint */}
+              {state.relationshipFocus !== "all" && state.graphStats.edgeCount === 0 && (
+                <div className="pointer-events-auto animate-in fade-in slide-in-from-bottom-2 bg-amber-500/15 text-amber-900 dark:text-amber-200 border-amber-500/30 flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs shadow-md backdrop-blur-md">
+                  <Info className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>
+                    No <strong>{state.relationshipFocus}</strong> edges found in this sample ({state.graphStats.nodeCount} papers).
+                  </span>
+                  <button
+                    onClick={() => actions.setRelationshipFocus("all")}
+                    className="underline font-bold hover:text-amber-950 dark:hover:text-amber-100 ml-1"
+                  >
+                    Show All
+                  </button>
+                </div>
+              )}
+
+              {/* UNIFIED BOTTOM UTILITY DOCK */}
+              <div className="bg-card/95 dark:bg-card/90 border-border/80 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-3.5 py-1.5 shadow-xl backdrop-blur-xl pointer-events-auto w-full">
+                {/* Left: Telemetry & Help */}
+                <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span
+                      data-testid="canvas-node-count"
+                      className="text-foreground font-semibold tabular-nums"
+                    >
+                      {state.graphStats.nodeCount} nodes
+                    </span>
+                    <span className="text-muted-foreground/40 hidden sm:inline">·</span>
+                    <span
+                      data-testid="canvas-edge-count"
+                      className="text-foreground font-semibold tabular-nums hidden sm:inline"
+                    >
+                      {state.graphStats.edgeCount} edges
+                    </span>
+                  </div>
+                  <div className="bg-border/60 h-4 w-px mx-1 hidden sm:block" />
+                  <button
+                    onClick={tutorial.start}
+                    className="hover:text-foreground hidden sm:flex items-center gap-1 text-[11px] font-sans font-medium transition-colors"
+                    title="Interactive Tour"
+                  >
+                    <Sparkles className="h-3 w-3 text-primary" />
+                    <span>Tour</span>
+                  </button>
+                  <button
+                    onClick={() => actions.setKeyboardHelpOpen(true)}
+                    className="hover:text-foreground hidden md:flex items-center text-[11px] transition-colors"
+                    title="Keyboard Shortcuts (?)"
+                  >
+                    <Keyboard className="h-3.5 w-3.5 text-muted-foreground" />
+                  </button>
+                </div>
+
+                {/* Center: Relationship Filters */}
+                <div data-tour="relationship-filters" className="flex items-center">
                   <RelationshipFocusControl
                     value={state.relationshipFocus}
                     onChange={(focus) => actions.setRelationshipFocus(focus)}
                   />
                 </div>
+
+                {/* Right: Viewport Controls, Save & Share */}
+                <div data-tour="zoom-controls" className="flex items-center gap-1.5">
+                  <div className="hidden sm:flex items-center bg-muted/40 rounded-lg border border-border/60 px-1 py-0.5">
+                    <button
+                      onClick={() => refs.sigmaRef.current?.getCamera().animatedUnzoom({ duration: 200 })}
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      title="Zoom Out (-)"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      onClick={() => refs.sigmaRef.current?.getCamera().animatedZoom({ duration: 200 })}
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      title="Zoom In (+)"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      onClick={() => refs.sigmaRef.current?.getCamera().animate({ ratio: 1, x: 0.5, y: 0.5 }, { duration: 300 })}
+                      className="text-muted-foreground hover:text-foreground h-6 w-6 flex items-center justify-center rounded hover:bg-muted transition-colors"
+                      title="Center View"
+                    >
+                      <Crosshair className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (state.layoutMode === "temporal") {
+                        const g = refs.graphRef.current;
+                        if (g) restoreForceLayout(g);
+                        refs.sigmaRef.current?.refresh();
+                        actions.setLayoutMode("force");
+                      }
+                      actions.togglePhysics();
+                    }}
+                    className={`h-7 px-2 rounded-lg text-[11px] font-medium border hidden sm:flex items-center gap-1 transition-colors ${
+                      state.physicsEnabled
+                        ? "bg-primary/10 text-primary border-primary/30"
+                        : "bg-muted/40 text-muted-foreground border-border/60 hover:text-foreground"
+                    }`}
+                    title="Toggle Physics"
+                  >
+                    <Activity className="h-3 w-3" />
+                    <span className="hidden xl:inline">{state.physicsEnabled ? "Physics On" : "Physics Off"}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const c = document.querySelector(".react-sigma");
+                      if (c) {
+                        if (document.fullscreenElement) {
+                          document.exitFullscreen();
+                        } else {
+                          c.requestFullscreen?.();
+                        }
+                      }
+                    }}
+                    className="text-muted-foreground hover:text-foreground h-7 w-7 hidden md:flex items-center justify-center rounded-lg border border-border/60 bg-muted/40 hover:bg-muted transition-colors"
+                    title="Toggle Fullscreen"
+                  >
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  </button>
+                  <div className="bg-border/60 h-4 w-px mx-0.5 hidden sm:block" />
+                  <button
+                    onClick={() => actions.setSaveDialogOpen(true)}
+                    className="text-muted-foreground hover:text-foreground h-7 px-2.5 rounded-lg border border-border/60 bg-muted/40 hover:bg-muted flex items-center gap-1 text-xs font-medium transition-colors"
+                    title="Save graph"
+                  >
+                    <Bookmark className="h-3 w-3" />
+                    <span className="hidden sm:inline">Save</span>
+                  </button>
+                  <ShareButton onClick={() => actions.setShareOpen(true)} />
+                </div>
               </div>
+
               <SelectionPanel
                 selectedNodes={state.selectedNodes}
                 nodeLabels={state.nodeLabels}
@@ -969,7 +1063,7 @@ export function ExploreCanvas() {
             </BottomCenterZone>
           )}
 
-          {/* Bottom-right: active debates dock + save + share (desktop only) */}
+          {/* Bottom-right: active debates dock (desktop only) */}
           {!isMobile && hasActiveGraph && (
             <BottomRightZone className="flex flex-col items-end gap-2.5">
               <ActiveDebatesDock
@@ -978,29 +1072,6 @@ export function ExploreCanvas() {
                 onEdgeClick={handleEdgeClick}
                 onOpenDebateMatrix={() => actions.setDebateMatrixOpen(true)}
               />
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => actions.setSaveDialogOpen(true)}
-                  className="bg-card/90 border-border hover:bg-muted flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium shadow-sm backdrop-blur transition-colors"
-                  title="Save graph to dashboard"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                  </svg>
-                  Save
-                </button>
-                <ShareButton onClick={() => actions.setShareOpen(true)} />
-              </div>
             </BottomRightZone>
           )}
         </OverlayManager>

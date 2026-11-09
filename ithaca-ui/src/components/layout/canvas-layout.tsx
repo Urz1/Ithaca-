@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -16,7 +17,6 @@ import {
   Keyboard,
   Compass,
 } from "lucide-react";
-import { useState, useEffect } from "react";
 import { UserButton } from "@/components/auth/user-button";
 import { OrganizationSwitcher } from "@/components/organization/organization-switcher";
 import { SupportContact } from "@/components/organization/support-contact";
@@ -25,6 +25,37 @@ import { KeyboardShortcutsHelp } from "@/components/canvas/keyboard-shortcuts-he
 import { getSavedGraphs, type SavedGraphData } from "@/app/(app)/dashboard/actions";
 import { getOrganizationSummaries } from "@/app/(app)/admin/actions";
 import { LabQuickstart } from "@/components/navigation/lab-quickstart";
+
+function ExploreBreadcrumbContent() {
+  const searchParams = useSearchParams();
+  const rawQuery = searchParams.get("query") || searchParams.get("target") || "";
+  const topic = rawQuery.startsWith("topic-")
+    ? rawQuery.replace("topic-", "")
+    : rawQuery;
+
+  return (
+    <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-muted-foreground shrink-0 max-w-sm">
+      <span className="flex items-center gap-1.5 font-semibold text-foreground shrink-0">
+        <Orbit className="h-4 w-4 text-violet-500 shrink-0" />
+        Dialectic Canvas
+      </span>
+      <span className="text-muted-foreground/40 shrink-0">/</span>
+      {topic ? (
+        <span
+          className="truncate max-w-[200px] font-medium text-foreground bg-muted/60 px-2 py-0.5 rounded border border-border/60"
+          title={topic}
+        >
+          {topic}
+        </span>
+      ) : (
+        <span className="flex items-center gap-1.5 rounded-full bg-violet-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-violet-600 dark:text-violet-400 shrink-0">
+          <span className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-pulse" />
+          Active Station
+        </span>
+      )}
+    </div>
+  );
+}
 
 interface CanvasLayoutProps {
   children: React.ReactNode;
@@ -234,19 +265,19 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
         {/* Topbar */}
         <header className="border-border/80 bg-background/85 flex h-14 items-center justify-between border-b px-4 backdrop-blur-md transition-colors">
           <div className="flex items-center gap-4 flex-1 max-w-2xl">
-            {/* Contextual Station Breadcrumb */}
             {isExplore ? (
-              <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-muted-foreground shrink-0">
-                <span className="flex items-center gap-1.5 font-semibold text-foreground">
-                  <Orbit className="h-4 w-4 text-violet-500" />
-                  Dialectic Canvas
-                </span>
-                <span className="text-muted-foreground/40">/</span>
-                <span className="flex items-center gap-1.5 rounded-full bg-violet-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-violet-600 dark:text-violet-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-pulse" />
-                  Active Station
-                </span>
-              </div>
+              <Suspense
+                fallback={
+                  <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-muted-foreground shrink-0">
+                    <span className="flex items-center gap-1.5 font-semibold text-foreground">
+                      <Orbit className="h-4 w-4 text-violet-500" />
+                      Dialectic Canvas
+                    </span>
+                  </div>
+                }
+              >
+                <ExploreBreadcrumbContent />
+              </Suspense>
             ) : isDashboard ? (
               <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-muted-foreground shrink-0">
                 <span className="flex items-center gap-1.5 font-semibold text-foreground">
