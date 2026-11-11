@@ -1,0 +1,91 @@
+name: Nightly quality
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  live-classifier-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Run live classifier eval
+        env:
+          RUN_LIVE_CLASSIFIER_EVAL: "1"
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: npm run eval:ai:live
+      - name: Upload live eval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: classifier-live-eval
+          path: eval/reports/classifier-live-latest.json
+          if-no-files-found: ignore
+
+  staging-load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+      - run: npm run test:load:budgets
+      - name: Run authenticated classify load on staging
+        env:
+          BASE_URL: ${{ secrets.STAGING_BASE_URL }}
+          LOAD_SCENARIO: authenticated-api
+          SESSION_COOKIE: ${{ secrets.LOAD_TEST_SESSION_COOKIE }}
+          VUS: "5"
+          DURATION: 2m
+        run: |
+          if [ -z "$BASE_URL" ] || [ -z "$SESSION_COOKIE" ]; then
+            echo "Skipping staging load — configure STAGING_BASE_URL and LOAD_TEST_SESSION_COOKIE secrets."
+            exit 0
+          fi
+          npm run test:load
+
+  staging-pilot-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npx playwright install chromium --with-deps
+      - name: Run pilot e2e against staging
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ secrets.STAGING_BASE_URL }}
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.STAGING_BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL: ${{ secrets.STAGING_BASE_URL }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.STAGING_BASE_URL }}
+        run: |
+          if [ -z "$PLAYWRIGHT_BASE_URL" ] || [ -z "$DATABASE_URL" ]; then
+            echo "Skipping staging pilot e2e — configure STAGING_BASE_URL and STAGING_DATABASE_URL secrets."
+            exit 0
+          fi
+          npm run test:e2e -- --project=pilot --project=pilot-member --project=pilot-viewer
+      - name: Upload Playwright artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-pilot-e2e
+          path: |
+            test-results
+            playwright-report
+          if-no-files-found: ignore
