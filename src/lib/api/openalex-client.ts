@@ -90,7 +90,7 @@ function getOpenAlexEmail(): string {
   return (
     process.env.NEXT_PUBLIC_OPENALEX_EMAIL ||
     process.env.OPENALEX_EMAIL ||
-    "engineering@rhizan.com"
+    "team@ithaca.tech"
   );
 }
 

@@ -41,7 +41,7 @@ Government correspondence follows strict hierarchical protocols. A winning reque
 
 ### Rule 1: The "First 30 Seconds" Rule (Front-Load the Ask)
 Bureaucratic leaders read dozens of letters daily. Never bury your request on page 3. The opening paragraph must explicitly state:
-1. Who you are (Rhizan Tech / Ithaca).
+1. Who you are (Ithaca Project Team).
 2. The exact nature of the request (Inter-institutional facilitation, repository integration, and pilot endorsement).
 3. The targeted public outcome (Higher education research efficiency, national dissertation discoverability).
 
@@ -75,7 +75,7 @@ Ministries are highly sensitive to data sovereignty, foreign surveillance, and i
 | **Tone** | "Please help our startup grow and give us support." | "We propose a strategic public-private partnership to modernize national scientific research workflows." |
 | **Problem** | "Researchers have a hard time reading papers." | "Over 70% of postgraduate researcher time is lost to manual synthesis; billions of Birr in research are duplicated due to isolated academic repositories." |
 | **The Ask** | "We need money, cloud, and users." | "We request MInT's convening mandate to facilitate: (1) NADRE API integration with EthERNet, (2) compute allocation at EAII, and (3) pilot introduction to AAU, AASTU, ASTU, and Jimma University." |
-| **Cost** | "We need a $50,000 pilot grant." | "Budget-neutral to MInT: Rhizan Tech provides software, maintenance, and training at zero cost to the Ministry." |
+| **Cost** | "We need a $50,000 pilot grant." | "Budget-neutral to MInT: Ithaca provides software, maintenance, and training at zero cost to the Ministry." |
 | **Next Step** | "Hope to hear from you soon." | "Requesting a 30-minute technical coordination session with MInT's designated ICT/Innovation directorate to finalize routing letters." |
 
 ---
@@ -98,4 +98,4 @@ Ministries are highly sensitive to data sovereignty, foreign surveillance, and i
 With this industry-standard framework validated:
 1. **Document Length**: Exactly 2 pages for the primary letter, supplemented by a 1-page Technical Annex.
 2. **Language Register**: Formal administrative English, aligned with Ethiopian federal ministerial protocol.
-3. **Delivery Mechanism**: Official Rhizan Tech company letterhead, prepared for both physical delivery (MInT Protocol Directorate) and digital submission via official ministerial email.
+3. **Delivery Mechanism**: Official Ithaca project letterhead, prepared for both physical delivery (MInT Protocol Directorate) and digital submission via official ministerial email.

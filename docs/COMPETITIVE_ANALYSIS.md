@@ -229,7 +229,7 @@ Cataloged from the actual codebase (`src/lib/`, `src/components/canvas/`, `src/t
 **URL:** researchrabbitapp.com  
 **Data:** 270M+ papers  
 **Users:** 1,000,000+  
-**Pricing:** **Free** (forever free stated by founders)
+**Pricing:** **Free** (stated as forever free)
 
 **What it does:** "Spotify for research papers." Collection-based discovery engine: add papers to collections → get adaptive recommendations. Interactive visual maps of paper networks. Author network visualization.
 

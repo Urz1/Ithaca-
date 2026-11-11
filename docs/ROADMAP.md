@@ -179,7 +179,7 @@ flowchart TD
 
 ### 5.2 Human-in-the-Loop Community Calibration (`/api/classify/correct`)
 
-- Allow verified researchers and university professors to confirm or dispute citation classifications with 1-click verified reviews, creating a proprietary fine-tuning dataset unique to Rhizan.
+- Allow verified researchers and university professors to confirm or dispute citation classifications with 1-click verified reviews, creating a proprietary fine-tuning dataset unique to Ithaca.
 
 ---
 
@@ -204,7 +204,7 @@ flowchart TD
   - **LAB Plan:** $99/month (10 collaborative lab seats)
   - **INSTITUTION:** $5,000–$25,000/year (university site licenses)
 - **Domestic Sovereign Tier:** **100% Free** for all accredited Ethiopian universities and researchers using `.edu.et` email addresses.
-- **NBE Compliance:** Direct USD subscription receipts channeled into Rhizan's local NBE foreign exchange retention account, legally retained at 100% to fund ongoing infrastructure and expansion.
+- **NBE Compliance:** Direct USD subscription receipts channeled into Ithaca's local NBE foreign exchange retention account, legally retained at 100% to fund ongoing infrastructure and expansion.
 
 ---
 

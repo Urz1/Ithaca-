@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const saved = items.apiBase || DEFAULT_BASE;
       if (saved === "http://localhost:3000") {
         optLocal.checked = true;
-      } else if (saved === "https://ithaca.rhizan.com") {
+      } else if (saved === "https://ithaca.tech") {
         optProd.checked = true;
       } else {
         optCustom.checked = true;
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (optLocal.checked) {
       chosenBase = "http://localhost:3000";
     } else if (optProd.checked) {
-      chosenBase = "https://ithaca.rhizan.com";
+      chosenBase = "https://ithaca.tech";
     } else if (optCustom.checked) {
       const val = inputCustom.value.trim().replace(/\/+$/, "");
       if (!val || (!val.startsWith("http://") && !val.startsWith("https://"))) {

@@ -448,7 +448,7 @@ export class OaiPmhClient {
         headers: {
           Accept: "text/xml, application/xml, text/plain",
           "User-Agent":
-            "IthacaSovereignAcademicIndexer/1.0 (+https://ithaca.rhizan.org)",
+            "IthacaSovereignAcademicIndexer/1.0 (+https://ithaca.tech)",
         },
         signal: controller.signal,
       });

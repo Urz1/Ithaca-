@@ -127,8 +127,8 @@ flowchart TD
 ### 1. Clone the Repository
 
 ```bash
-git clone git@github.com:RhizanTechnologies/Itacha.git
-cd Itacha/ithaca-ui
+git clone git@github.com:Urz1/Ithaca-.git
+cd Ithaca-
 ```
 
 ### 2. Configure Environment Variables
@@ -223,7 +223,7 @@ pnpm test:load:budgets
 
 Ithaca is optimized for Vercel deployment with automated migrations and serverless execution:
 
-1. Import repository `RhizanTechnologies/Itacha` into [Vercel](https://vercel.com/new).
+1. Import your Ithaca repository into [Vercel](https://vercel.com/new).
 2. Attach a managed PostgreSQL database (e.g., **Vercel Postgres powered by Neon**).
 3. Set the required production environment variables (`DATABASE_URL`, `BETTER_AUTH_SECRET`, `NEXT_PUBLIC_APP_URL`, `GEMINI_API_KEY`, etc.).
 4. Ithaca's [`scripts/vercel-build.mjs`](./scripts/vercel-build.mjs) automatically applies all 13 Prisma schema migrations during the build step before compiling Next.js serverless functions.
@@ -284,5 +284,5 @@ ithaca-ui/
 
 ## 📄 License & Attribution
 
-Developed by **Rhizan Technologies**. All rights reserved.  
-For academic partnership inquiries, institutional grants, or commercial licensing, contact `engineering@rhizan.com`.
+Open-source research intelligence. Built for researchers worldwide.  
+For academic partnership inquiries, institutional grants, or commercial licensing, contact `team@ithaca.tech`.

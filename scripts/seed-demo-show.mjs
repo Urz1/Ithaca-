@@ -60,7 +60,7 @@ async function main() {
 
   // 1. Seed Global Commercial User (Dr. Elena Rostova - SOLO_PRO)
   const globalUser = await upsertUserWithAccount({
-    email: "elena.rostova@ithaca.rhizan.com",
+    email: "elena.rostova@ithaca.tech",
     name: "Dr. Elena Rostova",
     institution: "Center for Brains & Machines, MIT",
     department: "Computer Science and AI",
@@ -397,7 +397,7 @@ async function main() {
     "===============================================================================",
   );
   console.log("\n👤 1. GLOBAL COMMERCIAL USER (USD FX Retention Engine):");
-  console.log(`   Email:       elena.rostova@ithaca.rhizan.com`);
+  console.log(`   Email:       elena.rostova@ithaca.tech`);
   console.log(`   Password:    ${DEMO_PASSWORD}`);
   console.log(
     `   Org / Plan:  Rostova Intelligence Lab (${globalOrg.plan} — $15/mo)`,

@@ -84,7 +84,7 @@ if (isProdMode) {
   let bgCode = fs.readFileSync(stageBgPath, "utf8");
   bgCode = bgCode.replace(
     /const DEFAULT_API_BASE = "http:\/\/localhost:3000";/,
-    'const DEFAULT_API_BASE = "https://ithaca.rhizan.com";',
+    'const DEFAULT_API_BASE = "https://ithaca.tech";',
   );
   fs.writeFileSync(stageBgPath, bgCode, "utf8");
 }

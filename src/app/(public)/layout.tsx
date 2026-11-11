@@ -260,14 +260,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
           <div className="border-border/60 text-muted-foreground mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-xs sm:flex-row dark:border-white/[0.06]">
             <p>
-              © {new Date().getFullYear()} Ithaca • Engineered by{" "}
-              <Link
-                href="/about"
-                className="hover:text-foreground font-semibold underline underline-offset-4"
-              >
-                Rhizan Tech
-              </Link>
-              . Built for researchers worldwide.
+              © {new Date().getFullYear()} Ithaca. Open-source research intelligence. Built for researchers worldwide.
             </p>
             <div className="flex items-center gap-3">
               <span className="font-mono text-[11px] text-muted-foreground/80">

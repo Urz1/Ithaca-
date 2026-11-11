@@ -1,7 +1,7 @@
 # Institutional Circulars & Ready-to-Issue Ministerial Templates
-## Accompanying Package for Rhizan Tech (Ithaca) Submission to MInT
+## Accompanying Package for Ithaca Technologies Submission to MInT
 
-**Document Reference:** RT/MINT-CIR/2026/01  
+**Document Reference:** IT/MINT-CIR/2026/01  
 **Associated Document:** [`docs/MINT_OFFICIAL_SUPPORT_REQUEST.md`](file:///home/sadam/Development/product/Itacha/ithaca-ui/docs/MINT_OFFICIAL_SUPPORT_REQUEST.md)  
 **Legal Framework:** FDRE Startup Proclamation No. 1396/2025 & Proclamation No. 1263/2021  
 
@@ -10,12 +10,12 @@
 ## 1. የሽፋን ማጠቃለያ ማስታወሻ (Executive Cover Summary in Amharic)
 
 **ለ:** ክቡር የኢኖቬሽንና ቴክኖሎጂ ሚኒስትር / የመንግስት ሚኒስትር  
-**ከ:** ሪዛን ቴክ (Rhizan Tech)  
+**ከ:** ኢታካ ቴክኖሎጂስ (Ithaca Technologies)  
 **ጉዳዩ:** በጀማሪ የፈጠራ ድርጅቶች (ስታርት-አፕ) አዋጅ ቁጥር 1396/2017 (2025) መሰረት ለኢታካ (Ithaca) የሳይንሳዊ ምርምር አርቴፊሻል ኢንተለጀንስ ፕላትፎርም የተቋማት ትብብርና ድጋፍ ጥያቄ ስለማቅረብ  
 
 ### ክቡር ሚኒስትር/የመንግስት ሚኒስትር፦
 
-ሪዛን ቴክ (Rhizan Tech) በኢትዮጵያውያን መሀንዲሶች የተገነባውን **ኢታካ (Ithaca)** የተሰኘውን የሳይንሳዊ ምርምር ማፋጠኛ እና የእውቀት ትስስር (Epistemic Knowledge Graph) ቴክኖሎጂ ለሚኒስቴር መስሪያ ቤታችሁ በቅርቡ በቴክኒካል ገለጻ ማቅረቡ ይታወሳል።
+በኢትዮጵያውያን መሀንዲሶች የተገነባውን **ኢታካ (Ithaca)** የተሰኘውን የሳይንሳዊ ምርምር ማፋጠኛ እና የእውቀት ትስስር (Epistemic Knowledge Graph) ቴክኖሎጂ ለሚኒስቴር መስሪያ ቤታችሁ በቅርቡ በቴክኒካል ገለጻ ማቅረባችን ይታወሳል።
 
 በሀገራችን ከፍተኛ የትምህርት እና የምርምር ተቋማት ውስጥ የድህረ-ምረቃ ተማሪዎች እና ተመራማሪዎች ከሚያጠፉት ጊዜ ከ70% በላይ የሚሆነው ያልተደራጁ የጥናት ጽሑፎችን (Literature Review) በእጅ በመፈተሽ የሚባክን ሲሆን፣ ቀደም ሲል የተሰሩ የሀገር ውስጥ ጥናቶች በብሔራዊ ማከማቻዎች (NADRE) ውስጥ ተበታትነው በመቆየታቸው ተደጋጋሚ እና የተባከነ የምርምር ስራ ይስተዋላል።
 
@@ -29,7 +29,7 @@
 4. **ከኢትዮጵያ አርቴፊሻል ኢንተለጀንስ ኢንስቲትዩት (EAII)** ጋር የሀገር ውስጥ የኮምፒውተር ሀብት (GPU Cloud Infrastructure) ትብብር ማመቻቸት፤
 5. **ከኢትዮ ቴሌኮም (ቴሌክላውድ / የብሔራዊ ዳታ ሴንተር)** ጋር የዳታ እና የሰርቨር ማስተናገጃ (Cloud Hosting) ድጋፍ ማስተባበር።
 
-በዚህ የትብብር ስራ ሪዛን ቴክ ለሚኒስቴር መስሪያ ቤቱ **የብሔራዊ የምርምር አፈጻጸም ዳሽቦርድ (National R&D Dashboard)** እና ለዩኒቨርሲቲዎች ነፃ ስልጠና የሚሰጥ መሆኑን በአክብሮት እንገልጻለን።
+በዚህ የትብብር ስራ ቡድናችን ለሚኒስቴር መስሪያ ቤቱ **የብሔራዊ የምርምር አፈጻጸም ዳሽቦርድ (National R&D Dashboard)** እና ለዩኒቨርሲቲዎች ነፃ ስልጠና የሚሰጥ መሆኑን በአክብሮት እንገልጻለን።
 
 ***
 
@@ -49,13 +49,13 @@ To expedite MInT's administrative workflow, the following pre-drafted administra
 **Ethiopian Research and Education Network (EthERNet)**  
 Addis Ababa, Ethiopia  
 
-**Subject: Facilitation of Non-Exclusive Data Integration with the National Academic Digital Repository of Ethiopia (NADRE) for Ithaca (Rhizan Tech)**
+**Subject: Facilitation of Non-Exclusive Data Integration with the National Academic Digital Repository of Ethiopia (NADRE) for Ithaca**
 
-Pursuant to the **Startup Proclamation No. 1396/2025**, which authorizes the Ministry of Innovation and Technology (MInT) to facilitate indigenous technology startups with non-exclusive access to public research data repositories, MInT has evaluated the **Ithaca Epistemic Intelligence Platform** developed by **Rhizan Tech**.
+Pursuant to the **Startup Proclamation No. 1396/2025**, which authorizes the Ministry of Innovation and Technology (MInT) to facilitate indigenous technology startups with non-exclusive access to public research data repositories, MInT has evaluated the **Ithaca Epistemic Intelligence Platform**.
 
 Ithaca provides an advanced scientific knowledge graph system capable of indexing, interlinking, and surfacing Ethiopian postgraduate research to eliminate literature synthesis redundancy across our universities.
 
-We therefore instruct and recommend EthERNet to collaborate with the technical team of Rhizan Tech to:
+We therefore instruct and recommend EthERNet to collaborate with the technical team of Ithaca to:
 1. Provide authorized OAI-PMH API harvesting access to public domain and open-access metadata, theses, and dissertations hosted on NADRE (`nadre.ethernet.edu.et`).
 2. Establish secure data exchange protocols preserving institutional copyright and national data governance standards.
 3. Report back to MInT within 30 days on the progress of integration.
@@ -81,14 +81,14 @@ Ministry of Innovation and Technology (MInT)
 
 **Subject: Introduction of Ithaca Epistemic Intelligence Platform for 6-Month Postgraduate Research Pilot Deployment**
 
-Under the joint national initiative between the Ministry of Innovation and Technology (MInT) and the Ministry of Education (MoE) to modernize research workflows and enhance graduate research output under *Digital Ethiopia 2025*, we introduce **Rhizan Tech**, an indigenous startup developer of **Ithaca**.
+Under the joint national initiative between the Ministry of Innovation and Technology (MInT) and the Ministry of Education (MoE) to modernize research workflows and enhance graduate research output under *Digital Ethiopia 2025*, we introduce **Ithaca**, an indigenous research intelligence platform.
 
 Ithaca is a specialized academic knowledge synthesis engine that automatically maps citation dialectics (supporting, contradicting, and extending arguments) and surfaces verbatim proofs to assist postgraduate researchers and faculty supervisors.
 
 We recommend your esteemed institution to:
 1. Facilitate a **structured 6-month research sandbox/pilot** engaging up to 50 doctoral and master’s researchers per university across STEM, health sciences, and engineering faculties.
-2. Grant permission to Rhizan Tech to conduct technical orientation and digital literature synthesis workshops in coordination with your University Library and Graduate Studies Directorate.
-3. Rhizan Tech provides this pilot at **zero financial software licensing cost** to your university during the pilot period.
+2. Grant permission to the Ithaca technical team to conduct technical orientation and digital literature synthesis workshops in coordination with your University Library and Graduate Studies Directorate.
+3. The Ithaca team provides this pilot at **zero financial software licensing cost** to your university during the pilot period.
 
 **Sincerely,**  
 
@@ -110,13 +110,13 @@ State Minister, Higher Education Sector, Ministry of Education (MoE)
 **Ethiopian Artificial Intelligence Institute (EAII)**  
 Addis Ababa, Ethiopia  
 
-**Subject: Shared AI Compute Allocation Request for Indigenous Research Intelligence Engine (Rhizan Tech / Ithaca)**
+**Subject: Shared AI Compute Allocation Request for Indigenous Research Intelligence Engine (Ithaca)**
 
-In line with the national mandate to optimize domestic AI infrastructure and retain data sovereignty within national borders, MInT requests EAII to collaborate with **Rhizan Tech**.
+In line with the national mandate to optimize domestic AI infrastructure and retain data sovereignty within national borders, MInT requests EAII to collaborate with **Ithaca**.
 
-Rhizan Tech has engineered **Ithaca**, a local AI-powered scientific knowledge engine requiring transformer-based embedding and stance classification inference. To prevent dependence on expensive foreign commercial APIs and preserve foreign exchange reserves:
+The project team has engineered **Ithaca**, a local AI-powered scientific knowledge engine requiring transformer-based embedding and stance classification inference. To prevent dependence on expensive foreign commercial APIs and preserve foreign exchange reserves:
 
-1. We request EAII to facilitate a shared GPU compute container slice (NVIDIA A100/H100 infrastructure) for Rhizan Tech under the National AI Ecosystem Support initiative.
+1. We request EAII to facilitate a shared GPU compute container slice (NVIDIA A100/H100 infrastructure) for Ithaca under the National AI Ecosystem Support initiative.
 2. Ensure that model inference and vector operations are executed within EAII’s sovereign data infrastructure.
 
 **Sincerely,**  
@@ -137,11 +137,11 @@ Ministry of Innovation and Technology (MInT)
 **Ethio Telecom**  
 Addis Ababa, Ethiopia  
 
-**Subject: Sovereign Cloud Hosting Concession under Startup Proclamation No. 1396/2025 for Rhizan Tech**
+**Subject: Sovereign Cloud Hosting Concession under Startup Proclamation No. 1396/2025 for Ithaca**
 
 Pursuant to the collaborative startup support programs established under the *Digital Ethiopia 2025* framework and the *Startup Proclamation No. 1396/2025*:
 
-MInT recommends that Ethio Telecom allocate a sovereign Cloud Virtual Private Server (VPS) / Virtual Machine instance within the **Telecloud** or **National Data Center (NDC)** to host the **Ithaca Epistemic Intelligence Platform** developed by **Rhizan Tech**.
+MInT recommends that Ethio Telecom allocate a sovereign Cloud Virtual Private Server (VPS) / Virtual Machine instance within the **Telecloud** or **National Data Center (NDC)** to host the **Ithaca Epistemic Intelligence Platform**.
 
 **Recommended Resource Profile:**
 * 8 to 16 vCPUs

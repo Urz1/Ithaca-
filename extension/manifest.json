@@ -10,7 +10,7 @@
     "https://*.nature.com/*",
     "https://scholar.google.com/*",
     "http://localhost:3000/*",
-    "https://ithaca.rhizan.com/*"
+    "https://ithaca.tech/*"
   ],
   "background": {
     "service_worker": "background.js"

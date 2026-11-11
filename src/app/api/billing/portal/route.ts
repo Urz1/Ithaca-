@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     }
 
     const portalHost =
-      process.env.PADDLE_PORTAL_URL || "https://billing.ithaca.rhizan.com";
+      process.env.PADDLE_PORTAL_URL || "https://billing.ithaca.tech";
     const portalUrl = `${portalHost}/p/${organization.billingCustomerId || organization.id}`;
 
     return apiSuccess(

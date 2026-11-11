@@ -561,7 +561,7 @@
       const fallbackBase =
         window.location.hostname === "localhost"
           ? "http://localhost:3000"
-          : "https://ithaca.rhizan.com";
+          : "https://ithaca.tech";
       const params = new URLSearchParams();
       if (meta.doi) params.set("doi", meta.doi);
       if (meta.title) params.set("title", meta.title);

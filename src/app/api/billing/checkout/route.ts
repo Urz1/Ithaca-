@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
     // 2. Global Commercial Checkout (USD FX Inflow)
     const price = PLAN_PRICING_USD[plan];
     const checkoutHost =
-      process.env.PADDLE_CHECKOUT_URL || "https://checkout.ithaca.rhizan.com";
+      process.env.PADDLE_CHECKOUT_URL || "https://checkout.ithaca.tech";
     const sessionToken = crypto.randomUUID();
     const checkoutUrl = `${checkoutHost}/session?orgId=${encodeURIComponent(
       organizationId,

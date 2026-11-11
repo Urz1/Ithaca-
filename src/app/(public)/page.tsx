@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useAnimationPause } from "@/hooks/useAnimationPause";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { SignInDialog } from "@/components/auth/sign-in-dialog";
 import { OnboardingDialog } from "@/components/auth/onboarding-dialog";
 import {
@@ -841,66 +840,6 @@ export default function Home() {
               );
             })}
           </Stagger>
-        </div>
-      </section>
-
-      {/* ===== FOUNDER TRUST / BUILT BY RHIZAN ===== */}
-      <section className="border-t border-border/70 dark:border-white/[0.06] bg-muted/10 dark:bg-white/[0.01] py-18 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative mx-auto max-w-4xl rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-8 sm:p-10 shadow-lg backdrop-blur-xl">
-            <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-              <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-                <div className="flex -space-x-3 overflow-hidden">
-                  <div className="border-background relative h-14 w-14 sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 shadow-md">
-                    <Image
-                      src="/founders/abdulaziz_circle.png"
-                      alt="Abdulaziz Isa — Technical & AI Lead"
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </div>
-                  <div className="border-background relative h-14 w-14 sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 shadow-md">
-                    <Image
-                      src="/founders/nebiyu_circle.png"
-                      alt="Nebiyu Musbah — Business & Growth Lead"
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </div>
-                  <div className="border-background relative h-14 w-14 sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 shadow-md">
-                    <Image
-                      src="/founders/sadam_circle.png"
-                      alt="Sadam Hussen — Operations & Finance Lead"
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground">
-                    Engineered by Rhizan Tech
-                  </h3>
-                  <p className="text-muted-foreground mt-0.5 text-xs sm:text-sm leading-relaxed">
-                    Epistemic Graph Intelligence • Built for researchers &
-                    laboratories worldwide
-                  </p>
-                </div>
-              </div>
-              <Link href="/about">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2 rounded-full border-border/80 dark:border-white/10 bg-background/60 dark:bg-white/[0.04] px-5 py-5 text-xs sm:text-sm font-medium backdrop-blur-md transition-all hover:bg-muted/80 active:scale-95"
-                >
-                  <span>Meet the Founders</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 

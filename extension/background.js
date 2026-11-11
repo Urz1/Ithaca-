@@ -213,7 +213,7 @@ async function fetchBadgeData(doi, title, version = null) {
       const candidates = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://ithaca.rhizan.com",
+        "https://ithaca.tech",
       ].filter((b) => b !== activeBase);
 
       try {

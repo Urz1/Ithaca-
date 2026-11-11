@@ -49,8 +49,8 @@ services:
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-supersecret_better_auth_key_for_production_deployment}
       BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
-      OPENALEX_EMAIL: ${OPENALEX_EMAIL:-engineering@rhizan.com}
-      NEXT_PUBLIC_OPENALEX_EMAIL: ${NEXT_PUBLIC_OPENALEX_EMAIL:-engineering@rhizan.com}
+      OPENALEX_EMAIL: ${OPENALEX_EMAIL:-team@ithaca.tech}
+      NEXT_PUBLIC_OPENALEX_EMAIL: ${NEXT_PUBLIC_OPENALEX_EMAIL:-team@ithaca.tech}
       REQUIRE_EMAIL_VERIFICATION: ${REQUIRE_EMAIL_VERIFICATION:-false}
       GROQ_API_KEY: ${GROQ_API_KEY:-}
       GROQ_MODEL: ${GROQ_MODEL:-qwen/qwen3.8-27b}

@@ -223,4 +223,4 @@ Analyzes author co-authorship graphs across citation networks to detect whether 
 
 ---
 
-_Document version: 2.4.0 — Maintained by Rhizan Technologies Engineering Team._
+_Document version: 2.4.0 — Maintained by Ithaca Core Engineering Team._

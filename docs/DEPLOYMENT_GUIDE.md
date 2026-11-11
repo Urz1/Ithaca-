@@ -48,7 +48,7 @@ Because Vercel functions are stateless and ephemeral, your database must be acce
 ### Step 2: Import Repository in Vercel
 
 1. Go to [vercel.com/new](https://vercel.com/new).
-2. Select **Import** next to `RhizanTechnologies/Itacha`.
+2. Select **Import** next to your Ithaca repository.
 3. Set the Root Directory to `./` (or `ithaca-ui` if importing from the repo root).
 
 ### Step 3: Configure Production Environment Variables
@@ -97,8 +97,8 @@ For on-premises institutional hosting or dedicated VPS deployment (e.g., Digital
 ### Step 2: Clone and Configure
 
 ```bash
-git clone git@github.com:RhizanTechnologies/Itacha.git
-cd Itacha/ithaca-ui
+git clone git@github.com:Urz1/Ithaca-.git
+cd Ithaca-
 cp .env.example .env.production
 ```
 
