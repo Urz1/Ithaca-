@@ -718,6 +718,16 @@ export const GraphLoader = memo(function GraphLoader({
         });
       }
 
+      // Ensure all edges incident to hidden nodes are completely hidden
+      graph.forEachEdge((edge, _attrs, source, target) => {
+        if (
+          effectiveHiddenNodes.has(source) ||
+          effectiveHiddenNodes.has(target)
+        ) {
+          effectiveHiddenEdges.add(edge);
+        }
+      });
+
       // Build selection set for O(1) lookup
       const selectedSet = new Set(selectedNodes);
       const isPathActive = highlightedPath && highlightedPath.nodeIds.size > 0;
@@ -902,8 +912,10 @@ export const GraphLoader = memo(function GraphLoader({
             renderedEdgeType = "arrow";
           } else {
             // Neutral citations: crisp, visible slate filament (never invisible white or faint 0.1)
-            edgeColor = isDark ? "rgba(148, 163, 184, 0.35)" : "rgba(100, 116, 139, 0.45)";
-            edgeSize = 0.75;
+            edgeColor = isDark
+              ? "rgba(148, 163, 184, 0.45)"
+              : "rgba(100, 116, 139, 0.6)";
+            edgeSize = 0.85;
             renderedEdgeType = "line";
           }
         } else if (sovereignFilterActive && !isPathActive) {

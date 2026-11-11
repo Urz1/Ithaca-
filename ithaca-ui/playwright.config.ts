@@ -48,7 +48,7 @@ export default defineConfig({
     },
     {
       name: "pilot",
-      testMatch: /pilot-(happy-path|depth|digest|aesthetic)\.spec\.ts/,
+      testMatch: /pilot-(happy-path|depth|digest|aesthetic|filter-popover)\.spec\.ts/,
       dependencies: ["setup"],
       retries: process.env.CI ? 2 : 1,
       use: {

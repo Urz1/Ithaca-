@@ -814,7 +814,7 @@ export function ExploreCanvas() {
 
             {/* UNIFIED TOP CONTROL RIBBON */}
             {!isMobile && hasActiveGraph && (
-              <div className="flex flex-nowrap items-center justify-between gap-1.5 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-background/90 dark:bg-[#0c0d0e]/90 px-2.5 py-1 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-2xl pointer-events-auto shrink-0 overflow-x-auto no-scrollbar max-w-fit">
+              <div className="flex flex-nowrap items-center justify-between gap-1.5 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-background/90 dark:bg-[#0c0d0e]/90 px-2.5 py-1 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-2xl pointer-events-auto shrink-0 overflow-visible max-w-fit">
                 {/* Scope & Filters */}
                 <div className="flex items-center gap-1.5 shrink-0">
                   <GlobalFilters

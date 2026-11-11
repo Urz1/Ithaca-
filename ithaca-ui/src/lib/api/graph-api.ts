@@ -213,19 +213,7 @@ export const graphAPI = {
     const hiddenNodes = new Set<string>();
     const hiddenEdges = new Set<string>();
 
-    graph.forEachEdge((edge, attrs) => {
-      const edgeType = attrs.edgeType as string;
-      if (
-        (edgeType === "supports" && !filters.relationships.supports) ||
-        (edgeType === "contradicts" && !filters.relationships.contradicts) ||
-        (edgeType === "extends" && !filters.relationships.extends) ||
-        ((edgeType === "cites" || edgeType === "unknown") &&
-          !filters.relationships.cites)
-      ) {
-        hiddenEdges.add(edge);
-      }
-    });
-
+    // 1. Filter nodes by metric ranges (citations, year)
     graph.forEachNode((node, attrs) => {
       const citations = (attrs.citations as number) || 0;
       const year = (attrs.year as number) || 2024;
@@ -237,6 +225,25 @@ export const graphAPI = {
         year > filters.yearRange[1]
       ) {
         hiddenNodes.add(node);
+      }
+    });
+
+    // 2. Filter edges by relationship toggles OR connected to hidden nodes
+    graph.forEachEdge((edge, attrs, source, target) => {
+      if (hiddenNodes.has(source) || hiddenNodes.has(target)) {
+        hiddenEdges.add(edge);
+        return;
+      }
+
+      const edgeType = attrs.edgeType as string;
+      if (
+        (edgeType === "supports" && !filters.relationships.supports) ||
+        (edgeType === "contradicts" && !filters.relationships.contradicts) ||
+        (edgeType === "extends" && !filters.relationships.extends) ||
+        ((edgeType === "cites" || edgeType === "unknown") &&
+          !filters.relationships.cites)
+      ) {
+        hiddenEdges.add(edge);
       }
     });
 

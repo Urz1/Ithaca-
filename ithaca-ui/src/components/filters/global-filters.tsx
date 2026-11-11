@@ -16,6 +16,7 @@ import {
   EyeOff,
 } from "lucide-react";
 import { FILTERS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 // Filter state interface
 export interface FilterState {
@@ -157,9 +158,45 @@ export function GlobalFilters({
     [filters, onFiltersChange],
   );
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close popover on outside click
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        onToggle();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open, onToggle]);
+
   const resetFilters = useCallback(() => {
-    onFiltersChange(DEFAULT_FILTERS);
-  }, [onFiltersChange]);
+    onFiltersChange({
+      relationships: {
+        supports: true,
+        contradicts: true,
+        extends: true,
+        cites: true,
+      },
+      citationRange: [FILTERS.MIN_CITATIONS, maxCitations],
+      yearRange: [minYear, maxYear],
+    });
+  }, [maxCitations, minYear, maxYear, onFiltersChange]);
+
+  // Dynamic bounds & step safety
+  const effectiveMinYear = Math.min(minYear, localYearRange[0]);
+  const effectiveMaxYear = Math.max(maxYear, localYearRange[1]);
+  const effectiveMaxCitations = Math.max(
+    maxCitations,
+    localCitationRange[1],
+    100,
+  );
+  const citationStep = Math.max(1, Math.round(effectiveMaxCitations / 100));
 
   // Count active filters
   const activeFilterCount =
@@ -173,158 +210,183 @@ export function GlobalFilters({
       : 0) +
     (filters.yearRange[0] > minYear || filters.yearRange[1] < maxYear ? 1 : 0);
 
-  if (!open) {
-    return (
+  return (
+    <div ref={containerRef} className="relative inline-flex items-center">
       <button
         onClick={onToggle}
-        className="h-7.5 px-2.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-muted/40 dark:bg-zinc-900/40 hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-foreground flex items-center gap-1.5 text-xs font-semibold shadow-2xs backdrop-blur-md transition-colors"
+        className={cn(
+          "h-7.5 px-2.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] flex items-center gap-1.5 text-xs font-semibold shadow-2xs backdrop-blur-md transition-all cursor-pointer",
+          open
+            ? "bg-foreground text-background border-foreground shadow-sm"
+            : "bg-muted/40 dark:bg-zinc-900/40 hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-foreground",
+        )}
+        data-testid="global-filters-button"
+        data-tour="global-filters"
+        aria-expanded={open}
       >
         <SlidersHorizontal className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Filters</span>
         {activeFilterCount > 0 && (
-          <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
+          <Badge
+            variant={open ? "outline" : "secondary"}
+            className={cn(
+              "text-[10px] px-1 py-0 h-4 font-mono",
+              open
+                ? "border-background/30 text-background"
+                : "bg-primary/15 text-primary",
+            )}
+          >
             {activeFilterCount}
           </Badge>
         )}
       </button>
-    );
-  }
 
-  return (
-    <div className="bg-card/95 border-border animate-in slide-in-from-left-2 fade-in w-72 max-w-[calc(100vw-32px)] overflow-hidden rounded-xl border shadow-2xl backdrop-blur duration-200">
-      {/* Header */}
-      <div className="border-border bg-muted/30 flex items-center justify-between border-b p-4">
-        <div>
-          <h3 className="text-sm font-bold">Global Filters</h3>
-          <p className="text-muted-foreground text-xs">
-            Configure graph visibility
-          </p>
-        </div>
-        <button
-          onClick={onToggle}
-          className="hover:bg-muted rounded p-1 transition-colors"
+      {open && (
+        <div
+          className="absolute top-[calc(100%+8px)] left-0 z-50 w-76 max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-black/[0.1] dark:border-white/[0.12] bg-background/95 dark:bg-[#0c0d0e]/95 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl animate-in fade-in-0 zoom-in-95 duration-150"
+          data-testid="global-filters-popover"
         >
-          <X className="text-muted-foreground h-4 w-4" />
-        </button>
-      </div>
-
-      <div className="space-y-6 p-4">
-        {/* Relationship Types */}
-        <div>
-          <h4 className="text-muted-foreground mb-3 text-[10px] font-bold tracking-wider uppercase">
-            Relationship Types
-          </h4>
-          <div className="space-y-2">
-            <FilterToggle
-              icon={CheckCircle}
-              label="Supports"
-              color="text-supports"
-              checked={filters.relationships.supports}
-              onCheckedChange={() => handleRelationshipToggle("supports")}
-            />
-            <FilterToggle
-              icon={XCircle}
-              label="Refutes"
-              color="text-contradicts"
-              checked={filters.relationships.contradicts}
-              onCheckedChange={() => handleRelationshipToggle("contradicts")}
-            />
-            <FilterToggle
-              icon={ArrowRightCircle}
-              label="Extends"
-              color="text-extends"
-              checked={filters.relationships.extends}
-              onCheckedChange={() => handleRelationshipToggle("extends")}
-            />
-            <FilterToggle
-              icon={Link2}
-              label="Cites"
-              color="text-muted-foreground"
-              checked={filters.relationships.cites}
-              onCheckedChange={() => handleRelationshipToggle("cites")}
-            />
+          {/* Header */}
+          <div className="border-b border-border/60 bg-muted/20 px-3.5 py-2.5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="p-1 rounded-md bg-primary/10 text-primary">
+                <SlidersHorizontal className="h-3.5 w-3.5" />
+              </div>
+              <div>
+                <h3 className="text-xs font-bold leading-tight">Graph Filters</h3>
+                <p className="text-[10px] text-muted-foreground leading-tight">
+                  Visibility & dialectic signals
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={onToggle}
+              className="hover:bg-muted/80 rounded-md p-1 transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
+              aria-label="Close filters"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
           </div>
 
-          {/* Hidden edges indicator */}
-          {hiddenEdgeCount > 0 && (
-            <p className="text-muted-foreground mt-2 flex items-center gap-1 text-xs">
-              <EyeOff className="h-3 w-3" />
-              Hiding {hiddenEdgeCount} edges
-            </p>
-          )}
-        </div>
-
-        {/* Node Metrics */}
-        <div>
-          <h4 className="text-muted-foreground mb-3 text-[10px] font-bold tracking-wider uppercase">
-            Node Metrics
-          </h4>
-          <div className="space-y-4">
-            {/* Citation Count */}
+          <div className="space-y-4 p-3.5 max-h-[calc(100vh-220px)] overflow-y-auto no-scrollbar">
+            {/* Relationship Types */}
             <div>
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-xs font-medium">Citation Count</span>
-                <span className="text-muted-foreground font-mono text-xs">
-                  {localCitationRange[0]}–{localCitationRange[1]}
-                </span>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
+                  Relationship Types
+                </h4>
+                {hiddenEdgeCount > 0 && (
+                  <span className="text-[10px] text-amber-500 font-medium flex items-center gap-1">
+                    <EyeOff className="h-2.5 w-2.5" />
+                    Hiding {hiddenEdgeCount}
+                  </span>
+                )}
               </div>
-              <Slider
-                value={[localCitationRange[0], localCitationRange[1]]}
-                onValueChange={handleCitationChange}
-                onValueCommit={handleCitationCommit}
-                min={FILTERS.MIN_CITATIONS}
-                max={maxCitations}
-                step={10}
-                className="w-full"
-              />
+              <div className="space-y-1.5">
+                <FilterToggle
+                  icon={CheckCircle}
+                  label="Supports"
+                  color="text-emerald-500"
+                  checked={filters.relationships.supports}
+                  onCheckedChange={() => handleRelationshipToggle("supports")}
+                />
+                <FilterToggle
+                  icon={XCircle}
+                  label="Refutes"
+                  color="text-rose-500"
+                  checked={filters.relationships.contradicts}
+                  onCheckedChange={() => handleRelationshipToggle("contradicts")}
+                />
+                <FilterToggle
+                  icon={ArrowRightCircle}
+                  label="Extends"
+                  color="text-blue-500"
+                  checked={filters.relationships.extends}
+                  onCheckedChange={() => handleRelationshipToggle("extends")}
+                />
+                <FilterToggle
+                  icon={Link2}
+                  label="Cites"
+                  color="text-slate-400"
+                  checked={filters.relationships.cites}
+                  onCheckedChange={() => handleRelationshipToggle("cites")}
+                />
+              </div>
             </div>
 
-            {/* Publication Year */}
-            <div>
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-xs font-medium">Publication Year</span>
-                <span className="text-muted-foreground font-mono text-xs">
-                  {localYearRange[0]}–{localYearRange[1]}
-                </span>
+            {/* Node Metrics */}
+            <div className="border-t border-border/50 pt-3">
+              <h4 className="text-muted-foreground mb-2.5 text-[10px] font-bold tracking-wider uppercase">
+                Node Metrics
+              </h4>
+              <div className="space-y-3.5">
+                {/* Citation Count */}
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-xs font-medium">Citation Count</span>
+                    <span className="text-muted-foreground font-mono text-[11px]">
+                      {localCitationRange[0].toLocaleString()}–{localCitationRange[1].toLocaleString()}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[localCitationRange[0], localCitationRange[1]]}
+                    onValueChange={handleCitationChange}
+                    onValueCommit={handleCitationCommit}
+                    min={FILTERS.MIN_CITATIONS}
+                    max={effectiveMaxCitations}
+                    step={citationStep}
+                    className="w-full cursor-pointer"
+                  />
+                </div>
+
+                {/* Publication Year */}
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-xs font-medium">Publication Year</span>
+                    <span className="text-muted-foreground font-mono text-[11px]">
+                      {localYearRange[0]}–{localYearRange[1]}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[localYearRange[0], localYearRange[1]]}
+                    onValueChange={handleYearChange}
+                    onValueCommit={handleYearCommit}
+                    min={effectiveMinYear}
+                    max={effectiveMaxYear}
+                    step={1}
+                    className="w-full cursor-pointer"
+                  />
+                </div>
               </div>
-              <Slider
-                value={[localYearRange[0], localYearRange[1]]}
-                onValueChange={handleYearChange}
-                onValueCommit={handleYearCommit}
-                min={minYear}
-                max={maxYear}
-                step={1}
-                className="w-full"
-              />
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Footer */}
-      <div className="border-border bg-muted/10 flex flex-col gap-1.5 border-t p-2.5">
-        {onOpenQueryBuilder && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onOpenQueryBuilder}
-            className="w-full justify-center gap-1.5 text-xs"
-          >
-            <SlidersHorizontal className="text-primary h-3.5 w-3.5" />
-            Advanced Relational Rules...
-          </Button>
-        )}
-        {activeFilterCount > 0 && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={resetFilters}
-            className="text-muted-foreground hover:text-foreground w-full text-xs"
-          >
-            Reset all filters
-          </Button>
-        )}
-      </div>
+          {/* Footer */}
+          <div className="border-t border-border/60 bg-muted/10 p-2 flex flex-col gap-1.5">
+            {onOpenQueryBuilder && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onOpenQueryBuilder}
+                className="w-full justify-center gap-1.5 text-xs h-7.5 rounded-lg"
+              >
+                <SlidersHorizontal className="text-primary h-3 w-3" />
+                Advanced Relational Rules...
+              </Button>
+            )}
+            {activeFilterCount > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={resetFilters}
+                className="text-muted-foreground hover:text-foreground w-full text-xs h-7 rounded-lg"
+              >
+                Reset all filters
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

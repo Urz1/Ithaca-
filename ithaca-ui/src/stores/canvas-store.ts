@@ -363,20 +363,49 @@ export const useCanvasStore = create<CanvasStoreState & CanvasStoreActions>()(
     setGraphStats: (stats) => set({ graphStats: stats }),
     setDialecticCounts: (counts) => set({ dialecticCounts: counts }),
     setDataRanges: (ranges) =>
-      set((state) => ({
-        dataRanges: ranges,
-        filters: {
-          ...state.filters,
-          yearRange: [
-            Math.min(ranges.minYear, state.filters.yearRange[0]),
-            Math.max(ranges.maxYear, state.filters.yearRange[1]),
-          ],
-          citationRange: [
-            state.filters.citationRange[0],
-            Math.max(ranges.maxCitations, state.filters.citationRange[1]),
-          ],
-        },
-      })),
+      set((state) => {
+        const isDefaultYear =
+          state.filters.yearRange[0] <= FILTERS.MIN_YEAR &&
+          state.filters.yearRange[1] >= FILTERS.MAX_YEAR;
+        const isDefaultCitation =
+          state.filters.citationRange[0] === FILTERS.MIN_CITATIONS &&
+          state.filters.citationRange[1] <= FILTERS.DEFAULT_MAX_CITATIONS;
+
+        const nextYearRange: [number, number] = isDefaultYear
+          ? [ranges.minYear, ranges.maxYear]
+          : [
+              Math.max(
+                ranges.minYear,
+                Math.min(ranges.maxYear, state.filters.yearRange[0]),
+              ),
+              Math.min(
+                ranges.maxYear,
+                Math.max(ranges.minYear, state.filters.yearRange[1]),
+              ),
+            ];
+
+        const nextCitationRange: [number, number] = isDefaultCitation
+          ? [FILTERS.MIN_CITATIONS, ranges.maxCitations]
+          : [
+              Math.max(
+                FILTERS.MIN_CITATIONS,
+                Math.min(ranges.maxCitations, state.filters.citationRange[0]),
+              ),
+              Math.min(
+                ranges.maxCitations,
+                Math.max(FILTERS.MIN_CITATIONS, state.filters.citationRange[1]),
+              ),
+            ];
+
+        return {
+          dataRanges: ranges,
+          filters: {
+            ...state.filters,
+            yearRange: nextYearRange,
+            citationRange: nextCitationRange,
+          },
+        };
+      }),
     setFilterStats: (stats) => set({ filterStats: stats }),
     setFilters: (filters) => set({ filters }),
     setPaperCount: (count) => set({ paperCount: count }),
