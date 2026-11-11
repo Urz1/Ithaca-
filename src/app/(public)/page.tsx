@@ -25,6 +25,8 @@ import {
   Check,
   X,
   Lock,
+  Layers,
+  LayoutGrid,
 } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { GraphConstellation } from "@/components/visual/graph-constellation";
@@ -132,6 +134,9 @@ export default function Home() {
 
   const [showSignIn, setShowSignIn] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [activeLayer, setActiveLayer] = useState<"supports" | "contradicts" | "extends">("supports");
+  const [taxonomyView, setTaxonomyView] = useState<"stack" | "grid">("stack");
+  const [isHoveredStack, setIsHoveredStack] = useState(false);
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
@@ -410,10 +415,10 @@ export default function Home() {
               </div>
             </Reveal>
 
-            {/* Unified Epistemic Dialectic Console */}
+            {/* Unified Epistemic Dialectic Console with 3D Stack */}
             <Reveal delay={0.1}>
               <div className="rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/85 dark:bg-[#0c0d12]/90 shadow-2xl backdrop-blur-2xl overflow-hidden">
-                {/* Console Status Bar */}
+                {/* Console Status & View Switcher Bar */}
                 <div className="border-b border-border/60 dark:border-white/[0.06] bg-muted/30 dark:bg-white/[0.02] px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1.5">
@@ -423,201 +428,508 @@ export default function Home() {
                     </div>
                     <span className="h-3.5 w-px bg-border/80 dark:bg-white/10 hidden sm:block" />
                     <span className="font-mono text-[11px] font-medium tracking-wider text-muted-foreground uppercase">
-                      Epistemic Stance Classifier · Triple-Stance Schema
+                      Epistemic Stance Classifier · 3D Triple-Stance Architecture
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-[11px] font-mono text-muted-foreground">
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      Supports
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
-                      Contradicts
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                      Extends
-                    </span>
-                  </div>
-                </div>
 
-                {/* 3 Channels Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60 dark:divide-white/[0.06]">
-                  {/* Supports Channel */}
-                  <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-[11px] font-bold tracking-widest text-emerald-500 dark:text-emerald-400 uppercase">
-                          Empirical Consensus
-                        </span>
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
-                          Weight 1.0
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-emerald-500/25 bg-emerald-500/10 text-emerald-400 shadow-xs">
-                          <Check className="h-4 w-4 stroke-[2.5]" />
-                        </div>
-                        <h3 className="text-xl font-bold tracking-tight text-foreground">
-                          Supports
-                        </h3>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm leading-relaxed font-normal">
-                        Papers providing confirming empirical evidence, replicated
-                        findings, or theoretical validation of a preceding hypothesis.
-                      </p>
-                    </div>
-
-                    {/* Edge Connection Inspector */}
-                    <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
-                      <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
-                        <span className="font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                  {/* View Mode & Layer Controls */}
+                  <div className="flex items-center gap-2">
+                    {/* Layer Selector (shown in stack mode) */}
+                    {taxonomyView === "stack" && (
+                      <div className="flex items-center gap-1 bg-muted/60 dark:bg-white/[0.04] p-1 rounded-xl border border-border/60 dark:border-white/[0.06] text-[11px] font-mono">
+                        <button
+                          type="button"
+                          onClick={() => setActiveLayer("supports")}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all ${
+                            activeLayer === "supports"
+                              ? "bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30 shadow-xs"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
                           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                          Validated Edge · Supports
-                        </span>
-                        <span className="text-emerald-500/80 font-medium">98.4% Conf</span>
-                      </div>
-
-                      <div className="flex items-center gap-2 text-xs font-mono">
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Przybylski 2019
-                        </span>
-                        <span className="text-emerald-400 font-bold">→</span>
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Orben 2019
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-emerald-500/40 pl-3">
-                        “Confirms minimal negative effect size across independent cohorts.”
-                      </p>
-
-                      <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
-                        <span>Nat Hum Behav</span>
-                        <span className="text-muted-foreground/60">Independent Cohort</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Contradicts Channel */}
-                  <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-[11px] font-bold tracking-widest text-rose-500 dark:text-rose-400 uppercase">
-                          Methodological Dispute
-                        </span>
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400">
-                          Inverse Edge
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-rose-500/25 bg-rose-500/10 text-rose-400 shadow-xs">
-                          <AlertTriangle className="h-4 w-4" />
-                        </div>
-                        <h3 className="text-xl font-bold tracking-tight text-foreground">
-                          Contradicts
-                        </h3>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm leading-relaxed font-normal">
-                        Papers challenging prior findings, presenting conflicting
-                        measurements, or pinpointing methodological flaws in prior studies.
-                      </p>
-                    </div>
-
-                    {/* Edge Connection Inspector */}
-                    <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
-                      <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
-                        <span className="font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+                          Supports
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveLayer("contradicts")}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all ${
+                            activeLayer === "contradicts"
+                              ? "bg-rose-500/15 text-rose-400 font-semibold border border-rose-500/30 shadow-xs"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
                           <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
-                          Inverse Edge · Contradicts
-                        </span>
-                        <span className="text-rose-500/80 font-medium">Replication Drift</span>
-                      </div>
-
-                      <div className="flex items-center gap-2 text-xs font-mono">
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Przybylski 2019
-                        </span>
-                        <span className="text-rose-400 font-bold">→</span>
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Twenge 2018
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-rose-500/40 pl-3">
-                        “Methodological dispute over specification curve analysis.”
-                      </p>
-
-                      <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
-                        <span>Psychol Sci</span>
-                        <span className="text-muted-foreground/60">Dispute Note</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Extends Channel */}
-                  <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-[11px] font-bold tracking-widest text-sky-500 dark:text-sky-400 uppercase">
-                          Theoretical Expansion
-                        </span>
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400">
-                          Synthesis
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/10 text-sky-400 shadow-xs">
-                          <GitFork className="h-4 w-4" />
-                        </div>
-                        <h3 className="text-xl font-bold tracking-tight text-foreground">
-                          Extends
-                        </h3>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm leading-relaxed font-normal">
-                        Papers generalizing previous models, expanding experimental
-                        paradigms to new domains, or building on foundational protocols.
-                      </p>
-                    </div>
-
-                    {/* Edge Connection Inspector */}
-                    <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
-                      <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
-                        <span className="font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                          Contradicts
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveLayer("extends")}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all ${
+                            activeLayer === "extends"
+                              ? "bg-sky-500/15 text-sky-400 font-semibold border border-sky-500/30 shadow-xs"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
                           <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                          Theoretical Edge · Extends
-                        </span>
-                        <span className="text-sky-500/80 font-medium">Emergent Abilities</span>
+                          Extends
+                        </button>
                       </div>
+                    )}
 
-                      <div className="flex items-center gap-2 text-xs font-mono">
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Schaeffer 2023
-                        </span>
-                        <span className="text-sky-400 font-bold">→</span>
-                        <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
-                          Wei 2022
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-sky-500/40 pl-3">
-                        “Re-evaluates scaling laws with continuous metric resolutions.”
-                      </p>
-
-                      <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
-                        <span>NeurIPS 2023</span>
-                        <span className="text-muted-foreground/60">Metric Resolution</span>
-                      </div>
+                    {/* Mode Toggle */}
+                    <div className="flex items-center gap-1 bg-muted/60 dark:bg-white/[0.04] p-1 rounded-xl border border-border/60 dark:border-white/[0.06] text-[11px] font-mono">
+                      <button
+                        type="button"
+                        onClick={() => setTaxonomyView("stack")}
+                        className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition-all ${
+                          taxonomyView === "stack"
+                            ? "bg-foreground text-background font-semibold shadow-xs"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                        title="3D Layer Stack"
+                      >
+                        <Layers className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">3D Stack</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setTaxonomyView("grid")}
+                        className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition-all ${
+                          taxonomyView === "grid"
+                            ? "bg-foreground text-background font-semibold shadow-xs"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                        title="Panorama View"
+                      >
+                        <LayoutGrid className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">Panorama</span>
+                      </button>
                     </div>
                   </div>
                 </div>
+
+                {/* VIEW 1: 3D LAYERED STACK */}
+                {taxonomyView === "stack" ? (
+                  <div
+                    className="relative min-h-[500px] sm:min-h-[520px] p-6 sm:p-12 flex items-center justify-center overflow-hidden [perspective:1400px]"
+                    onMouseEnter={() => setIsHoveredStack(true)}
+                    onMouseLeave={() => setIsHoveredStack(false)}
+                  >
+                    {/* Atmospheric Glow */}
+                    <div
+                      aria-hidden
+                      className={`pointer-events-none absolute h-72 w-96 rounded-full blur-3xl opacity-20 transition-all duration-700 ${
+                        activeLayer === "supports"
+                          ? "bg-emerald-500"
+                          : activeLayer === "contradicts"
+                            ? "bg-rose-500"
+                            : "bg-sky-500"
+                      }`}
+                    />
+
+                    {/* Layer 1: Supports */}
+                    <div
+                      onClick={() => setActiveLayer("supports")}
+                      className={`absolute w-full max-w-xl rounded-2xl border p-6 sm:p-8 backdrop-blur-2xl transition-all duration-500 ease-out cursor-pointer select-none ${
+                        activeLayer === "supports"
+                          ? "z-30 translate-x-0 translate-y-0 scale-100 opacity-100 bg-card/95 dark:bg-[#11131a]/95 border-emerald-500/40 shadow-2xl shadow-emerald-500/10 [transform:rotateX(2deg)_rotateY(-1deg)]"
+                          : activeLayer === "contradicts"
+                            ? `z-10 ${
+                                isHoveredStack
+                                  ? "-translate-x-6 sm:-translate-x-12 translate-y-12 sm:translate-y-16"
+                                  : "-translate-x-4 sm:-translate-x-8 translate-y-8 sm:translate-y-12"
+                              } scale-[0.92] opacity-70 bg-card/70 dark:bg-[#0c0d12]/80 border-border/80 dark:border-white/[0.08] shadow-lg [transform:rotateX(4deg)_rotateY(-2deg)]`
+                            : `z-20 ${
+                                isHoveredStack
+                                  ? "translate-x-6 sm:translate-x-10 translate-y-8 sm:translate-y-10"
+                                  : "translate-x-3 sm:translate-x-6 translate-y-6 sm:translate-y-8"
+                              } scale-[0.96] opacity-85 bg-card/85 dark:bg-[#0f1117]/90 border-emerald-500/25 shadow-xl [transform:rotateX(3deg)_rotateY(-1.5deg)]`
+                      }`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-emerald-500 dark:text-emerald-400 uppercase">
+                            Empirical Consensus
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                            Layer 1 · Weight 1.0
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-emerald-500/25 bg-emerald-500/10 text-emerald-400 shadow-xs">
+                            <Check className="h-4 w-4 stroke-[2.5]" />
+                          </div>
+                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                            Supports
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed font-normal">
+                          Papers providing confirming empirical evidence, replicated
+                          findings, or theoretical validation of a preceding hypothesis.
+                        </p>
+
+                        {/* Edge Connection Inspector */}
+                        <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/60 p-4 space-y-3 shadow-inner">
+                          <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                            <span className="font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                              Validated Edge · Supports
+                            </span>
+                            <span className="text-emerald-500/80 font-medium">98.4% Conf</span>
+                          </div>
+
+                          <div className="flex items-center gap-2 text-xs font-mono">
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Przybylski 2019
+                            </span>
+                            <span className="text-emerald-400 font-bold">→</span>
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Orben 2019
+                            </span>
+                          </div>
+
+                          <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-emerald-500/40 pl-3">
+                            “Confirms minimal negative effect size across independent cohorts.”
+                          </p>
+
+                          <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                            <span>Nat Hum Behav</span>
+                            <span className="text-muted-foreground/60">Independent Cohort</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Layer 2: Contradicts */}
+                    <div
+                      onClick={() => setActiveLayer("contradicts")}
+                      className={`absolute w-full max-w-xl rounded-2xl border p-6 sm:p-8 backdrop-blur-2xl transition-all duration-500 ease-out cursor-pointer select-none ${
+                        activeLayer === "contradicts"
+                          ? "z-30 translate-x-0 translate-y-0 scale-100 opacity-100 bg-card/95 dark:bg-[#11131a]/95 border-rose-500/40 shadow-2xl shadow-rose-500/10 [transform:rotateX(2deg)_rotateY(-1deg)]"
+                          : activeLayer === "supports"
+                            ? `z-20 ${
+                                isHoveredStack
+                                  ? "translate-x-6 sm:translate-x-10 translate-y-8 sm:translate-y-10"
+                                  : "translate-x-3 sm:translate-x-6 translate-y-6 sm:translate-y-8"
+                              } scale-[0.96] opacity-85 bg-card/85 dark:bg-[#0f1117]/90 border-rose-500/25 shadow-xl [transform:rotateX(3deg)_rotateY(-1.5deg)]`
+                            : `z-10 ${
+                                isHoveredStack
+                                  ? "-translate-x-6 sm:-translate-x-12 translate-y-12 sm:translate-y-16"
+                                  : "-translate-x-4 sm:-translate-x-8 translate-y-8 sm:translate-y-12"
+                              } scale-[0.92] opacity-70 bg-card/70 dark:bg-[#0c0d12]/80 border-border/80 dark:border-white/[0.08] shadow-lg [transform:rotateX(4deg)_rotateY(-2deg)]`
+                      }`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-rose-500 dark:text-rose-400 uppercase">
+                            Methodological Dispute
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400">
+                            Layer 2 · Inverse Edge
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-rose-500/25 bg-rose-500/10 text-rose-400 shadow-xs">
+                            <AlertTriangle className="h-4 w-4" />
+                          </div>
+                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                            Contradicts
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed font-normal">
+                          Papers challenging prior findings, presenting conflicting
+                          measurements, or pinpointing methodological flaws in prior studies.
+                        </p>
+
+                        {/* Edge Connection Inspector */}
+                        <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/60 p-4 space-y-3 shadow-inner">
+                          <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                            <span className="font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
+                              Inverse Edge · Contradicts
+                            </span>
+                            <span className="text-rose-500/80 font-medium">Replication Drift</span>
+                          </div>
+
+                          <div className="flex items-center gap-2 text-xs font-mono">
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Przybylski 2019
+                            </span>
+                            <span className="text-rose-400 font-bold">→</span>
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Twenge 2018
+                            </span>
+                          </div>
+
+                          <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-rose-500/40 pl-3">
+                            “Methodological dispute over specification curve analysis.”
+                          </p>
+
+                          <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                            <span>Psychol Sci</span>
+                            <span className="text-muted-foreground/60">Dispute Note</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Layer 3: Extends */}
+                    <div
+                      onClick={() => setActiveLayer("extends")}
+                      className={`absolute w-full max-w-xl rounded-2xl border p-6 sm:p-8 backdrop-blur-2xl transition-all duration-500 ease-out cursor-pointer select-none ${
+                        activeLayer === "extends"
+                          ? "z-30 translate-x-0 translate-y-0 scale-100 opacity-100 bg-card/95 dark:bg-[#11131a]/95 border-sky-500/40 shadow-2xl shadow-sky-500/10 [transform:rotateX(2deg)_rotateY(-1deg)]"
+                          : activeLayer === "supports"
+                            ? `z-10 ${
+                                isHoveredStack
+                                  ? "translate-x-8 sm:translate-x-16 translate-y-12 sm:translate-y-16"
+                                  : "translate-x-6 sm:translate-x-12 translate-y-12 sm:translate-y-16"
+                              } scale-[0.92] opacity-70 bg-card/70 dark:bg-[#0c0d12]/80 border-border/80 dark:border-white/[0.08] shadow-lg [transform:rotateX(4deg)_rotateY(-2deg)]`
+                            : `z-20 ${
+                                isHoveredStack
+                                  ? "translate-x-6 sm:translate-x-10 translate-y-8 sm:translate-y-10"
+                                  : "translate-x-3 sm:translate-x-6 translate-y-6 sm:translate-y-8"
+                              } scale-[0.96] opacity-85 bg-card/85 dark:bg-[#0f1117]/90 border-sky-500/25 shadow-xl [transform:rotateX(3deg)_rotateY(-1.5deg)]`
+                      }`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-sky-500 dark:text-sky-400 uppercase">
+                            Theoretical Expansion
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400">
+                            Layer 3 · Synthesis
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/10 text-sky-400 shadow-xs">
+                            <GitFork className="h-4 w-4" />
+                          </div>
+                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                            Extends
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed font-normal">
+                          Papers generalizing previous models, expanding experimental
+                          paradigms to new domains, or building on foundational protocols.
+                        </p>
+
+                        {/* Edge Connection Inspector */}
+                        <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/60 p-4 space-y-3 shadow-inner">
+                          <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                            <span className="font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                              Theoretical Edge · Extends
+                            </span>
+                            <span className="text-sky-500/80 font-medium">Emergent Abilities</span>
+                          </div>
+
+                          <div className="flex items-center gap-2 text-xs font-mono">
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Schaeffer 2023
+                            </span>
+                            <span className="text-sky-400 font-bold">→</span>
+                            <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                              Wei 2022
+                            </span>
+                          </div>
+
+                          <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-sky-500/40 pl-3">
+                            “Re-evaluates scaling laws with continuous metric resolutions.”
+                          </p>
+
+                          <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                            <span>NeurIPS 2023</span>
+                            <span className="text-muted-foreground/60">Metric Resolution</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* VIEW 2: PANORAMA (3 COLUMNS DIVIDED) */
+                  <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60 dark:divide-white/[0.06]">
+                    {/* Supports Channel */}
+                    <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-emerald-500 dark:text-emerald-400 uppercase">
+                            Empirical Consensus
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                            Weight 1.0
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-emerald-500/25 bg-emerald-500/10 text-emerald-400 shadow-xs">
+                            <Check className="h-4 w-4 stroke-[2.5]" />
+                          </div>
+                          <h3 className="text-xl font-bold tracking-tight text-foreground">
+                            Supports
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm leading-relaxed font-normal">
+                          Papers providing confirming empirical evidence, replicated
+                          findings, or theoretical validation of a preceding hypothesis.
+                        </p>
+                      </div>
+
+                      {/* Edge Connection Inspector */}
+                      <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
+                        <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                          <span className="font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            Validated Edge · Supports
+                          </span>
+                          <span className="text-emerald-500/80 font-medium">98.4% Conf</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs font-mono">
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Przybylski 2019
+                          </span>
+                          <span className="text-emerald-400 font-bold">→</span>
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Orben 2019
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-emerald-500/40 pl-3">
+                          “Confirms minimal negative effect size across independent cohorts.”
+                        </p>
+
+                        <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                          <span>Nat Hum Behav</span>
+                          <span className="text-muted-foreground/60">Independent Cohort</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Contradicts Channel */}
+                    <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-rose-500 dark:text-rose-400 uppercase">
+                            Methodological Dispute
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400">
+                            Inverse Edge
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-rose-500/25 bg-rose-500/10 text-rose-400 shadow-xs">
+                            <AlertTriangle className="h-4 w-4" />
+                          </div>
+                          <h3 className="text-xl font-bold tracking-tight text-foreground">
+                            Contradicts
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm leading-relaxed font-normal">
+                          Papers challenging prior findings, presenting conflicting
+                          measurements, or pinpointing methodological flaws in prior studies.
+                        </p>
+                      </div>
+
+                      {/* Edge Connection Inspector */}
+                      <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
+                        <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                          <span className="font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
+                            Inverse Edge · Contradicts
+                          </span>
+                          <span className="text-rose-500/80 font-medium">Replication Drift</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs font-mono">
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Przybylski 2019
+                          </span>
+                          <span className="text-rose-400 font-bold">→</span>
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Twenge 2018
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-rose-500/40 pl-3">
+                          “Methodological dispute over specification curve analysis.”
+                        </p>
+
+                        <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                          <span>Psychol Sci</span>
+                          <span className="text-muted-foreground/60">Dispute Note</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Extends Channel */}
+                    <div className="p-7 sm:p-8 flex flex-col justify-between space-y-7 transition-colors hover:bg-muted/15 dark:hover:bg-white/[0.015] group">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] font-bold tracking-widest text-sky-500 dark:text-sky-400 uppercase">
+                            Theoretical Expansion
+                          </span>
+                          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400">
+                            Synthesis
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/10 text-sky-400 shadow-xs">
+                            <GitFork className="h-4 w-4" />
+                          </div>
+                          <h3 className="text-xl font-bold tracking-tight text-foreground">
+                            Extends
+                          </h3>
+                        </div>
+
+                        <p className="text-muted-foreground text-sm leading-relaxed font-normal">
+                          Papers generalizing previous models, expanding experimental
+                          paradigms to new domains, or building on foundational protocols.
+                        </p>
+                      </div>
+
+                      {/* Edge Connection Inspector */}
+                      <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-muted/40 dark:bg-black/50 p-4 space-y-3 shadow-inner">
+                        <div className="flex items-center justify-between border-b border-border/40 dark:border-white/[0.04] pb-2 text-[10px] font-mono">
+                          <span className="font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                            Theoretical Edge · Extends
+                          </span>
+                          <span className="text-sky-500/80 font-medium">Emergent Abilities</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs font-mono">
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Schaeffer 2023
+                          </span>
+                          <span className="text-sky-400 font-bold">→</span>
+                          <span className="font-medium text-foreground bg-background/90 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-md border border-border/60 dark:border-white/[0.08]">
+                            Wei 2022
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-sky-500/40 pl-3">
+                          “Re-evaluates scaling laws with continuous metric resolutions.”
+                        </p>
+
+                        <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-muted-foreground/80">
+                          <span>NeurIPS 2023</span>
+                          <span className="text-muted-foreground/60">Metric Resolution</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </Reveal>
           </div>
