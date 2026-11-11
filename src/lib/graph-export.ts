@@ -161,9 +161,24 @@ function isDarkTheme(): boolean {
 function triggerDownload(url: string, filename: string): void {
   if (typeof document === "undefined") return;
   const a = document.createElement("a");
+  a.style.display = "none";
   a.href = url;
   a.download = filename;
+  a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
   a.click();
+  setTimeout(() => {
+    try {
+      if (a.parentNode) {
+        document.body.removeChild(a);
+      }
+      if (url.startsWith("blob:")) {
+        URL.revokeObjectURL(url);
+      }
+    } catch {
+      // ignore cleanup errors
+    }
+  }, 2000);
 }
 
 /**
@@ -1152,9 +1167,6 @@ export async function exportAsPNG(
     // Create download
     const url = URL.createObjectURL(blob);
     triggerDownload(url, filename);
-    if (typeof URL.revokeObjectURL === "function") {
-      URL.revokeObjectURL(url);
-    }
 
     debug.graph(
       `Exported PNG: ${filename} (${quality} quality, ${Math.round(blob.size / 1024)}KB)`,
@@ -1606,9 +1618,6 @@ export async function exportAsSVG(
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     triggerDownload(url, filename);
-    if (typeof URL.revokeObjectURL === "function") {
-      URL.revokeObjectURL(url);
-    }
 
     debug.graph(`Exported SVG: ${filename}`);
     return url;
@@ -1694,9 +1703,6 @@ export async function exportAsGraphML(
     const blob = new Blob([graphml], { type: "application/xml" });
     const url = URL.createObjectURL(blob);
     triggerDownload(url, filename);
-    if (typeof URL.revokeObjectURL === "function") {
-      URL.revokeObjectURL(url);
-    }
 
     debug.graph(`Exported GraphML: ${filename}`);
     return url;
@@ -1736,9 +1742,6 @@ export async function exportAsJSON(
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     triggerDownload(url, filename);
-    if (typeof URL.revokeObjectURL === "function") {
-      URL.revokeObjectURL(url);
-    }
 
     debug.graph(`Exported JSON: ${filename}`);
     return url;
@@ -1927,9 +1930,6 @@ export async function exportAsDebateReport(
   const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   triggerDownload(url, filename);
-  if (typeof URL.revokeObjectURL === "function") {
-    URL.revokeObjectURL(url);
-  }
   debug.graph(`Exported Debate Report: ${filename}`);
   return url;
 }

@@ -21,6 +21,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import type Graph from "graphology";
+import { downloadBlob } from "@/lib/download";
 import {
   generateDebateMatrix,
   generateDebateMatrixFromGraph,
@@ -122,15 +123,7 @@ export function DebateMatrixDialog({
     const ext = type === "csv" ? "csv" : "tex";
     const filename = `debate-matrix-${(topic || "export").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.${ext}`;
 
-    const blob = new Blob([content], { type: mime });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadBlob(content, filename, mime);
 
     showToastMessage(`Downloaded ${filename}`);
   };

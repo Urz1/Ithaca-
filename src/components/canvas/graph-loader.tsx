@@ -11,6 +11,7 @@ import { useEdgeFlowAnimation } from "@/hooks/useEdgeFlowAnimation";
 import { useGraphSession } from "@/hooks/use-graph-session";
 import { generateBibTeX } from "@/lib/formats/bibtex";
 import { debug } from "@/lib/debug";
+import { downloadBlob } from "@/lib/download";
 import { findSemanticPath } from "@/lib/graph-algorithms";
 import {
   GRAPH,
@@ -1184,16 +1185,11 @@ export const GraphLoader = memo(function GraphLoader({
               .join("\n");
         }
 
-        const encodedUri = encodeURI(`data:${mimeType},${content}`);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute(
-          "download",
-          `selection_export_${new Date().getTime()}.${extension}`,
+        downloadBlob(
+          content,
+          `selection_export_${Date.now()}.${extension}`,
+          mimeType,
         );
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
       },
 
       findPaths: (

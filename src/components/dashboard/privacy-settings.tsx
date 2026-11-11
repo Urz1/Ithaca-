@@ -9,6 +9,7 @@ import {
   exportAccountData,
 } from "@/app/(app)/dashboard/privacy-actions";
 import { signOut } from "@/lib/auth-client";
+import { downloadBlob } from "@/lib/download";
 
 export function PrivacySettings() {
   const [error, setError] = useState<string | null>(null);
@@ -22,15 +23,11 @@ export function PrivacySettings() {
     setMessage(null);
     try {
       const bundle = await exportAccountData();
-      const blob = new Blob([JSON.stringify(bundle, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.href = url;
-      anchor.download = `ithaca-data-export-${new Date().toISOString().slice(0, 10)}.json`;
-      anchor.click();
-      URL.revokeObjectURL(url);
+      downloadBlob(
+        JSON.stringify(bundle, null, 2),
+        `ithaca-data-export-${new Date().toISOString().slice(0, 10)}.json`,
+        "application/json",
+      );
       setMessage("Your data export download started.");
     } catch (exportError) {
       setError(

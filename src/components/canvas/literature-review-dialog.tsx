@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import type Graph from "graphology";
+import { downloadBlob } from "@/lib/download";
 import {
   Dialog,
   DialogContent,
@@ -192,17 +193,11 @@ export function LiteratureReviewDialog({
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")}.md`;
 
-    const blob = new Blob([review.fullMarkdown], {
-      type: "text/markdown;charset=utf-8;",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadBlob(
+      review.fullMarkdown,
+      filename,
+      "text/markdown;charset=utf-8;",
+    );
 
     showToastMessage(`Downloaded ${filename}`);
   }, [review, showToastMessage]);

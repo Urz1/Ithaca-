@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { exportOrganizationAuditLog } from "@/app/(app)/admin/actions";
+import { downloadBlob } from "@/lib/download";
 
 export function AuditExportButton() {
   const [isExporting, setIsExporting] = useState(false);
@@ -18,15 +19,11 @@ export function AuditExportButton() {
         setIsExporting(true);
         try {
           const bundle = await exportOrganizationAuditLog();
-          const blob = new Blob([JSON.stringify(bundle, null, 2)], {
-            type: "application/json",
-          });
-          const url = URL.createObjectURL(blob);
-          const anchor = document.createElement("a");
-          anchor.href = url;
-          anchor.download = `ithaca-audit-export-${new Date().toISOString().slice(0, 10)}.json`;
-          anchor.click();
-          URL.revokeObjectURL(url);
+          downloadBlob(
+            JSON.stringify(bundle, null, 2),
+            `ithaca-audit-export-${new Date().toISOString().slice(0, 10)}.json`,
+            "application/json",
+          );
         } finally {
           setIsExporting(false);
         }

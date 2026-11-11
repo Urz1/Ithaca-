@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 
 import { SovereignBadge } from "@/components/canvas/sovereign-badge";
+import { downloadBlob } from "@/lib/download";
 
 // Paper data interface
 export interface PaperData {
@@ -515,13 +516,7 @@ export const PaperInspector = memo(function PaperInspector({
                 className="gap-2"
                 onClick={() => {
                   const bibtex = `@article{${paper.id.replace("#", "")},\n  title={${paper.title}},\n  author={${paper.authors}},\n  year={${paper.year}},\n  ${paper.venue ? `journal={${paper.venue}},` : ""}\n  ${paper.doi ? `doi={${paper.doi}},` : ""}\n}`;
-                  const blob = new Blob([bibtex], { type: "text/plain" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `${paper.id}.bib`;
-                  a.click();
-                  URL.revokeObjectURL(url);
+                  downloadBlob(bibtex, `${paper.id.replace("#", "")}.bib`, "text/plain;charset=utf-8");
                 }}
               >
                 <Download className="h-4 w-4" />
