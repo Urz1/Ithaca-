@@ -29,12 +29,24 @@ export function NavAuthButtons() {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Button asChild variant="outline" size="sm">
+    <div className="flex items-center gap-1.5 sm:gap-2">
+      <Button
+        asChild
+        variant="ghost"
+        size="sm"
+        className="rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
         <Link href="/signin">Sign In</Link>
       </Button>
-      <Button asChild size="sm">
-        <Link href="/signup">Get Started</Link>
+      <Button
+        asChild
+        size="sm"
+        className="gap-1.5 rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold text-background shadow-xs transition-all hover:bg-foreground/90 active:scale-95"
+      >
+        <Link href="/signup">
+          <span>Get Started</span>
+          <span className="text-[10px] opacity-70">→</span>
+        </Link>
       </Button>
     </div>
   );

@@ -61,16 +61,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <Link href="/explore" className="hidden sm:inline-flex">
-              <Button
-                size="sm"
-                className="gap-1.5 rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold text-background shadow-xs transition-all hover:bg-foreground/90 active:scale-95"
-              >
-                <span>Launch Canvas</span>
-                <span className="text-[10px] opacity-70">→</span>
-              </Button>
-            </Link>
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden md:block">
               <NavAuthButtons />
             </div>
