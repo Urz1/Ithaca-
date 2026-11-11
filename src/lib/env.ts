@@ -1,17 +1,35 @@
 import { z } from "zod";
 
-const envSchema = z.object({
-  // Database
-  DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
+const getFallbackUrl = () => {
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
+};
 
-  // Better Auth
+const envSchema = z.object({
+  // Database - with fallback placeholder for build-time static page collection
+  DATABASE_URL: z
+    .string()
+    .min(1, "DATABASE_URL is required")
+    .default("postgresql://postgres:postgres@localhost:5432/ithaca_placeholder"),
+
+  // Better Auth - with fallbacks for build-time static page collection
   BETTER_AUTH_SECRET: z
     .string()
-    .min(32, "BETTER_AUTH_SECRET must be at least 32 characters"),
-  BETTER_AUTH_URL: z.string().url("BETTER_AUTH_URL must be a valid URL"),
+    .min(32, "BETTER_AUTH_SECRET must be at least 32 characters")
+    .default("build_time_placeholder_secret_32_characters_minimum"),
+  BETTER_AUTH_URL: z
+    .string()
+    .url("BETTER_AUTH_URL must be a valid URL")
+    .default(getFallbackUrl()),
   NEXT_PUBLIC_APP_URL: z
     .string()
-    .url("NEXT_PUBLIC_APP_URL must be a valid URL"),
+    .url("NEXT_PUBLIC_APP_URL must be a valid URL")
+    .default(getFallbackUrl()),
 
   // OAuth - Google
   GOOGLE_CLIENT_ID: z.string().optional(),
@@ -62,7 +80,8 @@ function cleanEnv(raw: NodeJS.ProcessEnv) {
   for (const [key, val] of Object.entries(raw)) {
     if (typeof val === "string") {
       // Strip surrounding single or double quotes if passed by Docker env-file
-      cleaned[key] = val.trim().replace(/^["'](.*)["']$/, "$1");
+      const trimmed = val.trim().replace(/^["'](.*)["']$/, "$1").trim();
+      cleaned[key] = trimmed === "" ? undefined : trimmed;
     } else {
       cleaned[key] = val;
     }

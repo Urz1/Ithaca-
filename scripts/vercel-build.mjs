@@ -23,5 +23,5 @@ if (process.env.DATABASE_URL) {
 
 // 3. Next.js Build
 console.log("⚡ Building Next.js application...");
-execSync("next build", { stdio: "inherit" });
+execSync("npx next build", { stdio: "inherit" });
 console.log("🎉 Ithaca production build complete.\n");

@@ -87,7 +87,9 @@
     "postcss": "$postcss",
     "react": "$react",
     "react-dom": "$react-dom",
-    "sharp": "$sharp"
+    "sharp": "$sharp",
+    "prisma": "^6.2.0",
+    "@prisma/client": "^6.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
