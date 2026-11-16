@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import {
   MessageSquare,
   Send,
-  Sparkles,
+  Bot,
   X,
   Lightbulb,
   Network,
@@ -717,7 +717,7 @@ export function CanvasChatPanel({
       <div className="border-border flex shrink-0 items-center justify-between border-b bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-4 py-3">
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary shadow-sm text-primary-foreground">
-            <Sparkles className="h-4 w-4" />
+            <Bot className="h-4 w-4" />
           </div>
           <div>
             <h3 className="text-sm font-semibold tracking-tight">Graph Assistant</h3>
@@ -802,7 +802,7 @@ export function CanvasChatPanel({
               >
                 {message.role === "assistant" && (
                   <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary shadow-xs text-primary-foreground mt-1">
-                    <Sparkles className="h-3 w-3" />
+                    <Bot className="h-3 w-3" />
                   </div>
                 )}
 
@@ -855,7 +855,7 @@ export function CanvasChatPanel({
             {isStreaming && (
               <div className="flex gap-2.5 justify-start">
                 <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary shadow-xs text-primary-foreground mt-1">
-                  <Sparkles className="h-3 w-3" />
+                  <Bot className="h-3 w-3" />
                 </div>
                 <div className="max-w-[88%] rounded-2xl rounded-tl-xs px-3.5 py-2.5 bg-muted/70 dark:bg-muted/50 border border-primary/30 shadow-xs">
                   {streamedText ? (
@@ -963,7 +963,7 @@ export function ChatToggleButton({ isOpen, onClick }: ChatToggleButtonProps) {
       )}
       title="Toggle Dialectic AI Synthesis Copilot"
     >
-      <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+      <MessageSquare className="h-3.5 w-3.5 text-violet-500" />
       <span className="hidden xl:inline font-medium">Chat</span>
     </Button>
   );

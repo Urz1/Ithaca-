@@ -243,13 +243,14 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
             </div>
           )}
 
-          {/* Lab Governance & Preferences */}
+          {/* Preferences */}
           <div className="space-y-1 pt-2">
             {!collapsed && (
               <p className="text-muted-foreground/60 mb-1.5 px-2 text-[10px] font-semibold tracking-wider uppercase">
-                {canAdminister ? "Lab Management" : "Preferences"}
+                Preferences
               </p>
             )}
+            {/* Lab Administration commented out for now
             {canAdminister && (
               <Link
                 href="/admin"
@@ -272,6 +273,7 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
                 {!collapsed && <span className="truncate">Lab Administration</span>}
               </Link>
             )}
+            */}
             <Link
               href="/dashboard?tab=settings"
               className={`group relative flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-black/[0.03] dark:hover:bg-white/[0.04] border border-transparent ${
@@ -342,14 +344,17 @@ export default function CanvasLayout({ children }: CanvasLayoutProps) {
                   <span>Projects & Library</span>
                 </div>
               </div>
-            ) : isAdmin ? (
+            ) : null}
+            {/*
+            isAdmin ? (
               <div className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-muted-foreground shrink-0">
                 <div className="flex items-center gap-1.5 font-semibold text-foreground shrink-0 bg-muted/40 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] px-2.5 py-1 rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                   <Shield className="h-3.5 w-3.5 text-emerald-500" />
                   <span>Lab Administration</span>
                 </div>
               </div>
-            ) : null}
+            ) : null
+            */}
 
             {/* Global Search / Command Bar Trigger */}
             <div

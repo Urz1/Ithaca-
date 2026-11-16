@@ -11,7 +11,6 @@ import {
   Layers,
   Network,
   Search,
-  Sparkles,
   Terminal,
   Workflow,
   CheckCircle2,

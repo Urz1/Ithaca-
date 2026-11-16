@@ -10,6 +10,10 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export default async function OrganizationAdminPage() {
+  redirect("/dashboard");
+
+  /*
+  // Lab Admin page commented out for this stage
   const context = await getOrganizationContext();
   if (!context) {
     redirect("/signin?callbackUrl=%2Fadmin");
@@ -122,6 +126,7 @@ export default async function OrganizationAdminPage() {
       </Card>
     </main>
   );
+  */
 }
 
 function Metric({ label, value }: { label: string; value: number }) {

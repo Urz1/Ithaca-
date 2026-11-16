@@ -18,7 +18,7 @@ import {
   Download,
   Search,
   Swords,
-  Sparkles,
+  BookOpen,
 } from "lucide-react";
 import type Graph from "graphology";
 import { downloadBlob } from "@/lib/download";
@@ -198,7 +198,7 @@ export function DebateMatrixDialog({
                   }}
                   className="h-8 gap-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-xs text-white shadow-sm hover:from-indigo-700 hover:to-violet-700"
                 >
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <BookOpen className="h-3.5 w-3.5" />
                   <span>Synthesize Review</span>
                 </Button>
               )}

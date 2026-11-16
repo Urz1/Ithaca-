@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { CheckCircle2, Circle, Sparkles, X, ChevronRight } from "lucide-react";
+import { CheckCircle2, Circle, Compass, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface LabQuickstartProps {
@@ -81,7 +81,7 @@ export function LabQuickstart({ collapsed }: LabQuickstartProps) {
     <div className="mx-2 my-2 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md p-3 shadow-[0_1px_2px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.06)] transition-all">
       <div className="flex items-center justify-between pb-2 border-b border-black/[0.05] dark:border-white/[0.06]">
         <div className="flex items-center gap-1.5">
-          <Sparkles className="size-3.5 text-primary animate-pulse" />
+          <Compass className="size-3.5 text-primary" />
           <span className="text-xs font-semibold tracking-tight text-foreground">
             Lab Quickstart
           </span>

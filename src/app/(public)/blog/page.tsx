@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { User, Calendar, Clock, ArrowRight, Sparkles, Filter } from "lucide-react";
+import { User, Calendar, Clock, ArrowRight, BookOpen, Filter } from "lucide-react";
 import { BLOG_POSTS, BlogPost } from "@/content/blog-posts";
 import { Badge } from "@/components/ui/badge";
 
@@ -24,7 +24,7 @@ export default function BlogIndexPage() {
 
         <div className="container mx-auto px-4 max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold tracking-wide text-primary mb-6 shadow-xs">
-            <Sparkles className="h-3.5 w-3.5" />
+            <BookOpen className="h-3.5 w-3.5" />
             <span>Research & Engineering Dispatches</span>
           </div>
 

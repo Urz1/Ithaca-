@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   Download,
   ExternalLink,
-  Sparkles,
   ArrowRight,
   Shield,
   Layers,

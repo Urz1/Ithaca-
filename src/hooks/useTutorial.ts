@@ -94,7 +94,7 @@ export const CANVAS_TUTORIAL: TutorialConfig = {
       interactiveAction: {
         label: "⚡ Load 'Transformer Attention' Debate",
         description: "Loads live 42-node debate network into WebGL physics",
-        icon: "Sparkles",
+        icon: "Orbit",
         eventId: "ithaca-tour-load-debate",
         eventDetail: { topic: "How do transformers handle long context?" },
       },
@@ -148,7 +148,7 @@ export const CANVAS_TUTORIAL: TutorialConfig = {
       interactiveAction: {
         label: "💬 Open AI Literature Assistant",
         description: "Slides out dialectic synthesis drawer",
-        icon: "Sparkles",
+        icon: "MessageSquare",
         eventId: "ithaca-tour-toggle-chat",
       },
     },

@@ -51,7 +51,7 @@ export function OrganizationSwitcher({ collapsed = false }: OrganizationSwitcher
 
   const canAdminister =
     activeOrganization.role === "OWNER" || activeOrganization.role === "ADMIN";
-  const orgHref = canAdminister ? "/admin" : "/dashboard";
+  const orgHref = "/dashboard";
 
   if (collapsed) {
     return (

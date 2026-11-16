@@ -9,7 +9,7 @@ import {
   LayoutDashboard,
   Share2,
   History,
-  Sparkles,
+  Compass,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -127,7 +127,7 @@ export function UserMenu({ variant = "default" }: UserMenuProps) {
               }
             }}
           >
-            <Sparkles className="text-primary mr-2 h-4 w-4" />
+            <Compass className="text-primary mr-2 h-4 w-4" />
             Guided Tour
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
@@ -213,7 +213,7 @@ export function UserMenu({ variant = "default" }: UserMenuProps) {
             }
           }}
         >
-          <Sparkles className="text-primary mr-2 h-4 w-4" />
+          <Compass className="text-primary mr-2 h-4 w-4" />
           Guided Tour
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

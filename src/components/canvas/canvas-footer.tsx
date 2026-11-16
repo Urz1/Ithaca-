@@ -6,7 +6,7 @@ import {
   ChevronUp,
   ChevronDown,
   Keyboard,
-  Sparkles,
+  Compass,
   BookOpen,
   Activity,
 } from "lucide-react";
@@ -242,7 +242,7 @@ function TutorialButton({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5 }}
       >
-        <Sparkles className="h-3.5 w-3.5" />
+        <Compass className="h-3.5 w-3.5" />
         Tour
       </motion.button>
     );
@@ -259,7 +259,7 @@ function TutorialButton({
       )}
       title="Restart tutorial"
     >
-      <Sparkles className="h-4 w-4" />
+      <Compass className="h-4 w-4" />
     </button>
   );
 }

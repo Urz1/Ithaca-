@@ -10,7 +10,7 @@ import {
   Lock,
   AlertCircle,
   Check,
-  Sparkles,
+  Compass,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -148,7 +148,7 @@ function SignUpContent() {
         >
           <div className="mb-6 flex items-center gap-3">
             <div className="bg-primary/15 text-primary ring-primary/30 flex size-12 items-center justify-center rounded-xl ring-1">
-              <Sparkles className="size-6 animate-pulse" />
+              <Compass className="size-6 animate-pulse" />
             </div>
             <div>
               <h2 className="text-xl font-bold tracking-tight">

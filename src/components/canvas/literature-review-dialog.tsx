@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import {
-  Sparkles,
   BookOpen,
   Swords,
   Compass,
@@ -210,7 +209,7 @@ export function LiteratureReviewDialog({
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <DialogTitle className="flex items-center gap-2 text-xl font-bold">
-                <Sparkles className="h-5 w-5 text-violet-500" />
+                <BookOpen className="h-5 w-5 text-violet-500" />
                 <span>Literature Review Synthesis</span>
                 {review && (
                   <Badge
@@ -297,7 +296,7 @@ export function LiteratureReviewDialog({
             <div className="flex h-72 flex-col items-center justify-center space-y-4 p-8 text-center">
               <div className="relative">
                 <div className="h-12 w-12 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600 dark:border-violet-900" />
-                <Sparkles className="absolute inset-0 m-auto h-5 w-5 animate-pulse text-violet-500" />
+                <BookOpen className="absolute inset-0 m-auto h-5 w-5 animate-pulse text-violet-500" />
               </div>
               <div className="space-y-1">
                 <h3 className="text-foreground text-sm font-semibold">

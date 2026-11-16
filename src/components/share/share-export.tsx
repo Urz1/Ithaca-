@@ -26,7 +26,6 @@ import {
   Table,
   Eye,
   X,
-  Sparkles,
   ScrollText,
 } from "lucide-react";
 import type { ExportFormat, ExportMetadata } from "@/lib/graph-export";
@@ -578,7 +577,7 @@ export function ShareExportDialog({
                   Export Preview
                 </label>
                 <Badge variant="secondary" className="text-[10px]">
-                  <Sparkles className="mr-1 h-3 w-3" />
+                  <Check className="mr-1 h-3 w-3" />
                   Includes legend & metadata
                 </Badge>
               </div>

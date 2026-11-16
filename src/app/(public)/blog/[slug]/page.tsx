@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Clock, Share2, Sparkles, ArrowRight, BookOpen } from "lucide-react";
+import { ArrowLeft, Calendar, User, Clock, Share2, ArrowRight, BookOpen } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getBlogPost, BLOG_POSTS } from "@/content/blog-posts";
 import { Button } from "@/components/ui/button";
@@ -102,7 +102,7 @@ export default async function BlogPostPage({
         {/* Key Takeaways Callout Box */}
         <div className="mb-10 rounded-2xl border border-primary/25 bg-primary/5 p-6 backdrop-blur-md">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-primary mb-2">
-            <Sparkles className="h-4 w-4" />
+            <BookOpen className="h-4 w-4" />
             Core Synthesis
           </div>
           <p className="text-sm leading-relaxed text-foreground/90 font-sans">

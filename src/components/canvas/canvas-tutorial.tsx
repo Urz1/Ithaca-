@@ -7,7 +7,7 @@ import {
   X,
   ChevronRight,
   ChevronLeft,
-  Sparkles,
+  Compass,
   Search,
   Flame,
   Filter,
@@ -341,7 +341,7 @@ export function TutorialOverlay({
           <div className="mb-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-[10px] font-black tracking-wider text-primary uppercase">
-                <Sparkles className="size-3" />
+                <Compass className="size-3" />
                 {step.category || "TOUR GUIDE"}
               </span>
               <span className="text-xs font-semibold text-muted-foreground">
@@ -494,7 +494,7 @@ export function TutorialStartButton({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.3 }}
       >
-        <Sparkles className="h-4 w-4" />
+        <Compass className="h-4 w-4" />
         Interactive Tour
       </motion.button>
     );
@@ -513,7 +513,7 @@ export function TutorialStartButton({
       title="Restart interactive tour"
       aria-label="Restart interactive tour"
     >
-      <Sparkles className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-colors" />
+      <Compass className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-colors" />
     </button>
   );
 }

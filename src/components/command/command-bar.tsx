@@ -26,7 +26,7 @@ import {
   Sun,
   Loader2,
   BookOpen,
-  Sparkles,
+  Compass,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { graphAPI, SearchResult } from "@/lib/api/graph-api";
@@ -364,7 +364,7 @@ export function CommandBar({
               onSelect={() => handleAction("tour")}
               className="py-2.5"
             >
-              <Sparkles className="text-primary mr-2 h-4 w-4" />
+              <Compass className="text-primary mr-2 h-4 w-4" />
               <span>Take Guided Tour</span>
               <CommandShortcut>Tour</CommandShortcut>
             </CommandItem>

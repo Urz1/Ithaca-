@@ -317,7 +317,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== PRICING ===== */}
+      {/* ===== PRICING (Commented out) ===== */}
+      {/*
       <section className="py-24 sm:py-28 md:py-36">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-16 sm:mb-20 max-w-3xl text-center">
@@ -336,7 +337,6 @@ export default function Home() {
             </Reveal>
           </div>
 
-          {/* Stagger grid with generous top padding to ensure floating badge is never clipped */}
           <Stagger className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3 pt-8 pb-4 items-stretch">
             {(
               [
@@ -450,6 +450,7 @@ export default function Home() {
           </Stagger>
         </div>
       </section>
+      */}
 
       {/* ===== FINAL CTA ===== */}
       <section className="relative overflow-hidden py-28 sm:py-32 md:py-40">

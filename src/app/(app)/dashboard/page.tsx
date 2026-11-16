@@ -24,7 +24,6 @@ import {
   Loader2,
   Search,
   ArrowRight,
-  Sparkles,
   Bell,
   Orbit,
   Compass,
@@ -211,7 +210,7 @@ export default function DashboardPage() {
           </div>
           <div className="relative z-10 max-w-3xl">
             <div className="mb-2 flex items-center gap-2">
-              <Sparkles className="text-primary h-4 w-4" />
+              <Orbit className="text-primary h-4 w-4" />
               <span className="text-primary text-xs font-bold tracking-wider uppercase">
                 Dialectic Inquiry Launcher
               </span>

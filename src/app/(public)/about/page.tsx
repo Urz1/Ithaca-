@@ -9,7 +9,6 @@ import {
   Globe2,
   CheckCircle2,
   Share2,
-  Sparkles,
   BookOpen,
   Layers,
 } from "lucide-react";
@@ -24,7 +23,7 @@ export default function AboutPage() {
 
         <div className="container mx-auto px-4 max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold tracking-wide text-primary mb-6 shadow-xs">
-            <Sparkles className="h-3.5 w-3.5" />
+            <Globe2 className="h-3.5 w-3.5" />
             <span>Open Epistemic Infrastructure</span>
           </div>
 

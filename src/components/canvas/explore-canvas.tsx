@@ -32,7 +32,8 @@ import {
   List,
   Orbit,
   Table,
-  Sparkles,
+  BookOpen,
+  Compass,
   Filter,
   Minus,
   Plus,
@@ -873,7 +874,7 @@ export function ExploreCanvas() {
                     onClick={() => actions.setLiteratureReviewOpen(true)}
                     title="Synthesize Literature Review (Foundations, Clashes & Horizons)"
                   >
-                    <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+                    <BookOpen className="h-3.5 w-3.5 text-violet-500" />
                     <span className="hidden 2xl:inline">Review</span>
                   </Button>
                   <Button
@@ -960,7 +961,7 @@ export function ExploreCanvas() {
                     className="hover:text-foreground hidden sm:flex items-center gap-1 text-[11px] font-sans font-medium transition-colors px-2 py-1 rounded-full hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
                     title="Interactive Tour"
                   >
-                    <Sparkles className="h-3 w-3 text-primary" />
+                    <Compass className="h-3 w-3 text-primary" />
                     <span>Tour</span>
                   </button>
                   <button

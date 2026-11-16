@@ -23,7 +23,6 @@ import {
   ArrowRightCircle,
   TrendingUp,
   TrendingDown,
-  Sparkles,
   Copy,
   Check,
   LinkIcon,
@@ -360,7 +359,7 @@ export const PaperInspector = memo(function PaperInspector({
             {(displaySummary || summaryLoading) && (
               <div className="bg-muted/30 rounded-lg border p-4">
                 <div className="mb-2 flex items-center gap-2">
-                  <Sparkles className="h-3.5 w-3.5 text-blue-500" />
+                  <FileText className="h-3.5 w-3.5 text-blue-500" />
                   <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                     AI TL;DR
                   </span>
