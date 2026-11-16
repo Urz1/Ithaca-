@@ -9,100 +9,20 @@ import { OnboardingDialog } from "@/components/auth/onboarding-dialog";
 import {
   ArrowRight,
   Search,
-  MousePointerClick,
-  Lightbulb,
-  CheckCircle2,
-  Sparkles,
-  Shield,
   Users,
   BookOpen,
   GraduationCap,
-  FileText,
   Play,
-  GitFork,
   ExternalLink,
   Check,
-  Lock,
-  Layers,
-  LayoutGrid,
 } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { GraphConstellation } from "@/components/visual/graph-constellation";
 import { AnimatedDemo } from "@/components/landing/animated-demo";
 import { StackingCards } from "@/components/landing/stacking-cards";
 import { EpistemicContrast } from "@/components/landing/epistemic-contrast";
+import { WorkbenchBento } from "@/components/landing/workbench-bento";
 import { PLAN_ENTITLEMENTS } from "@/lib/platform/org-plans";
-
-// Features data
-const FEATURES = [
-  {
-    icon: <CheckCircle2 className="text-supports h-5 w-5" />,
-    badgeColor: "bg-supports/15 text-supports border-supports/25",
-    title: "Argument Visualization",
-    description:
-      "Instantly distinguish papers that support, contradict, or extend each other. Navigate the genuine consensus landscape beyond citation counts.",
-  },
-  {
-    icon: <FileText className="text-primary h-5 w-5" />,
-    badgeColor: "bg-primary/15 text-primary border-primary/25",
-    title: "Passage-Level Citations",
-    description:
-      "Click any edge to reveal the exact source passages establishing the relationship. Complete transparency and verified evidentiary provenance.",
-  },
-  {
-    icon: <Sparkles className="text-accent-foreground h-5 w-5" />,
-    badgeColor: "bg-accent text-accent-foreground border-border",
-    title: "AI Confidence Reasoning",
-    description:
-      "Every inferred relationship provides machine confidence scores, methodological nuance, and contextual reasoning so you know why connections exist.",
-  },
-  {
-    icon: <MousePointerClick className="text-extends h-5 w-5" />,
-    badgeColor: "bg-extends/15 text-extends border-extends/25",
-    title: "Dynamic Graph Canvas",
-    description:
-      "Interactive spatial layout with GPU acceleration, pan-and-zoom controls, radial expansion, and keyboard shortcuts built for deep exploration.",
-  },
-  {
-    icon: <Users className="text-primary h-5 w-5" />,
-    badgeColor: "bg-primary/15 text-primary border-primary/25",
-    title: "Collaborative Landscapes",
-    description:
-      "Save curated research maps, export high-resolution vector figures for publications or grant proposals, and share live canvases with collaborators.",
-  },
-  {
-    icon: <Shield className="text-supports h-5 w-5" />,
-    badgeColor: "bg-supports/15 text-supports border-supports/25",
-    title: "Team & Lab Workspaces",
-    description:
-      "Organization-scoped domains, RBAC roles (Owner, Admin, Member, Viewer), and centralized AI compute quotas tailored for academic groups.",
-  },
-];
-
-// How it works steps
-const STEPS = [
-  {
-    step: "01",
-    title: "Query any domain",
-    description:
-      "Enter a research hypothesis, seminal paper DOI, or emerging scientific question to seed the graph.",
-    icon: Search,
-  },
-  {
-    step: "02",
-    title: "Explore the discourse",
-    description:
-      "Navigate an argumentation-aware topological network showing how papers validate, challenge, or extend one another.",
-    icon: MousePointerClick,
-  },
-  {
-    step: "03",
-    title: "Synthesize breakthroughs",
-    description:
-      "Identify open debates, uncover hidden contradictions, and isolate unexplored research gaps in minutes.",
-    icon: Lightbulb,
-  },
-];
 
 // Use cases
 const USE_CASES = [
@@ -207,12 +127,12 @@ export default function Home() {
                   className="h-13 gap-2 rounded-full border-border/80 dark:border-white/10 bg-background/60 dark:bg-white/[0.04] px-7 text-base font-medium backdrop-blur-md transition-all hover:bg-muted/80 dark:hover:bg-white/[0.08] hover:scale-[1.02] active:scale-[0.98]"
                   onClick={() =>
                     document
-                      .getElementById("demo")
+                      .getElementById("bottleneck")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
                 >
                   <Play className="h-4 w-4 fill-current opacity-80" />
-                  <span>Interactive Demo</span>
+                  <span>Why It Matters</span>
                 </Button>
               </div>
             </StaggerItem>
@@ -225,6 +145,39 @@ export default function Home() {
                 <span>No credit card required</span>
                 <span className="opacity-40">•</span>
                 <span>Instant access</span>
+              </div>
+            </StaggerItem>
+
+            {/* Live Interactive Workstation Window in Hero */}
+            <StaggerItem>
+              <div className="mt-10 sm:mt-14 w-full max-w-5xl mx-auto">
+                <div className="demo-window-frame border border-border/80 dark:border-white/[0.1] bg-card relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+                  {/* Window Chrome Header Bar */}
+                  <div className="border-b border-border/70 dark:border-white/[0.08] bg-muted/50 dark:bg-muted/30 flex items-center justify-between px-4 sm:px-6 py-3.5 backdrop-blur-md">
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-rose-500/80 shadow-xs" />
+                      <div className="h-3 w-3 rounded-full bg-amber-500/80 shadow-xs" />
+                      <div className="h-3 w-3 rounded-full bg-emerald-500/80 shadow-xs" />
+                    </div>
+                    <div className="border border-border/70 dark:border-white/10 bg-background/80 text-muted-foreground flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-mono shadow-xs">
+                      <Search className="h-3 w-3 opacity-70" />
+                      <span className="hidden sm:inline">ithaca.app/canvas/screen-time-development</span>
+                      <span className="sm:hidden">ithaca.app/canvas</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="relative flex h-2 w-2">
+                        <span className="bg-emerald-500 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+                        <span className="bg-emerald-500 relative inline-flex h-2 w-2 rounded-full" />
+                      </span>
+                      <span className="text-muted-foreground text-xs font-medium">Live Canvas</span>
+                    </div>
+                  </div>
+
+                  {/* Animated product demo inside */}
+                  <div className="relative">
+                    <AnimatedDemo />
+                  </div>
+                </div>
               </div>
             </StaggerItem>
           </Stagger>
@@ -249,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* ===== PROBLEM-AGITATION-SOLUTION ===== */}
-      <section className="relative pt-16 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
+      <section id="bottleneck" className="relative pt-16 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-[1120px]">
             <Reveal>
@@ -301,164 +254,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="py-24 sm:py-28 md:py-36">
+      {/* ===== RESEARCH WORKBENCH BENTO ===== */}
+      <section className="border-y border-border/70 dark:border-white/[0.06] bg-muted/10 dark:bg-white/[0.01] py-20 sm:py-24 md:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-[1120px]">
             <Reveal>
-              <div className="mb-14 sm:mb-16 md:mb-20 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
-                  STREAMLINED WORKFLOW
+              <div className="mb-12 sm:mb-14 text-center">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-4">
+                  The Research Workbench
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] font-extrabold tracking-tight text-foreground leading-[1.15]">
-                  How Ithaca accelerates discovery
+                <h2 className="text-3xl sm:text-4xl lg:text-[40px] leading-tight lg:leading-[44px] font-bold tracking-tight text-foreground">
+                  Engineered for rigorous scientific inquiry
                 </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
-                  From initial curiosity to high-confidence literature synthesis in three steps
+                <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
+                  Everything an academic lab needs to extract claims, synchronize literature, and publish validated synthesis.
                 </p>
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-3">
-              {STEPS.map((step, index) => (
-                <Reveal key={step.step} delay={index * 0.1}>
-                  <div className="relative flex h-full flex-col rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-8 sm:p-9 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 group">
-                    <div className="mb-6 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-inner">
-                        <step.icon className="h-6 w-6" />
-                      </div>
-                      <span className="font-mono text-xs font-bold px-3 py-1 rounded-full border border-primary/25 bg-primary/10 text-primary tracking-widest">
-                        {step.step}
-                      </span>
-                    </div>
-
-                    <h3 className="mb-3 text-xl font-bold tracking-tight text-foreground">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-
-                    {/* Subtle connector accent between cards on desktop */}
-                    {index < STEPS.length - 1 && (
-                      <div className="border-border/60 dark:border-white/10 absolute top-1/2 -right-4 hidden w-8 border-t-2 border-dashed md:block pointer-events-none" />
-                    )}
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FEATURES GRID ===== */}
-      <section className="bg-muted/10 border-border/70 dark:border-white/[0.06] dark:bg-white/[0.01] border-y py-24 sm:py-28 md:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <div className="mb-14 sm:mb-16 md:mb-20 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
-                  ENTERPRISE-GRADE CAPABILITIES
-                </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] font-extrabold tracking-tight text-foreground leading-[1.15]">
-                  Everything you need to navigate research
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
-                  Engineered specifically for academic labs, principal investigators, and PhD researchers
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {FEATURES.map((feature, index) => (
-                <Reveal key={feature.title} delay={index * 0.05}>
-                  <div className="relative flex h-full flex-col rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-7 sm:p-8 shadow-md backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-border dark:hover:border-white/20 hover:shadow-xl">
-                    <div
-                      className={`mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border shadow-inner ${feature.badgeColor}`}
-                    >
-                      {feature.icon}
-                    </div>
-                    <h3 className="mb-2.5 text-lg font-bold tracking-tight text-foreground">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PRODUCT DEMO / CANVAS FRAME ===== */}
-      <section id="demo" className="scroll-mt-20 py-24 sm:py-28 md:py-36">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <Reveal>
-              <div className="mb-14 sm:mb-16 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
-                  LIVE INTERACTIVE DEMO
-                </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] font-extrabold tracking-tight text-foreground leading-[1.15]">
-                  See Ithaca in action
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
-                  Watch our epistemological engine unpack complex research controversies in real time
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              {/* Sleek MacOS / Research Workstation Window Frame */}
-              <div className="demo-window-frame border border-border/80 dark:border-white/[0.1] bg-card relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
-                {/* Window Chrome Header Bar */}
-                <div className="border-b border-border/70 dark:border-white/[0.08] bg-muted/50 dark:bg-muted/30 flex items-center justify-between px-4 sm:px-6 py-3.5 backdrop-blur-md">
-                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-rose-500/80 shadow-xs" />
-                    <div className="h-3 w-3 rounded-full bg-amber-500/80 shadow-xs" />
-                    <div className="h-3 w-3 rounded-full bg-emerald-500/80 shadow-xs" />
-                  </div>
-                  <div className="border border-border/70 dark:border-white/10 bg-background/80 text-muted-foreground flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-mono shadow-xs">
-                    <Search className="h-3 w-3 opacity-70" />
-                    <span className="hidden sm:inline">ithaca.app/canvas/screen-time-development</span>
-                    <span className="sm:hidden">ithaca.app/canvas</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      <span className="bg-emerald-500 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-                      <span className="bg-emerald-500 relative inline-flex h-2 w-2 rounded-full" />
-                    </span>
-                    <span className="text-muted-foreground text-xs font-medium">Live Canvas</span>
-                  </div>
-                </div>
-
-                {/* Animated product demo inside */}
-                <div className="relative">
-                  <AnimatedDemo />
-                </div>
-              </div>
-
-              {/* CTA below demo */}
-              <div className="mt-10 sm:mt-12 flex flex-col items-center justify-center gap-3.5 sm:gap-4 sm:flex-row">
-                <Button
-                  size="lg"
-                  className="h-13 gap-2 rounded-full bg-foreground px-8 text-base font-semibold text-background shadow-xl shadow-foreground/10 transition-all hover:bg-foreground/90 hover:scale-[1.02] active:scale-[0.98]"
-                  onClick={() => setShowSignIn(true)}
-                >
-                  <span>Explore This Graph Live</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="h-13 gap-2 rounded-full border-border/80 dark:border-white/10 bg-background/60 dark:bg-white/[0.04] px-7 text-base font-medium backdrop-blur-md transition-all hover:bg-muted/80 dark:hover:bg-white/[0.08] hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <Link href="/docs">
-                    <span>Read Methodology</span>
-                    <ExternalLink className="h-4 w-4 opacity-75" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
+            {/* Asymmetric 4-Cell Workbench Bento Grid */}
+            <WorkbenchBento />
           </div>
         </div>
       </section>
