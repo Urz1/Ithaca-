@@ -40,8 +40,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "Nature Human Behaviour",
     evidenceQuote:
       "“Replication across three large-scale independent cohort datasets (n=359,260) confirms minimal negative effect size.”",
-    cardBg: "bg-[#FFFFFF] dark:bg-[#1A1613]",
-    cardBorder: "border-stone-200 dark:border-white/12",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#1D2520]",
+    cardBorder: "border-stone-200 dark:border-emerald-500/25",
     topRim: "from-emerald-400 via-emerald-500 to-emerald-600",
     metricLabel: "Replication Confidence",
     metricValue: "98.4%",
@@ -61,8 +61,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "Psychological Science",
     evidenceQuote:
       "“Specification curve analysis demonstrates that reported associations are statistically indistinguishable from noise.”",
-    cardBg: "bg-[#FFFFFF] dark:bg-[#1E1715]",
-    cardBorder: "border-stone-200 dark:border-rose-500/25",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#2A1D20]",
+    cardBorder: "border-stone-200 dark:border-rose-500/35",
     topRim: "from-rose-400 via-rose-500 to-rose-600",
     metricLabel: "Divergence Index",
     metricValue: "Critical Friction",
@@ -82,8 +82,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "NeurIPS 2023 Oral",
     evidenceQuote:
       "“Generalizes emergent ability metrics by demonstrating that non-linear step shifts resolve to smooth scaling curves.”",
-    cardBg: "bg-[#FFFFFF] dark:bg-[#141922]",
-    cardBorder: "border-stone-200 dark:border-sky-500/25",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#182438]",
+    cardBorder: "border-stone-200 dark:border-sky-500/35",
     topRim: "from-amber-400 via-amber-500 to-amber-600",
     metricLabel: "Generalization Scope",
     metricValue: "High Transfer",
@@ -111,11 +111,11 @@ function IsometricCardSurface({
       onClick={onClick}
       className={`group relative h-[420px] sm:h-[450px] w-full cursor-pointer select-none rounded-[2rem] sm:rounded-[2.5rem] border ${card.cardBorder} ${card.cardBg} transition-all duration-500 overflow-hidden ${
         isTop
-          ? "shadow-[0_40px_90px_-15px_rgba(28,24,21,0.25),0_20px_40px_-10px_rgba(28,24,21,0.18)] dark:shadow-[0_45px_120px_-15px_rgba(0,0,0,0.95),0_25px_50px_-10px_rgba(0,0,0,0.85)] ring-1 ring-black/5 dark:ring-white/20"
-          : "shadow-[0_25px_60px_-15px_rgba(28,24,21,0.2),0_12px_28px_-8px_rgba(28,24,21,0.15)] dark:shadow-[0_35px_80px_-20px_rgba(0,0,0,0.95),0_18px_36px_-10px_rgba(0,0,0,0.9)] hover:brightness-105 dark:hover:brightness-110"
+          ? "shadow-[0_2px_0_rgba(0,0,0,0.8),0_4px_0_rgba(0,0,0,0.7),0_6px_0_rgba(0,0,0,0.6),0_8px_0_rgba(0,0,0,0.5),0_30px_70px_-10px_rgba(28,24,21,0.45),0_60px_130px_-15px_rgba(28,24,21,0.35)] dark:shadow-[0_2px_0_rgba(0,0,0,0.95),0_4px_0_rgba(0,0,0,0.9),0_6px_0_rgba(0,0,0,0.85),0_8px_0_rgba(0,0,0,0.8),0_35px_80px_-10px_rgba(0,0,0,0.98),0_70px_140px_-15px_rgba(0,0,0,0.98),0_100px_180px_-20px_rgba(0,0,0,0.95)] ring-1 ring-black/10 dark:ring-white/25"
+          : "shadow-[0_2px_0_rgba(0,0,0,0.7),0_4px_0_rgba(0,0,0,0.6),0_6px_0_rgba(0,0,0,0.5),0_20px_50px_-10px_rgba(28,24,21,0.35),0_45px_90px_-15px_rgba(28,24,21,0.25)] dark:shadow-[0_2px_0_rgba(0,0,0,0.9),0_4px_0_rgba(0,0,0,0.85),0_6px_0_rgba(0,0,0,0.8),0_25px_60px_-10px_rgba(0,0,0,0.95),0_50px_110px_-15px_rgba(0,0,0,0.95)] hover:brightness-105 dark:hover:brightness-110"
       }`}
       style={{
-        borderBottom: "6px solid rgba(0, 0, 0, 0.35)",
+        borderBottom: "8px solid rgba(0, 0, 0, 0.5)",
       }}
     >
       {/* Top illuminated beveled rim */}
@@ -124,55 +124,64 @@ function IsometricCardSurface({
         className={`pointer-events-none absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${card.topRim}`}
       />
 
-      {/* When the card is underneath, pin the exposed bottom strip to the bottom */}
+      {/* When the card is underneath, render deep ambient occlusion cast from the card above */}
       {isUnder ? (
-        <div className="absolute inset-x-0 bottom-0 h-[125px] flex items-center justify-between px-7 sm:px-9 md:px-10 border-t border-border/80 dark:border-white/10 bg-inherit">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs sm:text-sm font-black tracking-widest text-muted-foreground/80 dark:text-white/40 uppercase">
-              LAYER 0{index + 1}
-            </span>
-            <div>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-sm">
-                {card.headline}
-              </h3>
-              <p className="font-mono text-xs sm:text-sm font-semibold text-muted-foreground dark:text-white/65">
-                {card.subheadline}
-              </p>
+        <>
+          {/* Ambient occlusion shadow cast by upper card */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/85 via-black/40 to-transparent dark:from-black/95 dark:via-black/55 dark:to-transparent z-10"
+          />
+
+          {/* Pinned exposed bottom strip */}
+          <div className="absolute inset-x-0 bottom-0 h-[125px] flex items-center justify-between px-7 sm:px-9 md:px-10 border-t border-border/80 dark:border-white/10 bg-inherit z-20">
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-xs sm:text-sm font-black tracking-widest text-muted-foreground/80 dark:text-white/60 uppercase">
+                LAYER 0{index + 1}
+              </span>
+              <div>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-md">
+                  {card.headline}
+                </h3>
+                <p className="font-mono text-xs sm:text-sm font-semibold text-muted-foreground dark:text-white/80">
+                  {card.subheadline}
+                </p>
+              </div>
             </div>
+            <span
+              className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs sm:text-sm font-black uppercase tracking-wider shadow-md ${card.badgeBg}`}
+            >
+              <span className="h-2 w-2 rounded-full bg-current animate-pulse" />
+              {card.badge}
+            </span>
           </div>
-          <span
-            className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs sm:text-sm font-black uppercase tracking-wider shadow-sm ${card.badgeBg}`}
-          >
-            <span className="h-2 w-2 rounded-full bg-current animate-pulse" />
-            {card.badge}
-          </span>
-        </div>
+        </>
       ) : (
         /* Full card view when active/on top */
         <div className="h-full flex flex-col justify-between p-7 sm:p-9 md:p-10">
           <div>
             <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-xs font-black tracking-widest text-muted-foreground/80 dark:text-white/40 uppercase">
+              <span className="font-mono text-xs font-black tracking-widest text-muted-foreground/80 dark:text-white/60 uppercase">
                 LAYER 0{index + 1}/03
               </span>
               <span
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs font-black uppercase tracking-wider shadow-sm ${card.badgeBg}`}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs font-black uppercase tracking-wider shadow-md ${card.badgeBg}`}
               >
                 <span className="h-2 w-2 rounded-full bg-current animate-pulse" />
                 {card.badge}
               </span>
             </div>
 
-            <h3 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-sm">
+            <h3 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-md">
               {card.headline}
             </h3>
-            <p className="mt-1 font-mono text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground dark:text-white/70">
+            <p className="mt-1 font-mono text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground dark:text-white/80">
               {card.subheadline}
             </p>
           </div>
 
           <div className="space-y-3.5 my-3">
-            <p className="text-sm sm:text-base text-foreground/85 dark:text-white/85 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-foreground/90 dark:text-white/90 leading-relaxed font-normal">
               {card.description}
             </p>
 
@@ -184,18 +193,18 @@ function IsometricCardSurface({
               <span className="rounded-xl bg-muted/80 dark:bg-black/50 px-3.5 py-1.5 border border-border dark:border-white/10 font-semibold truncate max-w-[200px] sm:max-w-[240px]">
                 {card.citedPaper}
               </span>
-              <span className="ml-auto text-xs text-muted-foreground dark:text-white/50 font-medium">
+              <span className="ml-auto text-xs text-muted-foreground dark:text-white/60 font-medium">
                 {card.venue}
               </span>
             </div>
 
-            <div className="rounded-2xl bg-muted/50 dark:bg-black/50 border border-border/80 dark:border-white/8 p-3.5 sm:p-4 text-xs sm:text-sm italic text-foreground/80 dark:text-white/80 leading-relaxed">
+            <div className="rounded-2xl bg-muted/50 dark:bg-black/50 border border-border/80 dark:border-white/8 p-3.5 sm:p-4 text-xs sm:text-sm italic text-foreground/85 dark:text-white/85 leading-relaxed">
               {card.evidenceQuote}
             </div>
           </div>
 
           <div className="flex items-center justify-between pt-3 border-t border-border/70 dark:border-white/10 text-xs sm:text-sm font-mono">
-            <span className="text-muted-foreground dark:text-white/60">
+            <span className="text-muted-foreground dark:text-white/70">
               {card.metricLabel}: <strong className="text-foreground dark:text-white">{card.metricValue}</strong>
             </span>
             <span className="flex items-center gap-1.5 text-primary dark:text-amber-400 font-bold group-hover:translate-x-1.5 transition-transform">
@@ -289,10 +298,10 @@ export function StackingCards() {
     >
       {/* Sticky Stage Viewport - Seamless with the page canvas, overflow visible */}
       <div className="sticky top-16 sm:top-20 flex min-h-[860px] sm:min-h-[940px] w-full flex-col items-center justify-center overflow-visible py-8 sm:py-12">
-        {/* Wide Ambient Backlight Glow blending seamlessly into the site */}
+        {/* Vibrant Amber/Orange Backlight Glow matching reference image */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-10 h-[650px] w-[950px] sm:h-[850px] sm:w-[1300px] rounded-full bg-gradient-to-tr from-amber-600/20 via-orange-500/15 to-transparent blur-[160px] opacity-75"
+          className="pointer-events-none absolute -top-16 h-[550px] w-[850px] sm:h-[650px] sm:w-[1100px] rounded-full bg-gradient-to-tr from-amber-500/40 via-orange-500/45 to-rose-600/30 blur-[130px] opacity-90"
         />
 
         {/* 3D Isometric Viewport Container */}
@@ -363,6 +372,12 @@ export function StackingCards() {
                     }}
                     className="absolute inset-x-0 top-0"
                   >
+                    {/* Deep Volumetric Floor Shadow underneath Card 3 onto the desk */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -inset-x-8 -bottom-20 h-44 rounded-[3rem] bg-black/60 dark:bg-black/95 blur-3xl -z-10"
+                      style={{ transform: "translateZ(-30px)" }}
+                    />
                     <IsometricCardSurface
                       card={STANCE_CARDS[2]}
                       index={2}
@@ -382,6 +397,12 @@ export function StackingCards() {
                     }}
                     className="absolute inset-x-0 top-0"
                   >
+                    {/* Sharp Contact Shadow from Card 2 onto Card 3 */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/80 dark:bg-black/95 blur-xl -z-10"
+                      style={{ transform: "translateZ(-25px)" }}
+                    />
                     <IsometricCardSurface
                       card={STANCE_CARDS[1]}
                       index={1}
@@ -401,6 +422,12 @@ export function StackingCards() {
                     }}
                     className="absolute inset-x-0 top-0"
                   >
+                    {/* Sharp Contact Shadow from Card 1 onto Card 2 */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/85 dark:bg-black/95 blur-xl -z-10"
+                      style={{ transform: "translateZ(-25px)" }}
+                    />
                     <IsometricCardSurface
                       card={STANCE_CARDS[0]}
                       index={0}
