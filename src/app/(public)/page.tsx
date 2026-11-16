@@ -249,18 +249,18 @@ export default function Home() {
       </section>
 
       {/* ===== PROBLEM-AGITATION-SOLUTION ===== */}
-      <section className="relative py-24 sm:py-28 md:py-36 overflow-hidden">
+      <section className="relative pt-16 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-[1120px]">
             <Reveal>
-              <div className="mb-14 sm:mb-16 md:mb-20 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
-                  THE SCIENTIFIC BOTTLENECK
+              <div className="mb-12 sm:mb-14 text-center">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-4">
+                  The scientific bottleneck
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] font-extrabold tracking-tight text-foreground leading-[1.15]">
+                <h2 className="text-3xl sm:text-4xl lg:text-[40px] leading-tight lg:leading-[44px] font-bold tracking-tight text-foreground">
                   Why traditional literature review fails
                 </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
+                <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
                   Standard search engines index citations as flat hyperlinks.
                   They cannot tell you whether a citation confirmed an effect or
                   proved it was a statistical artifact.
