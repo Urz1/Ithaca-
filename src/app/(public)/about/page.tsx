@@ -320,9 +320,9 @@ export default function AboutPage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/changelog">
+          <Link href="/docs">
             <Button size="lg" variant="outline" className="h-12 px-8 font-medium">
-              View Changelog
+              Read Documentation
             </Button>
           </Link>
         </div>

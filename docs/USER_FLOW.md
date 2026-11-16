@@ -912,7 +912,6 @@ const publicRoutes = [
   "/api", // API docs
   "/privacy", // Privacy policy
   "/terms", // Terms of service
-  "/changelog", // Changelog
   "/roadmap", // Roadmap
   "/status", // Status page
 ];

@@ -53,12 +53,6 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             >
               Blog
             </Link>
-            <Link
-              href="/changelog"
-              className="rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wide text-muted-foreground transition-all hover:bg-muted/70 hover:text-foreground"
-            >
-              Changelog
-            </Link>
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -108,13 +102,6 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Blog
-              </Link>
-              <Link
-                href="/changelog"
-                className="hover:bg-muted rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Changelog
               </Link>
               <div className="pt-3 border-t border-border/60">
                 <Link
@@ -173,14 +160,6 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
                     className="hover:text-foreground transition-colors"
                   >
                     Interactive Canvas
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/changelog"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Changelog
                   </Link>
                 </li>
                 <li>
