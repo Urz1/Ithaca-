@@ -19,11 +19,9 @@ import {
   GraduationCap,
   FileText,
   Play,
-  AlertTriangle,
   GitFork,
   ExternalLink,
   Check,
-  X,
   Lock,
   Layers,
   LayoutGrid,
@@ -32,6 +30,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { GraphConstellation } from "@/components/visual/graph-constellation";
 import { AnimatedDemo } from "@/components/landing/animated-demo";
 import { StackingCards } from "@/components/landing/stacking-cards";
+import { EpistemicContrast } from "@/components/landing/epistemic-contrast";
 import { PLAN_ENTITLEMENTS } from "@/lib/platform/org-plans";
 
 // Features data
@@ -251,13 +250,8 @@ export default function Home() {
 
       {/* ===== PROBLEM-AGITATION-SOLUTION ===== */}
       <section className="relative py-24 sm:py-28 md:py-36 overflow-hidden">
-        {/* Ambient Center Glow */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-[400px] w-[750px] rounded-full bg-gradient-to-tr from-rose-500/5 via-primary/5 to-emerald-500/5 blur-3xl opacity-50" />
-        </div>
-
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-6xl">
             <Reveal>
               <div className="mb-14 sm:mb-16 md:mb-20 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
@@ -274,122 +268,8 @@ export default function Home() {
               </div>
             </Reveal>
 
-            {/* Comparison Cards */}
-            <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-              {/* Problem Card */}
-              <Reveal delay={0.1}>
-                <div className="relative flex h-full flex-col rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-8 sm:p-10 shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-rose-500/30 hover:shadow-rose-500/5 group overflow-hidden">
-                  {/* Subtle corner crimson ambient glow */}
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-rose-500/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-60"
-                  />
-
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/20 bg-rose-500/10 px-3 py-1 text-[11px] font-semibold tracking-wider text-rose-400 uppercase">
-                      The Status Quo
-                    </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-inner">
-                      <AlertTriangle className="h-5 w-5" />
-                    </div>
-                  </div>
-                  <h3 className="mb-3 text-2xl font-bold tracking-tight text-foreground">
-                    The Blind Citation Network
-                  </h3>
-                  <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
-                    Researchers sift through hundreds of papers in isolation.
-                    Citation counts show fame, not reproducibility, hiding
-                    critical refutations beneath mountains of publications.
-                  </p>
-                  <ul className="text-muted-foreground mt-auto space-y-4 pt-6 border-t border-border/60 dark:border-white/[0.06] text-sm leading-relaxed">
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-rose-500/30 bg-rose-500/15 text-rose-400">
-                        <X className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span className="text-muted-foreground/90">
-                        Months lost pursuing hypotheses already contradicted in
-                        the literature.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-rose-500/30 bg-rose-500/15 text-rose-400">
-                        <X className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span className="text-muted-foreground/90">
-                        No passage-level transparency—you must read entire PDFs
-                        to locate the claim context.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-rose-500/30 bg-rose-500/15 text-rose-400">
-                        <X className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span className="text-muted-foreground/90">
-                        Isolated, siloed researcher notes with zero shared lab
-                        topography.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </Reveal>
-
-              {/* Solution Card */}
-              <Reveal delay={0.2}>
-                <div className="relative flex h-full flex-col rounded-3xl border-2 border-emerald-500/35 dark:border-emerald-500/40 bg-card/90 dark:bg-gradient-to-b dark:from-[#0e1715]/95 dark:via-[#0b1210]/95 dark:to-[#080d0b]/95 p-8 sm:p-10 shadow-2xl shadow-emerald-500/5 backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/60 hover:shadow-emerald-500/15 group overflow-hidden">
-                  {/* Subtle corner emerald ambient glow */}
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-emerald-500/15 blur-3xl transition-opacity group-hover:opacity-100 opacity-80"
-                  />
-
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[11px] font-semibold tracking-wider text-emerald-400 uppercase shadow-xs">
-                      The Ithaca Standard
-                    </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 shadow-inner">
-                      <Sparkles className="h-5 w-5" />
-                    </div>
-                  </div>
-                  <h3 className="mb-3 text-2xl font-bold tracking-tight text-foreground">
-                    The Epistemic Discourse Map
-                  </h3>
-                  <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
-                    AI models parse scientific discourse into structured
-                    argumentation semantics. Instantly trace consensus, locate
-                    disputes, and understand methodological divergence.
-                  </p>
-                  <ul className="text-foreground/95 mt-auto space-y-4 pt-6 border-t border-emerald-500/20 text-sm leading-relaxed">
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/15 text-emerald-400">
-                        <Check className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span>
-                        Real-time classification into Supports, Contradicts, and
-                        Extends relationships.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/15 text-emerald-400">
-                        <Check className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span>
-                        Direct citation text snippets and evidentiary reasoning
-                        for every connection.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3.5">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/15 text-emerald-400">
-                        <Check className="h-3 w-3 stroke-[2.5]" />
-                      </div>
-                      <span>
-                        Persistent, team-scoped graphs that compound knowledge
-                        across entire research groups.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </Reveal>
-            </div>
+            {/* Precision Epistemic Contrast Specimen */}
+            <EpistemicContrast />
           </div>
         </div>
       </section>
