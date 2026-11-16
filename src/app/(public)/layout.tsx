@@ -17,8 +17,8 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col selection:bg-primary/20 selection:text-foreground">
       {/* Floating Island Header */}
-      <header className="sticky top-3.5 z-40 w-full px-4 sm:px-6 pointer-events-none">
-        <div className="mx-auto flex h-13 sm:h-14 max-w-4xl items-center justify-between rounded-full border border-border/80 bg-background/80 px-3.5 sm:px-5 shadow-lg shadow-black/[0.04] backdrop-blur-xl transition-all pointer-events-auto dark:border-white/[0.1] dark:bg-[#0c0d12]/80 dark:shadow-black/40 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <header className="fixed top-3.5 inset-x-0 z-50 w-full px-4 sm:px-6 pointer-events-none">
+        <div className="mx-auto flex h-13 sm:h-14 max-w-4xl items-center justify-between rounded-full border border-border/80 bg-background/80 px-3.5 sm:px-5 shadow-lg shadow-black/[0.04] backdrop-blur-xl transition-all pointer-events-auto dark:border-white/[0.1] dark:bg-background/80 dark:shadow-black/40 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
           {/* Logo & Brand */}
           <Link
             href="/"
