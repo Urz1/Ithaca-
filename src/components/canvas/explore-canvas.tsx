@@ -670,7 +670,7 @@ export function ExploreCanvas() {
         <E2eEdgeOpener />
       </Suspense>
       {/* Main Canvas Area */}
-      <div className="relative h-full min-w-[320px] flex-1 overflow-hidden bg-[#F6F7F8] dark:bg-[#0B0C10] transition-colors">
+      <div className="relative h-full min-w-[320px] flex-1 overflow-hidden bg-[#F8F6F0] dark:bg-[#151311] transition-colors">
         <CanvasErrorBoundary
           onError={(error) => debug.error("Canvas rendering error:", error)}
         >

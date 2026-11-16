@@ -265,7 +265,7 @@ export function ShareExportDialog({
     previewCanvasRef.current.height = previewHeight;
 
     // Background
-    ctx.fillStyle = isDark ? "#0B0C10" : "#F6F7F8";
+    ctx.fillStyle = isDark ? "#151311" : "#F8F6F0";
     ctx.fillRect(0, 0, previewWidth, previewHeight);
 
     // Mini header

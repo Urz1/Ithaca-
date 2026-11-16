@@ -714,9 +714,9 @@ export function CanvasChatPanel({
       <ResizeHandle onResize={handleResize} />
 
       {/* Header */}
-      <div className="border-border flex shrink-0 items-center justify-between border-b bg-gradient-to-r from-violet-500/10 via-purple-500/5 to-transparent px-4 py-3">
+      <div className="border-border flex shrink-0 items-center justify-between border-b bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-4 py-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-sm text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary shadow-sm text-primary-foreground">
             <Sparkles className="h-4 w-4" />
           </div>
           <div>
@@ -760,8 +760,8 @@ export function CanvasChatPanel({
           <div className="flex h-full flex-col justify-center py-6">
             {/* Welcome banner */}
             <div className="mb-6 text-center">
-              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-600/20 border border-violet-500/30">
-                <MessageSquare className="h-6 w-6 text-violet-600 dark:text-violet-400" />
+              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 border border-primary/20">
+                <MessageSquare className="h-6 w-6 text-primary" />
               </div>
               <h4 className="font-semibold text-sm mb-1">Explore Scientific Debates</h4>
               <p className="text-muted-foreground text-xs max-w-[260px] mx-auto leading-relaxed">
@@ -778,10 +778,10 @@ export function CanvasChatPanel({
                 <button
                   key={i}
                   onClick={() => handleSend(action.query)}
-                  className="bg-muted/40 hover:bg-muted hover:border-violet-500/30 group flex w-full items-center gap-3 rounded-xl border border-border/40 p-2.5 text-left transition-all"
+                  className="bg-muted/40 hover:bg-muted hover:border-primary/30 group flex w-full items-center gap-3 rounded-xl border border-border/40 p-2.5 text-left transition-all"
                 >
-                  <div className="bg-background border border-border group-hover:border-violet-500/40 flex h-7 w-7 items-center justify-center rounded-lg transition-colors shrink-0">
-                    <action.icon className="text-muted-foreground group-hover:text-violet-500 h-3.5 w-3.5 transition-colors" />
+                  <div className="bg-background border border-border group-hover:border-primary/40 flex h-7 w-7 items-center justify-center rounded-lg transition-colors shrink-0">
+                    <action.icon className="text-muted-foreground group-hover:text-primary h-3.5 w-3.5 transition-colors" />
                   </div>
                   <span className="text-xs font-medium text-foreground/90 group-hover:text-foreground">
                     {action.label}
@@ -801,7 +801,7 @@ export function CanvasChatPanel({
                 )}
               >
                 {message.role === "assistant" && (
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-xs text-white mt-1">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary shadow-xs text-primary-foreground mt-1">
                     <Sparkles className="h-3 w-3" />
                   </div>
                 )}
@@ -854,10 +854,10 @@ export function CanvasChatPanel({
             {/* Live Streaming Message */}
             {isStreaming && (
               <div className="flex gap-2.5 justify-start">
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-xs text-white mt-1">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary shadow-xs text-primary-foreground mt-1">
                   <Sparkles className="h-3 w-3" />
                 </div>
-                <div className="max-w-[88%] rounded-2xl rounded-tl-xs px-3.5 py-2.5 bg-muted/70 dark:bg-muted/50 border border-violet-500/30 shadow-xs">
+                <div className="max-w-[88%] rounded-2xl rounded-tl-xs px-3.5 py-2.5 bg-muted/70 dark:bg-muted/50 border border-primary/30 shadow-xs">
                   {streamedText ? (
                     <FormattedMessageContent
                       content={streamedText}

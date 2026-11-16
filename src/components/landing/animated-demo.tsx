@@ -1343,25 +1343,47 @@ export function AnimatedDemo() {
 // SUB-COMPONENTS
 // ============================================================================
 
+const FIXED_PARTICLES = [
+  { left: "12%", top: "25%", duration: 4.2, delay: 0.2 },
+  { left: "34%", top: "68%", duration: 3.8, delay: 0.8 },
+  { left: "78%", top: "15%", duration: 4.5, delay: 0.1 },
+  { left: "88%", top: "72%", duration: 3.5, delay: 1.2 },
+  { left: "55%", top: "42%", duration: 4.0, delay: 0.5 },
+  { left: "22%", top: "82%", duration: 3.6, delay: 1.5 },
+  { left: "67%", top: "88%", duration: 4.4, delay: 0.9 },
+  { left: "45%", top: "18%", duration: 3.9, delay: 0.4 },
+  { left: "92%", top: "35%", duration: 4.1, delay: 1.1 },
+  { left: "15%", top: "52%", duration: 3.7, delay: 0.7 },
+  { left: "62%", top: "28%", duration: 4.3, delay: 1.3 },
+  { left: "28%", top: "38%", duration: 3.4, delay: 0.3 },
+];
+
 function BackgroundParticles() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      {Array.from({ length: 20 }).map((_, i) => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {FIXED_PARTICLES.map((p, i) => (
         <motion.div
           key={i}
           className="bg-primary/30 absolute h-1 w-1 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: p.left,
+            top: p.top,
           }}
           animate={{
             y: [0, -30, 0],
             opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: p.duration,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: p.delay,
           }}
         />
       ))}

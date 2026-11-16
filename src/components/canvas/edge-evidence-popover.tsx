@@ -128,7 +128,7 @@ export const SIGNAL_SOURCE_LABELS: Record<
   },
   "user-correction": {
     label: "👨‍🔬 Verified Community Calibration",
-    color: "text-purple-600 dark:text-purple-400 font-semibold",
+    color: "text-amber-700 dark:text-amber-400 font-semibold",
   },
   "ithaca-local-moat": {
     label: "⚡ Sovereign AI Moat (Local Engine, 0 FX)",
@@ -520,7 +520,7 @@ export function EdgeEvidencePopover({
                         "Unknown source"}
                     </p>
                     {evidence.signalSource === "user-correction" && (
-                      <span className="rounded bg-purple-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-purple-700 dark:text-purple-300">
+                      <span className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-amber-800 dark:text-amber-300">
                         Peer Reviewed
                       </span>
                     )}

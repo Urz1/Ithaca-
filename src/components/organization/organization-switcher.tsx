@@ -57,7 +57,7 @@ export function OrganizationSwitcher({ collapsed = false }: OrganizationSwitcher
     return (
       <div className="flex justify-center px-2 py-2">
         <Link href={orgHref} title={activeOrganization.name}>
-          <div className="bg-gradient-to-br from-violet-500/20 via-indigo-500/15 to-purple-500/10 border border-violet-500/30 text-violet-600 dark:text-violet-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.06)] hover:border-violet-500/50 flex size-9 items-center justify-center rounded-xl font-mono text-xs font-bold transition-all hover:scale-105">
+          <div className="bg-primary/10 border border-primary/25 text-primary shadow-xs hover:border-primary/50 flex size-9 items-center justify-center rounded-xl font-mono text-xs font-bold transition-all hover:scale-105">
             {activeOrganization.name.slice(0, 2).toUpperCase()}
           </div>
         </Link>
@@ -73,7 +73,7 @@ export function OrganizationSwitcher({ collapsed = false }: OrganizationSwitcher
           className="group relative flex items-center justify-between rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-card/60 dark:bg-zinc-900/40 hover:bg-card hover:dark:bg-zinc-900/80 p-2 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.06)] hover:shadow-sm"
         >
           <div className="flex min-w-0 items-center gap-2.5">
-            <div className="relative flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-gradient-to-br from-violet-500/20 via-indigo-500/15 to-purple-500/10 text-violet-600 dark:text-violet-300 font-mono text-xs font-bold shadow-xs transition-transform group-hover:scale-105">
+            <div className="relative flex size-8 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary font-mono text-xs font-bold shadow-xs transition-transform group-hover:scale-105">
               {activeOrganization.name.slice(0, 2).toUpperCase()}
               <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
             </div>
@@ -114,7 +114,7 @@ export function OrganizationSwitcher({ collapsed = false }: OrganizationSwitcher
             {isPending ? (
               <Loader2 className="text-primary h-4 w-4 shrink-0 animate-spin" />
             ) : (
-              <div className="border-violet-500/30 bg-gradient-to-br from-violet-500/20 via-indigo-500/15 to-purple-500/10 text-violet-600 dark:text-violet-300 flex size-7 shrink-0 items-center justify-center rounded-lg border font-mono text-[10px] font-bold">
+              <div className="border-primary/25 bg-primary/10 text-primary flex size-7 shrink-0 items-center justify-center rounded-lg border font-mono text-[10px] font-bold">
                 {activeOrganization.name.slice(0, 2).toUpperCase()}
               </div>
             )}

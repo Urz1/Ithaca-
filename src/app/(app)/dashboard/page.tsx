@@ -388,7 +388,7 @@ export default function DashboardPage() {
                         edges: 68,
                         status: "8 Disputes",
                         query: "How do transformers handle long context?",
-                        gradient: "from-purple-500/10 to-indigo-500/5",
+                        gradient: "from-amber-600/10 to-amber-700/5",
                       },
                       {
                         title: "CRISPR-Cas9 Off-Target DNA Cleavage",

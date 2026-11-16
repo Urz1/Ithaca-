@@ -268,10 +268,10 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 border border-border/80 dark:border-white/[0.08] rounded-3xl p-8 shadow-sm backdrop-blur-xl">
-            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-500 border border-purple-500/20 shadow-inner">
+            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-inner">
               <Globe2 className="h-6 w-6" />
             </div>
-            <div className="mb-2 text-xs font-mono font-semibold tracking-wider text-purple-500 uppercase">
+            <div className="mb-2 text-xs font-mono font-semibold tracking-wider text-primary uppercase">
               Open Science
             </div>
             <h3 className="mb-3 text-xl font-bold text-foreground">Universal Open Registries</h3>

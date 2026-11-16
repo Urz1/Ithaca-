@@ -181,10 +181,10 @@ export default function ChangelogPage() {
                 <span
                   className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-semibold ${
                     rel.type === "Major"
-                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400"
                       : rel.type === "Performance"
-                      ? "border-purple-500/30 bg-purple-500/10 text-purple-400"
-                      : "border-blue-500/30 bg-blue-500/10 text-blue-400"
+                      ? "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                      : "border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400"
                   }`}
                 >
                   {rel.type}

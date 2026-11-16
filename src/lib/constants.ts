@@ -90,37 +90,37 @@ export const FILTERS = {
 // =============================================================================
 
 export const COLORS = {
-  /** Edge color for supporting relationships */
-  SUPPORTS: "#22c55e",
-  /** Edge color for contradicting relationships */
-  CONTRADICTS: "#ef4444",
-  /** Edge color for extending relationships */
-  EXTENDS: "#3b82f6",
+  /** Edge color for supporting relationships (Sage / Forest Emerald) */
+  SUPPORTS: "#2D7D46",
+  /** Edge color for contradicting relationships (Burnt Terracotta / Venetian Red) */
+  CONTRADICTS: "#C0392B",
+  /** Edge color for extending relationships (Warm Lapis / Slate Indigo) */
+  EXTENDS: "#2B6CB0",
   /** Edge color for unknown/uncertain relationships */
-  UNKNOWN: "#94a3b8",
-  /** Edge color for neutral citation (default) */
-  CITES: "#94a3b8",
-  /** Cluster colors for node grouping */
-  CLUSTERS: ["#3b82f6", "#8b5cf6", "#ec4899", "#f97316", "#14b8a6"] as const,
+  UNKNOWN: "#8C827A",
+  /** Edge color for neutral citation (default warm taupe graphite) */
+  CITES: "#8C827A",
+  /** Cluster colors for node grouping (Amber Ochre, Slate Lapis, Terracotta, Forest Moss, Cognac) */
+  CLUSTERS: ["#9A5B27", "#2B6CB0", "#C0392B", "#2D7D46", "#7C5295"] as const,
   /** High-contrast jewel tones for light mode nodes */
-  CLUSTERS_LIGHT: ["#2563eb", "#7c3aed", "#db2777", "#ea580c", "#0d9488"] as const,
+  CLUSTERS_LIGHT: ["#854D0E", "#1E40AF", "#991B1B", "#166534", "#6B21A8"] as const,
   /** Luminous tones for dark mode nodes */
-  CLUSTERS_DARK: ["#3b82f6", "#8b5cf6", "#ec4899", "#f97316", "#14b8a6"] as const,
+  CLUSTERS_DARK: ["#D97724", "#3B82F6", "#E11D48", "#10B981", "#A855F7"] as const,
   /** Theme-calibrated edge colors */
   EDGES: {
     LIGHT: {
-      CITES: "#64748b", // slate-500: crisp and clearly visible on #F6F7F8
-      CONTRADICTS: "#e11d48", // refined rose-crimson (rose-600)
-      SUPPORTS: "#059669", // rich emerald (emerald-600)
-      EXTENDS: "#2563eb", // royal sapphire (blue-600)
-      UNKNOWN: "#94a3b8",
+      CITES: "#78716C", // warm stone hairline on #F8F6F0
+      CONTRADICTS: "#C0392B", // burnt terracotta / venetian red
+      SUPPORTS: "#2D7D46", // rich forest moss / sage
+      EXTENDS: "#2B6CB0", // warm slate indigo
+      UNKNOWN: "#A8A29E",
     },
     DARK: {
-      CITES: "rgba(100, 116, 139, 0.45)", // luminous slate-500 filament on #0B0C10
-      CONTRADICTS: "#fb7185", // radiant rose-coral (rose-400), elegant and legible
-      SUPPORTS: "#34d399", // luminous emerald (emerald-400)
-      EXTENDS: "#38bdf8", // electric sky (sky-400)
-      UNKNOWN: "rgba(148, 163, 184, 0.35)",
+      CITES: "rgba(168, 162, 158, 0.40)", // luminous warm taupe filament on #151311
+      CONTRADICTS: "#E05D50", // radiant terracotta coral, legible on espresso
+      SUPPORTS: "#48BB78", // luminous sage moss
+      EXTENDS: "#4299E1", // luminous lapis
+      UNKNOWN: "rgba(168, 162, 158, 0.30)",
     },
   },
   /** Ghost node opacity (hex alpha suffix) */
@@ -129,14 +129,14 @@ export const COLORS = {
   DIM_FACTOR: 0.3,
   /** Path visualization colors */
   PATH: {
-    /** Default/shortest path color (blue) */
-    DEFAULT: "#3b82f6",
-    /** Conflict trail path color (red) */
-    CONFLICT: "#ef4444",
-    /** No direct conflict path color (grey) */
-    NO_CONFLICT: "#94a3b8",
-    /** Consensus lineage path color (green) */
-    CONSENSUS: "#22c55e",
+    /** Default/shortest path color (lapis) */
+    DEFAULT: "#2B6CB0",
+    /** Conflict trail path color (terracotta) */
+    CONFLICT: "#C0392B",
+    /** No direct conflict path color (warm stone) */
+    NO_CONFLICT: "#8C827A",
+    /** Consensus lineage path color (sage) */
+    CONSENSUS: "#2D7D46",
   },
 } as const;
 

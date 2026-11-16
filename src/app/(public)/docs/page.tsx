@@ -253,7 +253,7 @@ export default function DocsPage() {
 
             <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/70 p-5 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 font-mono font-bold text-xs shrink-0 mt-0.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono font-bold text-xs shrink-0 mt-0.5">
                   G3
                 </div>
                 <div>
@@ -263,7 +263,7 @@ export default function DocsPage() {
                   </p>
                 </div>
               </div>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded-md border border-purple-500/30 bg-purple-500/10 text-purple-400 shrink-0 self-start md:self-auto">
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-md border border-primary/30 bg-primary/10 text-primary shrink-0 self-start md:self-auto">
                 Dialectic Inference
               </span>
             </div>

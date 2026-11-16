@@ -69,10 +69,10 @@ const BRAND = {
   name: "Ithaca",
   watermark: "ithaca.app",
   colors: {
-    primary: "#8b5cf6",
-    background: { light: "#F6F7F8", dark: "#0B0C10" },
-    text: { light: "#1f2937", dark: "#f9fafb" },
-    muted: { light: "#6b7280", dark: "#9ca3af" },
+    primary: "#9A5B27",
+    background: { light: "#F8F6F0", dark: "#151311" },
+    text: { light: "#231F1B", dark: "#EDE8DE" },
+    muted: { light: "#736B63", dark: "#A39B91" },
   },
 };
 

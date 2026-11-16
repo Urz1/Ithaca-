@@ -1688,7 +1688,7 @@ export const GraphLoader = memo(function GraphLoader({
       // Since we don't know theme here easily without prop, we'll assume transparent or match canvas container color
       // But let's check global theme
       const isDark = document.documentElement.classList.contains("dark");
-      ctx.fillStyle = isDark ? "#0B0C10" : "#F6F7F8";
+      ctx.fillStyle = isDark ? "#151311" : "#F8F6F0";
       ctx.fillRect(0, 0, width, height);
 
       // Draw layers in order (scene, edges, nodes, labels usually)
