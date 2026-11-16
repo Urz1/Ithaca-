@@ -16,19 +16,20 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
   return (
     <div className="flex min-h-screen flex-col selection:bg-primary/20 selection:text-foreground">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/85 backdrop-blur-md transition-all dark:border-white/[0.08] dark:bg-[#0c0d12]/85">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      {/* Floating Island Header */}
+      <header className="sticky top-3.5 z-40 w-full px-4 sm:px-6 pointer-events-none">
+        <div className="mx-auto flex h-13 sm:h-14 max-w-4xl items-center justify-between rounded-full border border-border/80 bg-background/80 px-3.5 sm:px-5 shadow-lg shadow-black/[0.04] backdrop-blur-xl transition-all pointer-events-auto dark:border-white/[0.1] dark:bg-[#0c0d12]/80 dark:shadow-black/40 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+          {/* Logo & Brand */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
+            className="group flex items-center gap-2.5 pl-1 transition-opacity hover:opacity-90"
           >
             <img
               src="/logo.svg"
               alt="Ithaca"
-              className="size-8 transition-transform duration-200 group-hover:scale-105"
+              className="size-7 transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="text-xl font-extrabold tracking-tight text-foreground">
+            <span className="text-base sm:text-lg font-bold tracking-tight text-foreground">
               Ithaca
             </span>
           </Link>
@@ -55,7 +56,8 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Actions & Controls */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             <div className="hidden md:block">
               <NavAuthButtons />
             </div>
@@ -65,7 +67,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-9 w-9 rounded-full md:hidden"
+              className="h-8 w-8 rounded-full md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
             >
@@ -80,7 +82,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
         {/* Mobile Nav Overlay */}
         {mobileMenuOpen && (
-          <div className="border-b border-border/80 bg-background/95 px-6 py-5 shadow-2xl backdrop-blur-xl animate-in slide-in-from-top-2 md:hidden dark:border-white/[0.08] dark:bg-[#0c0d12]/95">
+          <div className="mx-auto mt-2 max-w-4xl rounded-2xl border border-border/80 bg-background/95 p-5 shadow-2xl backdrop-blur-xl animate-in slide-in-from-top-2 md:hidden pointer-events-auto dark:border-white/[0.1] dark:bg-[#0c0d12]/95">
             <nav className="flex flex-col space-y-3">
               <Link
                 href="/about"
