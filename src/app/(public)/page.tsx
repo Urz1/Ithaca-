@@ -395,15 +395,15 @@ export default function Home() {
       </section>
 
       {/* ===== EDGE TYPE VISUALIZATION ===== */}
-      <section className="relative bg-muted/10 border-border/70 dark:border-white/[0.06] dark:bg-white/[0.01] border-y py-24 sm:py-28 md:py-32">
+      <section className="relative py-24 sm:py-32 md:py-40">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-4xl text-center">
             <Reveal>
-              <div className="mb-14 sm:mb-16 md:mb-20 text-center">
+              <div className="mb-12 sm:mb-16">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
                   ARGUMENTATION TAXONOMY
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] font-extrabold tracking-tight text-foreground leading-[1.15]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.12]">
                   Three relationships that unlock the conversation
                 </h2>
                 <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
@@ -412,12 +412,12 @@ export default function Home() {
                 </p>
               </div>
             </Reveal>
-
-            {/* 3D Scroll-Driven Stacking Cards Deck */}
-            <div className="mt-8 sm:mt-12">
-              <StackingCards />
-            </div>
           </div>
+        </div>
+
+        {/* 3D Scroll-Driven Stacking Cards Deck (Full Width Continuous Flow) */}
+        <div className="w-full">
+          <StackingCards />
         </div>
       </section>
 

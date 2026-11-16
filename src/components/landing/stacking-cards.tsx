@@ -29,8 +29,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     id: "supports",
     layerNum: "01",
     badge: "SUPPORTS / 98.4%",
-    badgeBg: "bg-emerald-500",
-    badgeText: "text-black",
+    badgeBg: "bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black",
+    badgeText: "",
     headline: "EMPIRICAL CONSENSUS",
     subheadline: "Direct Replication & Hypothesis Confirmation",
     description:
@@ -40,8 +40,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "Nature Human Behaviour",
     evidenceQuote:
       "“Replication across three large-scale independent cohort datasets (n=359,260) confirms minimal negative effect size.”",
-    cardBg: "bg-[#181614] dark:bg-[#141210]",
-    cardBorder: "border-white/12",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#1A1613]",
+    cardBorder: "border-stone-200 dark:border-white/12",
     topRim: "from-emerald-400 via-emerald-500 to-emerald-600",
     metricLabel: "Replication Confidence",
     metricValue: "98.4%",
@@ -50,8 +50,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     id: "contradicts",
     layerNum: "02",
     badge: "CONTRADICTS / DISPUTE",
-    badgeBg: "bg-rose-500",
-    badgeText: "text-white",
+    badgeBg: "bg-rose-600 text-white dark:bg-rose-500 dark:text-white",
+    badgeText: "",
     headline: "SCIENTIFIC DISPUTES",
     subheadline: "Conflicting Findings & Methodological Flaws",
     description:
@@ -61,8 +61,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "Psychological Science",
     evidenceQuote:
       "“Specification curve analysis demonstrates that reported associations are statistically indistinguishable from noise.”",
-    cardBg: "bg-[#211B19] dark:bg-[#1C1614]",
-    cardBorder: "border-rose-500/25",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#1E1715]",
+    cardBorder: "border-stone-200 dark:border-rose-500/25",
     topRim: "from-rose-400 via-rose-500 to-rose-600",
     metricLabel: "Divergence Index",
     metricValue: "Critical Friction",
@@ -71,8 +71,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     id: "extends",
     layerNum: "03",
     badge: "EXTENDS / ADVANCE",
-    badgeBg: "bg-amber-500",
-    badgeText: "text-black",
+    badgeBg: "bg-amber-600 text-white dark:bg-amber-500 dark:text-black",
+    badgeText: "",
     headline: "METHODOLOGICAL ADVANCE",
     subheadline: "New Domains & Generalizing Frameworks",
     description:
@@ -82,8 +82,8 @@ export const STANCE_CARDS: StanceCardData[] = [
     venue: "NeurIPS 2023 Oral",
     evidenceQuote:
       "“Generalizes emergent ability metrics by demonstrating that non-linear step shifts resolve to smooth scaling curves.”",
-    cardBg: "bg-[#161C26] dark:bg-[#121720]",
-    cardBorder: "border-sky-500/25",
+    cardBg: "bg-[#FFFFFF] dark:bg-[#141922]",
+    cardBorder: "border-stone-200 dark:border-sky-500/25",
     topRim: "from-amber-400 via-amber-500 to-amber-600",
     metricLabel: "Generalization Scope",
     metricValue: "High Transfer",
@@ -109,98 +109,101 @@ function IsometricCardSurface({
   return (
     <div
       onClick={onClick}
-      className={`group relative h-[310px] sm:h-[330px] w-full cursor-pointer select-none rounded-[2rem] border ${card.cardBorder} ${card.cardBg} p-7 sm:p-8 flex flex-col justify-between transition-all duration-500 ${
+      className={`group relative h-[420px] sm:h-[450px] w-full cursor-pointer select-none rounded-[2rem] sm:rounded-[2.5rem] border ${card.cardBorder} ${card.cardBg} transition-all duration-500 overflow-hidden ${
         isTop
-          ? "shadow-[0_45px_110px_-15px_rgba(0,0,0,0.95),0_25px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(255,255,255,0.22)] ring-1 ring-white/25"
-          : "shadow-[0_35px_80px_-20px_rgba(0,0,0,0.95),0_18px_36px_-10px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:brightness-110"
+          ? "shadow-[0_40px_90px_-15px_rgba(28,24,21,0.25),0_20px_40px_-10px_rgba(28,24,21,0.18)] dark:shadow-[0_45px_120px_-15px_rgba(0,0,0,0.95),0_25px_50px_-10px_rgba(0,0,0,0.85)] ring-1 ring-black/5 dark:ring-white/20"
+          : "shadow-[0_25px_60px_-15px_rgba(28,24,21,0.2),0_12px_28px_-8px_rgba(28,24,21,0.15)] dark:shadow-[0_35px_80px_-20px_rgba(0,0,0,0.95),0_18px_36px_-10px_rgba(0,0,0,0.9)] hover:brightness-105 dark:hover:brightness-110"
       }`}
       style={{
-        borderBottom: "5px solid rgba(0, 0, 0, 0.7)",
+        borderBottom: "6px solid rgba(0, 0, 0, 0.35)",
       }}
     >
       {/* Top illuminated beveled rim */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute top-0 left-0 right-0 h-1.5 rounded-t-[2rem] bg-gradient-to-r ${card.topRim}`}
+        className={`pointer-events-none absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${card.topRim}`}
       />
 
-      {/* When the card is underneath the top card, the exposed bottom strip shows its headline & badge! */}
+      {/* When the card is underneath, pin the exposed bottom strip to the bottom */}
       {isUnder ? (
-        <div className="flex h-full flex-col justify-end pb-1">
-          <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/10">
+        <div className="absolute inset-x-0 bottom-0 h-[125px] flex items-center justify-between px-7 sm:px-9 md:px-10 border-t border-border/80 dark:border-white/10 bg-inherit">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs sm:text-sm font-black tracking-widest text-muted-foreground/80 dark:text-white/40 uppercase">
+              LAYER 0{index + 1}
+            </span>
             <div>
-              <h3 className="text-2xl sm:text-3xl font-black italic tracking-tight text-white uppercase drop-shadow-md">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-sm">
                 {card.headline}
               </h3>
-              <p className="font-mono text-xs font-semibold text-white/60">
+              <p className="font-mono text-xs sm:text-sm font-semibold text-muted-foreground dark:text-white/65">
                 {card.subheadline}
               </p>
             </div>
-            <span
-              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1 font-mono text-[11px] font-black uppercase tracking-wider shadow-md ${card.badgeBg} ${card.badgeText}`}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
-              {card.badge}
-            </span>
           </div>
+          <span
+            className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs sm:text-sm font-black uppercase tracking-wider shadow-sm ${card.badgeBg}`}
+          >
+            <span className="h-2 w-2 rounded-full bg-current animate-pulse" />
+            {card.badge}
+          </span>
         </div>
       ) : (
-        /* Full card view when active/on top (matching Framer component layout) */
-        <>
+        /* Full card view when active/on top */
+        <div className="h-full flex flex-col justify-between p-7 sm:p-9 md:p-10">
           <div>
             <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-[11px] font-black tracking-widest text-white/40 uppercase">
+              <span className="font-mono text-xs font-black tracking-widest text-muted-foreground/80 dark:text-white/40 uppercase">
                 LAYER 0{index + 1}/03
               </span>
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 font-mono text-[11px] font-black uppercase tracking-wider shadow-md ${card.badgeBg} ${card.badgeText}`}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs font-black uppercase tracking-wider shadow-sm ${card.badgeBg}`}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-current animate-pulse" />
                 {card.badge}
               </span>
             </div>
 
-            <h3 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-black italic tracking-tight text-white uppercase drop-shadow-md">
+            <h3 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-black italic tracking-tight text-foreground dark:text-white uppercase drop-shadow-sm">
               {card.headline}
             </h3>
-            <p className="mt-0.5 font-mono text-xs font-semibold tracking-wide text-white/70">
+            <p className="mt-1 font-mono text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground dark:text-white/70">
               {card.subheadline}
             </p>
           </div>
 
-          <div className="space-y-2">
-            <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal line-clamp-2">
+          <div className="space-y-3.5 my-3">
+            <p className="text-sm sm:text-base text-foreground/85 dark:text-white/85 leading-relaxed font-normal">
               {card.description}
             </p>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-white/90">
-              <span className="rounded-lg bg-black/40 px-2.5 py-1 border border-white/10 font-semibold truncate max-w-[140px]">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm font-mono text-foreground/90 dark:text-white/90">
+              <span className="rounded-xl bg-muted/80 dark:bg-black/50 px-3.5 py-1.5 border border-border dark:border-white/10 font-semibold truncate max-w-[200px] sm:max-w-[240px]">
                 {card.citingPaper}
               </span>
-              <span className="text-amber-400 font-black text-sm">→</span>
-              <span className="rounded-lg bg-black/40 px-2.5 py-1 border border-white/10 font-semibold truncate max-w-[140px]">
+              <span className="text-primary dark:text-amber-400 font-black text-base">→</span>
+              <span className="rounded-xl bg-muted/80 dark:bg-black/50 px-3.5 py-1.5 border border-border dark:border-white/10 font-semibold truncate max-w-[200px] sm:max-w-[240px]">
                 {card.citedPaper}
               </span>
-              <span className="ml-auto text-[10px] text-white/50 font-medium">
+              <span className="ml-auto text-xs text-muted-foreground dark:text-white/50 font-medium">
                 {card.venue}
               </span>
             </div>
 
-            <div className="rounded-xl bg-black/50 border border-white/8 p-2 text-[11px] italic text-white/75 leading-relaxed line-clamp-1">
+            <div className="rounded-2xl bg-muted/50 dark:bg-black/50 border border-border/80 dark:border-white/8 p-3.5 sm:p-4 text-xs sm:text-sm italic text-foreground/80 dark:text-white/80 leading-relaxed">
               {card.evidenceQuote}
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs font-mono">
-            <span className="text-white/60 text-[11px]">
-              {card.metricLabel}: <strong className="text-white">{card.metricValue}</strong>
+          <div className="flex items-center justify-between pt-3 border-t border-border/70 dark:border-white/10 text-xs sm:text-sm font-mono">
+            <span className="text-muted-foreground dark:text-white/60">
+              {card.metricLabel}: <strong className="text-foreground dark:text-white">{card.metricValue}</strong>
             </span>
-            <span className="flex items-center gap-1 text-amber-400 font-bold group-hover:translate-x-1 transition-transform text-[11px]">
+            <span className="flex items-center gap-1.5 text-primary dark:text-amber-400 font-bold group-hover:translate-x-1.5 transition-transform">
               <span>INSPECT TRAVERSAL</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="h-4 w-4" />
             </span>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -230,20 +233,20 @@ export function StackingCards() {
   }, [scrollYProgress]);
 
   // Card 1 (Topmost layer): peels away upward on scroll
-  const card1Y = useTransform(scrollYProgress, [0, 0.25, 0.45], [0, 0, -320]);
-  const card1Z = useTransform(scrollYProgress, [0, 0.25, 0.45], [60, 60, 240]);
+  const card1Y = useTransform(scrollYProgress, [0, 0.25, 0.45], [0, 0, -380]);
+  const card1Z = useTransform(scrollYProgress, [0, 0.25, 0.45], [60, 60, 260]);
   const card1Opacity = useTransform(scrollYProgress, [0, 0.28, 0.45], [1, 1, 0]);
 
   // Card 2 (Middle layer): steps forward to top position, then peels away
   const card2Y = useTransform(
     scrollYProgress,
     [0, 0.25, 0.45, 0.65, 0.85],
-    [98, 98, 0, 0, -320]
+    [125, 125, 0, 0, -380]
   );
   const card2Z = useTransform(
     scrollYProgress,
     [0, 0.25, 0.45, 0.65, 0.85],
-    [20, 20, 60, 60, 240]
+    [20, 20, 60, 60, 260]
   );
   const card2Opacity = useTransform(
     scrollYProgress,
@@ -255,7 +258,7 @@ export function StackingCards() {
   const card3Y = useTransform(
     scrollYProgress,
     [0, 0.45, 0.65, 0.85],
-    [196, 150, 98, 0]
+    [250, 190, 125, 0]
   );
   const card3Z = useTransform(
     scrollYProgress,
@@ -284,21 +287,21 @@ export function StackingCards() {
       className="relative w-full"
       style={{ height: shouldReduceMotion ? "auto" : "280vh" }}
     >
-      {/* Sticky Stage Viewport */}
-      <div className="sticky top-16 sm:top-20 flex min-h-[720px] sm:min-h-[780px] w-full flex-col items-center justify-center overflow-hidden py-8">
-        {/* Warm Ambient Backlight Glow (matching user reference image) */}
+      {/* Sticky Stage Viewport - Seamless with the page canvas, overflow visible */}
+      <div className="sticky top-16 sm:top-20 flex min-h-[860px] sm:min-h-[940px] w-full flex-col items-center justify-center overflow-visible py-8 sm:py-12">
+        {/* Wide Ambient Backlight Glow blending seamlessly into the site */}
         <div
           aria-hidden
-          className="pointer-events-none absolute h-[480px] w-[600px] sm:h-[600px] sm:w-[740px] rounded-full bg-gradient-to-tr from-amber-600/35 via-orange-600/25 to-rose-600/15 blur-[130px] opacity-80"
+          className="pointer-events-none absolute -top-10 h-[650px] w-[950px] sm:h-[850px] sm:w-[1300px] rounded-full bg-gradient-to-tr from-amber-600/20 via-orange-500/15 to-transparent blur-[160px] opacity-75"
         />
 
         {/* 3D Isometric Viewport Container */}
-        <div className="relative flex w-full max-w-5xl items-center justify-center px-4">
-          {/* Right-hand Layer Pagination (Matching Reference Image) */}
-          <div className="absolute right-2 sm:right-6 z-40 flex flex-col items-center gap-3 font-mono text-xs text-foreground/60 dark:text-white/50">
+        <div className="relative flex w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+          {/* Right-hand Layer Pagination */}
+          <div className="absolute right-4 sm:right-10 lg:right-14 z-40 flex flex-col items-center gap-3 font-mono text-xs text-foreground/60 dark:text-white/50">
             <span
               style={{ writingMode: "vertical-rl" }}
-              className="text-[10px] tracking-widest uppercase opacity-75 mb-1 rotate-180"
+              className="text-[11px] tracking-widest uppercase opacity-75 mb-1 rotate-180"
             >
               LAYERS 0{activeLayer + 1}/03
             </span>
@@ -307,34 +310,34 @@ export function StackingCards() {
                 key={i}
                 type="button"
                 onClick={() => jumpToLayer(i)}
-                className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
+                className={`h-3 w-3 rounded-full transition-all duration-300 ${
                   activeLayer === i
-                    ? "bg-foreground dark:bg-white scale-125 shadow-[0_0_8px_rgba(255,255,255,0.9)]"
+                    ? "bg-foreground dark:bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.9)]"
                     : "bg-foreground/25 dark:bg-white/30 hover:bg-foreground/50 dark:hover:bg-white/60"
                 }`}
               />
             ))}
           </div>
 
-          {/* Isometric Deck Scene with Preserve-3D */}
+          {/* Isometric Deck Scene with Preserve-3D - Expansive Width */}
           <div
-            className="relative flex w-full max-w-2xl items-center justify-center py-6"
+            className="relative flex w-full max-w-5xl items-center justify-center py-6"
             style={{
-              perspective: "1400px",
-              perspectiveOrigin: "50% 45%",
+              perspective: "1600px",
+              perspectiveOrigin: "50% 42%",
             }}
           >
             <div
-              className="relative w-full max-w-[560px] transition-transform duration-700 ease-out"
+              className="relative w-full max-w-[800px] lg:max-w-[880px] transition-transform duration-700 ease-out"
               style={{
                 transformStyle: "preserve-3d",
-                // Exact 3D Isometric Tilt Angle matching uploaded image
+                // Balanced isometric angle for high readability and expansive presence
                 transform:
-                  "rotateX(52deg) rotateY(6deg) rotateZ(-26deg) scale(0.95)",
+                  "rotateX(46deg) rotateY(4deg) rotateZ(-20deg)",
               }}
             >
               {shouldReduceMotion ? (
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {STANCE_CARDS.map((card, i) => (
                     <IsometricCardSurface
                       key={card.id}
@@ -348,7 +351,7 @@ export function StackingCards() {
               ) : (
                 <div
                   className="relative w-full"
-                  style={{ minHeight: "540px", transformStyle: "preserve-3d" }}
+                  style={{ minHeight: "720px", transformStyle: "preserve-3d" }}
                 >
                   {/* Layer 3: EXTENDS (Bottom Card) */}
                   <motion.div
@@ -412,7 +415,7 @@ export function StackingCards() {
         </div>
 
         {/* Tactile scroll hint */}
-        <div className="mt-4 flex items-center justify-center gap-2 text-xs font-mono text-foreground/60 dark:text-white/50 z-30">
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground/75 dark:text-white/50 z-30">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-ping" />
           <span>Scroll down to peel through the 3D isometric layers</span>
         </div>
