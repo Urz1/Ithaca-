@@ -17,7 +17,6 @@ import {
   Check,
 } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import { GraphConstellation } from "@/components/visual/graph-constellation";
 import { AnimatedDemo } from "@/components/landing/animated-demo";
 import { StackingCards } from "@/components/landing/stacking-cards";
 import { EpistemicContrast } from "@/components/landing/epistemic-contrast";
@@ -68,8 +67,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(120,119,198,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(120,119,198,0.18),transparent_70%)]" />
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[850px] rounded-full bg-gradient-to-b from-primary/10 via-primary/5 to-transparent blur-3xl opacity-60" />
         </div>
-
-        <GraphConstellation className="pointer-events-none opacity-30 dark:opacity-50" />
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <Stagger className="mx-auto max-w-4xl space-y-6 sm:space-y-8 text-center">
