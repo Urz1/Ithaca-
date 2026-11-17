@@ -189,7 +189,8 @@ export const auth = betterAuth({
       process.env.NEXT_PUBLIC_E2E !== "1" &&
       (env.BETTER_AUTH_URL.startsWith("https://") ||
         process.env.COOKIE_SECURE === "true" ||
-        process.env.HTTPS === "true"),
+        process.env.HTTPS === "true" ||
+        process.env.VERCEL === "1"),
     trustedProxyHeaders: true,
     generateId: () => crypto.randomUUID(),
   },
@@ -274,6 +275,8 @@ export const auth = betterAuth({
     new Set([
       env.NEXT_PUBLIC_APP_URL,
       env.BETTER_AUTH_URL,
+      "https://ithaca-research-graph.vercel.app",
+      "https://*.vercel.app",
       "http://localhost:*",
       "https://localhost:*",
       "http://127.0.0.1:*",
