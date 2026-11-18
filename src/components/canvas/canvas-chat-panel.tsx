@@ -32,6 +32,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // =============================================================================
 // TYPES
@@ -431,6 +432,7 @@ export function CanvasChatPanel({
   const [streamedText, setStreamedText] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [width, setWidth] = useState(defaultWidth);
+  const isMobile = useIsMobile();
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -707,11 +709,16 @@ export function CanvasChatPanel({
 
   return (
     <div
-      className="border-border bg-background relative flex h-full flex-col border-l shadow-xl select-text"
-      style={{ width }}
+      className={cn(
+        "border-border bg-background flex flex-col border-l shadow-xl select-text transition-all",
+        isMobile
+          ? "fixed inset-0 z-50 w-full h-full"
+          : "relative h-full"
+      )}
+      style={isMobile ? undefined : { width }}
     >
       {/* Drag Resize Handle */}
-      <ResizeHandle onResize={handleResize} />
+      {!isMobile && <ResizeHandle onResize={handleResize} />}
 
       {/* Header */}
       <div className="border-border flex shrink-0 items-center justify-between border-b bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-4 py-3">

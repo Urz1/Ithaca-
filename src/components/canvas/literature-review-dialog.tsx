@@ -205,16 +205,16 @@ export function LiteratureReviewDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[85vh] w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl flex-col gap-0 overflow-hidden p-0">
         {/* Header */}
-        <DialogHeader className="border-border/80 border-b p-6 pb-4">
+        <DialogHeader className="border-border/80 border-b p-4 sm:p-6 pb-3 sm:pb-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+              <DialogTitle className="flex flex-wrap items-center gap-2 text-lg sm:text-xl font-bold">
                 <BookOpen className="h-5 w-5 text-violet-500" />
                 <span>Literature Review Synthesis</span>
                 {review && (
                   <Badge
                     variant="outline"
-                    className="ml-2 border-violet-200 bg-violet-50 text-xs font-semibold text-violet-700 dark:border-violet-800 dark:bg-violet-950 dark:text-violet-300"
+                    className="border-violet-200 bg-violet-50 text-xs font-semibold text-violet-700 dark:border-violet-800 dark:bg-violet-950 dark:text-violet-300"
                   >
                     {review.meta.paperCount} Papers • {review.meta.disputeCount}{" "}
                     Clashes
@@ -290,7 +290,7 @@ export function LiteratureReviewDialog({
         </DialogHeader>
 
         {/* Body Content */}
-        <div className="flex-1 overflow-hidden p-6">
+        <div className="flex-1 overflow-hidden p-4 sm:p-6">
           {/* 1. Loading State */}
           {isLoading && (
             <div className="flex h-72 flex-col items-center justify-center space-y-4 p-8 text-center">
@@ -368,10 +368,10 @@ export function LiteratureReviewDialog({
               onValueChange={setActiveTab}
               className="flex h-full flex-col gap-4"
             >
-              <TabsList className="bg-muted/60 grid h-9.5 w-full grid-cols-4 p-1">
+              <TabsList className="bg-muted/60 flex sm:grid sm:grid-cols-4 h-auto sm:h-9.5 w-full p-1 overflow-x-auto no-scrollbar gap-1">
                 <TabsTrigger
                   value="lineage"
-                  className="gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
+                  className="shrink-0 gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
                 >
                   <Compass className="h-3.5 w-3.5 shrink-0 text-indigo-500" />
                   <span className="truncate">
@@ -380,7 +380,7 @@ export function LiteratureReviewDialog({
                 </TabsTrigger>
                 <TabsTrigger
                   value="frictions"
-                  className="gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
+                  className="shrink-0 gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
                 >
                   <Swords className="h-3.5 w-3.5 shrink-0 text-red-500" />
                   <span className="truncate">
@@ -389,7 +389,7 @@ export function LiteratureReviewDialog({
                 </TabsTrigger>
                 <TabsTrigger
                   value="horizons"
-                  className="gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
+                  className="shrink-0 gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
                 >
                   <HelpCircle className="h-3.5 w-3.5 shrink-0 text-amber-500" />
                   <span className="truncate">
@@ -398,7 +398,7 @@ export function LiteratureReviewDialog({
                 </TabsTrigger>
                 <TabsTrigger
                   value="full"
-                  className="gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
+                  className="shrink-0 gap-1.5 px-2 text-xs data-[state=active]:font-semibold"
                 >
                   <FileText className="h-3.5 w-3.5 shrink-0 text-slate-500" />
                   <span className="truncate">Full Synthesis</span>

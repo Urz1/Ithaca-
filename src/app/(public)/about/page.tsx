@@ -17,7 +17,7 @@ export default function AboutPage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 py-24">
+      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 pt-24 pb-14 sm:py-24">
         {/* Subtle background glow */}
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]" />
 
@@ -27,65 +27,65 @@ export default function AboutPage() {
             <span>Open Epistemic Infrastructure</span>
           </div>
 
-          <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-foreground">
+          <h1 className="mb-6 text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-foreground">
             Mapping the dialectical topology of <br className="hidden md:block" />
             <span className="bg-gradient-to-r from-foreground via-foreground/90 to-muted-foreground bg-clip-text text-transparent">
               human scientific knowledge.
             </span>
           </h1>
 
-          <p className="text-muted-foreground mx-auto max-w-3xl text-lg sm:text-xl leading-relaxed">
+          <p className="text-muted-foreground mx-auto max-w-3xl text-base sm:text-xl leading-relaxed">
             Scientific progress does not occur in linear isolation—it advances through rigorous debate,
             methodological disputes, and empirical synthesis. Ithaca replaces opaque citation counts with
             an interactive, provenance-grounded map of scientific consensus.
           </p>
 
           {/* Metrics Ribbon */}
-          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-4xl mx-auto">
-            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-5 backdrop-blur-md text-left">
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
+          <div className="mt-10 sm:mt-14 grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-4 max-w-4xl mx-auto">
+            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-3.5 sm:p-5 backdrop-blur-md text-left">
+              <div className="text-xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
                 250M+
               </div>
               <div className="text-xs text-muted-foreground mt-1 font-medium">
                 Academic Works Indexed
               </div>
-              <div className="text-[11px] text-muted-foreground/70 font-mono mt-0.5">
+              <div className="text-[10px] sm:text-[11px] text-muted-foreground/70 font-mono mt-0.5 leading-tight">
                 OpenAlex & Semantic Scholar
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-5 backdrop-blur-md text-left">
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-emerald-500 font-mono">
+            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-3.5 sm:p-5 backdrop-blur-md text-left">
+              <div className="text-xl sm:text-3xl font-extrabold tracking-tight text-emerald-500 font-mono">
                 3 Vectors
               </div>
               <div className="text-xs text-muted-foreground mt-1 font-medium">
                 Dialectic Stance Model
               </div>
-              <div className="text-[11px] text-muted-foreground/70 font-mono mt-0.5">
+              <div className="text-[10px] sm:text-[11px] text-muted-foreground/70 font-mono mt-0.5 leading-tight">
                 Supports · Contradicts · Extends
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-5 backdrop-blur-md text-left">
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
+            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-3.5 sm:p-5 backdrop-blur-md text-left">
+              <div className="text-xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
                 60 FPS
               </div>
               <div className="text-xs text-muted-foreground mt-1 font-medium">
                 WebGL Graph Canvas
               </div>
-              <div className="text-[11px] text-muted-foreground/70 font-mono mt-0.5">
+              <div className="text-[10px] sm:text-[11px] text-muted-foreground/70 font-mono mt-0.5 leading-tight">
                 GPU-Instanced ForceAtlas2
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-5 backdrop-blur-md text-left">
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary font-mono">
+            <div className="rounded-2xl border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] p-3.5 sm:p-5 backdrop-blur-md text-left">
+              <div className="text-xl sm:text-3xl font-extrabold tracking-tight text-primary font-mono">
                 100%
               </div>
               <div className="text-xs text-muted-foreground mt-1 font-medium">
                 Provenance Grounding
               </div>
-              <div className="text-[11px] text-muted-foreground/70 font-mono mt-0.5">
+              <div className="text-[10px] sm:text-[11px] text-muted-foreground/70 font-mono mt-0.5 leading-tight">
                 Verifiable Excerpt Links
               </div>
             </div>
@@ -94,26 +94,26 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Dialectic Engine Section */}
-      <section className="container mx-auto px-4 py-20 max-w-6xl">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <section className="container mx-auto px-4 py-12 sm:py-20 max-w-6xl">
+        <div className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="text-primary inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
               <Target className="h-4 w-4" />
               The Core Problem
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
               Scientific knowledge is trapped in static, unlinked PDFs.
             </h2>
 
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
               Every year, over five million research papers are published. Yet modern researchers still
               navigate literature using metrics designed in the 1960s: raw citation counts and journal impact
               factors that completely obscure whether a paper was cited to celebrate its breakthrough or to
               disprove its core methodology.
             </p>
 
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
               Ithaca analyzes the actual text surrounding citation markers in academic publications. By
               classifying the epistemic relationship between citing and cited works, we construct an
               explorable topological map of scientific consensus and dispute.
@@ -121,13 +121,13 @@ export default function AboutPage() {
 
             <div className="pt-2 flex flex-wrap gap-3">
               <Link href="/">
-                <Button className="gap-2 h-11 px-6 shadow-sm">
+                <Button className="gap-2 h-11 px-5 sm:px-6 shadow-sm w-full sm:w-auto">
                   Explore Citation Canvas
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/docs">
-                <Button variant="outline" className="gap-2 h-11 px-6">
+                <Button variant="outline" className="gap-2 h-11 px-5 sm:px-6 w-full sm:w-auto">
                   <BookOpen className="h-4 w-4" />
                   Read Architecture Docs
                 </Button>
@@ -136,7 +136,7 @@ export default function AboutPage() {
           </div>
 
           {/* Interactive Dialectic Inspector Card */}
-          <div className="relative rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-8 sm:p-9 shadow-xl backdrop-blur-xl overflow-hidden">
+          <div className="relative rounded-3xl border border-border/80 dark:border-white/[0.08] bg-card/90 dark:bg-gradient-to-b dark:from-[#13141a]/90 dark:via-[#0e0f14]/90 dark:to-[#0a0b0e]/90 p-5 sm:p-9 shadow-xl backdrop-blur-xl overflow-hidden">
             <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-primary/10 blur-3xl opacity-70" />
 
             <div className="mb-6 flex items-center justify-between border-b border-border/60 dark:border-white/[0.06] pb-4">

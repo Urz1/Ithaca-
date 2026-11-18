@@ -287,10 +287,28 @@ export function EdgeEvidencePopover({
       {/* Popover */}
       <div
         data-testid="edge-evidence-popover"
-        className={`bg-card/95 fixed z-50 w-96 border backdrop-blur ${config.borderColor} animate-in zoom-in-95 fade-in flex max-h-[85vh] flex-col overflow-hidden rounded-xl shadow-2xl duration-200`}
+        className={`bg-card/95 fixed z-50 w-[calc(100vw-2rem)] sm:w-96 border backdrop-blur ${config.borderColor} animate-in zoom-in-95 fade-in flex max-h-[85vh] flex-col overflow-hidden rounded-xl shadow-2xl duration-200`}
         style={{
-          left: Math.max(16, Math.min(position.x, (typeof window !== "undefined" ? window.innerWidth : 1200) - 420)),
-          top: Math.max(16, Math.min(position.y, (typeof window !== "undefined" ? window.innerHeight : 800) - 620)),
+          left:
+            typeof window !== "undefined" && window.innerWidth < 640
+              ? 16
+              : Math.max(
+                  16,
+                  Math.min(
+                    position.x,
+                    (typeof window !== "undefined" ? window.innerWidth : 1200) - 420,
+                  ),
+                ),
+          top:
+            typeof window !== "undefined" && window.innerWidth < 640
+              ? Math.max(16, Math.min(position.y, window.innerHeight - 500))
+              : Math.max(
+                  16,
+                  Math.min(
+                    position.y,
+                    (typeof window !== "undefined" ? window.innerHeight : 800) - 620,
+                  ),
+                ),
         }}
       >
         <div className="flex justify-end p-2 pb-0">

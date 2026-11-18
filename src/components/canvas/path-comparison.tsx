@@ -168,13 +168,13 @@ export function PathComparisonView({
       open={isOpen}
       onOpenChange={(open) => !open && onClose()}
       side="bottom"
-      className="h-[45%]"
+      className="h-[60%] sm:h-[45%] rounded-t-xl sm:rounded-none"
       backdrop="light"
       resizable
     >
       <ContainedPanelContent className="flex h-full flex-col overflow-hidden p-0">
         {/* Header */}
-        <div className="bg-card flex items-center justify-between border-b px-5 py-3">
+        <div className="bg-card flex items-center justify-between border-b px-4 sm:px-5 py-3">
           <div className="flex items-center gap-2">
             <GitCompare className="text-primary h-4.5 w-4.5" />
             <h2 className="text-sm font-semibold">Path Comparison</h2>
@@ -207,7 +207,7 @@ export function PathComparisonView({
               <button
                 key={mode}
                 onClick={() => onModeChange?.(mode)}
-                className={`flex flex-1 items-center justify-center gap-2 border-b-2 px-4 py-2.5 text-sm font-medium transition-all ${
+                className={`flex flex-1 items-center justify-center gap-1 sm:gap-2 border-b-2 px-2 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all ${
                   currentMode === mode
                     ? "border-primary text-foreground bg-background"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border-transparent"

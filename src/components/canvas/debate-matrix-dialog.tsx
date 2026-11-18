@@ -132,13 +132,13 @@ export function DebateMatrixDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[85vh] max-w-5xl flex-col gap-0 overflow-hidden p-0">
         {/* Header */}
-        <DialogHeader className="border-border/80 border-b p-6 pb-4">
+        <DialogHeader className="border-border/80 border-b p-4 sm:p-6 pb-3 sm:pb-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+              <DialogTitle className="flex flex-wrap items-center gap-2 text-lg sm:text-xl font-bold">
                 <Table className="h-5 w-5 text-indigo-500" />
                 <span>Debate Matrix</span>
-                <span className="ml-2 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
                   {matrix.totalDisputes} Refutations •{" "}
                   {matrix.totalConfirmations} Confirmations
                 </span>
@@ -216,10 +216,10 @@ export function DebateMatrixDialog({
                 className="h-8 pl-8 text-xs"
               />
             </div>
-            <div className="border-border bg-muted/30 flex items-center gap-1 rounded-lg border p-0.5">
+            <div className="border-border bg-muted/30 flex items-center gap-1 rounded-lg border p-0.5 overflow-x-auto no-scrollbar whitespace-nowrap">
               <button
                 onClick={() => setStanceFilter("all")}
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors shrink-0 ${
                   stanceFilter === "all"
                     ? "bg-background text-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -229,7 +229,7 @@ export function DebateMatrixDialog({
               </button>
               <button
                 onClick={() => setStanceFilter("contradicts")}
-                className={`flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors shrink-0 ${
                   stanceFilter === "contradicts"
                     ? "bg-red-600 text-white shadow-sm"
                     : "text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50"
@@ -240,7 +240,7 @@ export function DebateMatrixDialog({
               </button>
               <button
                 onClick={() => setStanceFilter("supports")}
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors shrink-0 ${
                   stanceFilter === "supports"
                     ? "bg-emerald-600 text-white shadow-sm"
                     : "text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
@@ -253,7 +253,7 @@ export function DebateMatrixDialog({
         </DialogHeader>
 
         {/* Matrix Table */}
-        <div className="flex-1 overflow-y-auto p-6 pt-2">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 pt-2">
           {filteredRows.length === 0 ? (
             <div className="text-muted-foreground flex flex-col items-center gap-2 py-12 text-center">
               <Table className="h-8 w-8 opacity-40" />
@@ -265,8 +265,8 @@ export function DebateMatrixDialog({
               </p>
             </div>
           ) : (
-            <div className="border-border overflow-hidden rounded-lg border shadow-xs">
-              <table className="w-full border-collapse text-left text-xs">
+            <div className="border-border overflow-x-auto rounded-lg border shadow-xs">
+              <table className="min-w-[640px] w-full border-collapse text-left text-xs">
                 <thead>
                   <tr className="bg-muted/60 border-border text-muted-foreground border-b font-semibold">
                     <th className="w-[22%] px-3 py-2.5">Baseline Benchmark</th>

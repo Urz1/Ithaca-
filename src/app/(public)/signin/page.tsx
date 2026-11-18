@@ -172,7 +172,7 @@ function SignInContent() {
   };
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center px-4">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4 pt-24 pb-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="/" className="mb-6 inline-flex items-center gap-2">

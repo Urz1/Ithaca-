@@ -19,7 +19,7 @@ export default function BlogIndexPage() {
   return (
     <div className="bg-background text-foreground min-h-screen pb-20">
       {/* Header Banner */}
-      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 py-20">
+      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 pt-24 pb-12 sm:py-20">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_-20%,rgba(99,102,241,0.12),rgba(255,255,255,0))]" />
 
         <div className="container mx-auto px-4 max-w-5xl text-center">
@@ -28,22 +28,22 @@ export default function BlogIndexPage() {
             <span>Research & Engineering Dispatches</span>
           </div>
 
-          <h1 className="mb-5 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
+          <h1 className="mb-4 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
             The Ithaca Field Journal
           </h1>
 
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg sm:text-xl leading-relaxed">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-base sm:text-xl leading-relaxed">
             In-depth technical writeups on high-performance WebGL graphics, epistemic stance inference,
             and the future of computational literature synthesis.
           </p>
 
           {/* Category Filter Pills */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`rounded-full px-4 py-1.5 text-xs font-mono font-medium transition-all ${
+                className={`rounded-full px-3.5 py-1.5 text-xs font-mono font-medium transition-all ${
                   selectedCategory === category
                     ? "bg-foreground text-background shadow-xs font-semibold"
                     : "border border-border/80 dark:border-white/[0.08] bg-card/60 hover:bg-muted text-muted-foreground hover:text-foreground"
@@ -57,7 +57,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* Articles Grid */}
-      <section className="container mx-auto px-4 max-w-6xl py-14">
+      <section className="container mx-auto px-4 max-w-6xl py-10 sm:py-14">
         {filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post) => (
@@ -100,7 +100,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
+      <div className="flex flex-1 flex-col p-5 sm:p-7">
         <div className="text-muted-foreground mb-3 flex items-center gap-3 text-xs font-mono">
           <span className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />

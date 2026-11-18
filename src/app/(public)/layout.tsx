@@ -83,32 +83,50 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
         {/* Mobile Nav Overlay */}
         {mobileMenuOpen && (
           <div className="mx-auto mt-2 max-w-4xl rounded-2xl border border-border/80 bg-background/95 p-5 shadow-2xl backdrop-blur-xl animate-in slide-in-from-top-2 md:hidden pointer-events-auto dark:border-white/[0.1] dark:bg-[#0c0d12]/95">
-            <nav className="flex flex-col space-y-3">
+            <nav className="flex flex-col space-y-2.5">
               <Link
                 href="/about"
-                className="hover:bg-muted rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+                className="hover:bg-muted/80 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
               </Link>
               <Link
                 href="/docs"
-                className="hover:bg-muted rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+                className="hover:bg-muted/80 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Docs
               </Link>
               <Link
                 href="/blog"
-                className="hover:bg-muted rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+                className="hover:bg-muted/80 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Blog
               </Link>
-              <div className="pt-3 border-t border-border/60">
+
+              {/* Mobile Auth Actions */}
+              <div className="pt-3 border-t border-border/60 dark:border-white/10 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/signin"
+                    className="flex-1 text-center rounded-xl border border-border/80 dark:border-white/10 py-2.5 text-xs font-semibold text-foreground hover:bg-muted/60 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="flex-1 text-center rounded-xl bg-foreground text-background py-2.5 text-xs font-semibold shadow-xs hover:bg-foreground/90 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Sign Up Free
+                  </Link>
+                </div>
                 <Link
                   href="/explore"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-background"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-primary/10 text-primary border border-primary/20 px-4 py-2.5 text-xs font-semibold hover:bg-primary/15 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>Launch Canvas</span>
@@ -125,10 +143,10 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/20 transition-colors dark:border-white/[0.08] dark:bg-[#08090d]">
-        <div className="container mx-auto px-4 py-16 sm:px-6 md:py-20 lg:px-8">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-5 lg:gap-12">
+        <div className="container mx-auto px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
             {/* Brand & Mission */}
-            <div className="space-y-4 md:col-span-2">
+            <div className="col-span-2 space-y-3.5">
               <div className="flex items-center gap-2.5">
                 <img src="/logo.svg" alt="Ithaca" className="size-7" />
                 <span className="text-lg font-extrabold tracking-tight text-foreground">

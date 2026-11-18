@@ -192,7 +192,7 @@ export const PaperInspector = memo(function PaperInspector({
     >
       <ContainedPanelContent className="overflow-y-auto p-0">
         {/* Header */}
-        <div className="p-6 pb-0">
+        <div className="p-4 sm:p-6 pb-0">
           <div className="border-border/40 mb-0 border-b pb-5">
             {/* Badges row */}
             <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -218,10 +218,10 @@ export const PaperInspector = memo(function PaperInspector({
             </div>
 
             {/* Title */}
-            <h2 className="text-lg leading-snug font-bold">{paper.title}</h2>
+            <h2 className="text-base sm:text-lg leading-snug font-bold">{paper.title}</h2>
 
             {/* Authors */}
-            <p className="text-muted-foreground mt-2 text-sm">
+            <p className="text-muted-foreground mt-2 text-xs sm:text-sm">
               {displayAuthors}
             </p>
 
@@ -290,7 +290,7 @@ export const PaperInspector = memo(function PaperInspector({
             </div>
 
             {/* Stats row — compact inline */}
-            <div className="mt-4 grid grid-cols-4 gap-3">
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
               <StatCard label="Citations" value={paper.citations} />
               <StatCard label="References" value={paper.references || 0} />
               <StatCard
@@ -320,32 +320,32 @@ export const PaperInspector = memo(function PaperInspector({
 
         {/* Tabs */}
         <Tabs defaultValue="evidence" className="mt-0">
-          <div className="border-border/40 border-b px-6">
+          <div className="border-border/40 border-b px-4 sm:px-6 overflow-x-auto no-scrollbar">
             <TabsList className="h-auto w-full justify-start gap-0 bg-transparent p-0">
               <TabsTrigger
                 value="overview"
-                className="data-[state=active]:border-primary gap-1.5 rounded-none border-b-2 border-transparent px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="data-[state=active]:border-primary shrink-0 gap-1.5 rounded-none border-b-2 border-transparent px-3 sm:px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <Network className="h-3.5 w-3.5" />
                 Overview
               </TabsTrigger>
               <TabsTrigger
                 value="evidence"
-                className="data-[state=active]:border-primary gap-1.5 rounded-none border-b-2 border-transparent px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="data-[state=active]:border-primary shrink-0 gap-1.5 rounded-none border-b-2 border-transparent px-3 sm:px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <Quote className="h-3.5 w-3.5" />
                 Evidence
               </TabsTrigger>
               <TabsTrigger
                 value="cite"
-                className="data-[state=active]:border-primary gap-1.5 rounded-none border-b-2 border-transparent px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="data-[state=active]:border-primary shrink-0 gap-1.5 rounded-none border-b-2 border-transparent px-3 sm:px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <BookOpen className="h-3.5 w-3.5" />
                 Cite
               </TabsTrigger>
               <TabsTrigger
                 value="fulltext"
-                className="data-[state=active]:border-primary gap-1.5 rounded-none border-b-2 border-transparent px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="data-[state=active]:border-primary shrink-0 gap-1.5 rounded-none border-b-2 border-transparent px-3 sm:px-4 py-2.5 text-xs font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <FileText className="h-3.5 w-3.5" />
                 Full Text
@@ -394,7 +394,7 @@ export const PaperInspector = memo(function PaperInspector({
           <TabsContent value="evidence" className="mt-0">
             {/* Filter chips bar */}
             {evidence.length > 0 && (
-              <div className="border-border/40 bg-muted/10 flex flex-wrap items-center gap-1.5 border-b px-6 py-2">
+              <div className="border-border/40 bg-muted/10 flex items-center gap-1.5 border-b px-3 sm:px-6 py-2 overflow-x-auto no-scrollbar whitespace-nowrap">
                 {[
                   { key: "all", label: "All", count: evidence.length },
                   {
@@ -434,7 +434,7 @@ export const PaperInspector = memo(function PaperInspector({
                       key={f.key}
                       onClick={() => setRelationFilter(f.key)}
                       className={cn(
-                        "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors",
+                        "shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors",
                         isActive
                           ? f.activeClass ||
                               "border-primary/40 bg-primary/10 text-primary"
@@ -449,7 +449,7 @@ export const PaperInspector = memo(function PaperInspector({
             )}
 
             {/* Table Header */}
-            <div className="border-border/40 bg-muted/30 grid grid-cols-[1fr_90px_70px] gap-2 border-b px-6 py-2.5">
+            <div className="border-border/40 bg-muted/30 grid grid-cols-[1fr_80px_60px] sm:grid-cols-[1fr_90px_70px] gap-2 border-b px-3 sm:px-6 py-2.5">
               <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
                 Source Paper
               </span>
@@ -488,7 +488,7 @@ export const PaperInspector = memo(function PaperInspector({
                   ))}
               </div>
             ) : (
-              <div className="text-muted-foreground px-6 py-12 text-center">
+              <div className="text-muted-foreground px-4 sm:px-6 py-12 text-center">
                 <Quote className="mx-auto mb-2 h-8 w-8 opacity-50" />
                 <p className="text-sm">No evidence available for this paper.</p>
               </div>
@@ -496,7 +496,7 @@ export const PaperInspector = memo(function PaperInspector({
           </TabsContent>
 
           {/* Cite Tab */}
-          <TabsContent value="cite" className="mt-0 space-y-4 p-6">
+          <TabsContent value="cite" className="mt-0 space-y-4 p-4 sm:p-6">
             <div className="bg-muted/30 overflow-x-auto rounded-lg border p-4 font-mono text-xs">
               <pre className="whitespace-pre-wrap">
                 {`@article{${paper.id.replace("#", "")},
@@ -541,7 +541,7 @@ export const PaperInspector = memo(function PaperInspector({
           </TabsContent>
 
           {/* Full Text Tab */}
-          <TabsContent value="fulltext" className="mt-0 space-y-4 p-6">
+          <TabsContent value="fulltext" className="mt-0 space-y-4 p-4 sm:p-6">
             {paper.openAccessUrl ? (
               <div className="space-y-4">
                 <div className="border-border bg-card/50 flex flex-col items-center justify-between gap-4 rounded-xl border p-6 text-center sm:flex-row sm:text-left">
@@ -761,7 +761,7 @@ function EvidenceRow({ item }: { item: EvidenceItem }) {
   const config = relationConfig[item.relation] || relationConfig.unknown;
 
   return (
-    <div className="hover:bg-muted/30 group grid grid-cols-[1fr_90px_70px] gap-2 px-6 py-4 transition-colors">
+    <div className="hover:bg-muted/30 group grid grid-cols-[1fr_80px_60px] sm:grid-cols-[1fr_90px_70px] gap-2 px-3 sm:px-6 py-3 sm:py-4 transition-colors">
       {/* Source Paper + Snippet */}
       <div className="min-w-0">
         <p className="text-foreground/90 text-sm leading-tight font-semibold">

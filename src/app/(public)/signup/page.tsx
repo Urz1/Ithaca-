@@ -346,7 +346,7 @@ function SignUpContent() {
   }
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center px-4">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4 pt-24 pb-12">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8 text-center">

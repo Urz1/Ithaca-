@@ -20,11 +20,11 @@ export default function DocsPage() {
   return (
     <div className="bg-background text-foreground min-h-screen pb-20">
       {/* Header Banner */}
-      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 py-16">
+      <section className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 pt-24 pb-10 sm:py-16">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_-20%,rgba(59,130,246,0.12),rgba(255,255,255,0))]" />
 
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="flex flex-wrap items-center gap-2.5 mb-4">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-0.5 text-xs font-semibold text-primary">
               <BookOpen className="h-3.5 w-3.5" />
               Platform Reference
@@ -38,17 +38,17 @@ export default function DocsPage() {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
             Ithaca Documentation & Architecture
           </h1>
 
-          <p className="text-muted-foreground mt-3 max-w-3xl text-base sm:text-lg leading-relaxed">
+          <p className="text-muted-foreground mt-3 max-w-3xl text-sm sm:text-lg leading-relaxed">
             Understand how Ithaca ingests academic works, extracts verbatim citation sentences,
             infers epistemological stance edges, and renders 10,000+ node topologies at 60fps.
           </p>
 
           {/* Quick Jump Navigation Chips */}
-          <div className="mt-8 flex flex-wrap gap-2 text-xs font-medium">
+          <div className="mt-6 sm:mt-8 flex flex-wrap gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-medium">
             <a
               href="#overview"
               className="rounded-lg border border-border/80 dark:border-white/[0.08] bg-card/60 dark:bg-white/[0.02] px-3 py-1.5 text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
@@ -300,7 +300,7 @@ export default function DocsPage() {
           </p>
 
           <div className="overflow-x-auto rounded-2xl border border-border/80 dark:border-white/[0.08]">
-            <table className="w-full text-left text-xs sm:text-sm">
+            <table className="w-full text-left text-xs sm:text-sm min-w-[520px]">
               <thead className="bg-muted/40 font-mono text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border/80 dark:border-white/[0.08]">
                 <tr>
                   <th className="py-3 px-4">Stance</th>

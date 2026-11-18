@@ -56,7 +56,7 @@ export default async function BlogPostPage({
   return (
     <article className="bg-background text-foreground animate-in fade-in min-h-screen duration-500 pb-20">
       {/* Header Banner */}
-      <div className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 py-16">
+      <div className="relative overflow-hidden border-b border-border/80 dark:border-white/[0.08] bg-muted/20 pt-24 pb-12 sm:py-16">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_-20%,rgba(99,102,241,0.1),rgba(255,255,255,0))]" />
 
         <div className="container mx-auto max-w-4xl px-4">

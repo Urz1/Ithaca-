@@ -108,21 +108,21 @@ export function RelationshipFocusControl({
               onClick={() => onChange(opt.value)}
               title={opt.label}
               className={cn(
-                "relative flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium transition-all duration-200",
+                "relative flex items-center gap-1 rounded-full px-1.5 sm:px-2 py-0.5 text-xs font-medium transition-all duration-200",
                 isActive
                   ? "bg-background text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.12)] border border-border/70 font-semibold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
               )}
             >
-              <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", opt.dotColor)} />
-              <span>{opt.shortLabel}</span>
+              <span className={cn("h-2 w-2 sm:h-1.5 sm:w-1.5 rounded-full shrink-0", opt.dotColor)} />
+              <span className={cn(isActive ? "inline" : "hidden sm:inline")}>{opt.shortLabel}</span>
               {typeof count === "number" && counts.all > 0 && (
                 <span
                   className={cn(
                     "ml-0.5 rounded-full px-1.5 py-0.2 text-[10px] font-mono tabular-nums font-bold",
                     isActive
                       ? "bg-muted text-foreground"
-                      : "bg-muted/60 text-muted-foreground",
+                      : "bg-muted/60 text-muted-foreground hidden sm:inline",
                   )}
                 >
                   {count}

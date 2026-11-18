@@ -945,7 +945,7 @@ export function ExploreCanvas() {
                       data-testid="canvas-node-count"
                       className="text-foreground font-semibold tabular-nums"
                     >
-                      {state.graphStats.nodeCount} nodes
+                      {state.graphStats.nodeCount} <span className="hidden sm:inline">nodes</span><span className="sm:hidden">n</span>
                     </span>
                     <span className="text-muted-foreground/40 hidden sm:inline">·</span>
                     <span

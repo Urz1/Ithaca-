@@ -156,32 +156,32 @@ export default function ProjectsPage() {
     <div className="bg-muted/30 min-h-full pb-10">
       {/* Header */}
       <div className="bg-card border-b">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h1 className="flex items-center gap-2 text-2xl font-bold">
-                <FolderOpen className="text-primary h-6 w-6" />
+              <h1 className="flex items-center gap-2 text-xl sm:text-2xl font-bold">
+                <FolderOpen className="text-primary h-5 w-5 sm:h-6 sm:w-6" />
                 Projects
               </h1>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-xs sm:text-sm">
                 Organize your research into projects and collections
               </p>
             </div>
-            <Button className="gap-2" onClick={() => setIsNewProjectOpen(true)}>
+            <Button className="gap-2 w-full sm:w-auto" onClick={() => setIsNewProjectOpen(true)}>
               <Plus className="h-4 w-4" />
               New Project
             </Button>
           </div>
 
           {/* Toolbar */}
-          <div className="mt-4 flex items-center gap-4">
+          <div className="mt-4 flex items-center gap-3 sm:gap-4">
             <div className="relative max-w-md flex-1">
               <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <Input
                 placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 text-xs sm:text-sm"
               />
             </div>
             <div className="flex items-center gap-1 rounded-lg border p-1">
@@ -206,8 +206,8 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-6">
-        <div className="flex gap-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Projects Grid/List */}
           <div className="flex-1">
             {/* Favorites Section */}
@@ -284,8 +284,8 @@ export default function ProjectsPage() {
 
           {/* Collections Shelf */}
           {selectedProject && (
-            <div className="w-80 shrink-0">
-              <Card className="sticky top-6">
+            <div className="w-full lg:w-80 shrink-0">
+              <Card className="static lg:sticky lg:top-6">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2 text-base">
@@ -483,8 +483,13 @@ function ProjectCard({
           <p className="text-muted-foreground truncate text-xs">
             {project.description}
           </p>
+          <div className="text-muted-foreground flex items-center gap-2 text-[11px] sm:hidden mt-1">
+            <span>{project.graphCount} graphs</span>
+            <span>•</span>
+            <span>{project.lastModified}</span>
+          </div>
         </div>
-        <div className="text-muted-foreground flex items-center gap-2 text-xs">
+        <div className="text-muted-foreground hidden sm:flex items-center gap-2 text-xs">
           <Badge variant="secondary">{project.graphCount} graphs</Badge>
           <span className="flex items-center gap-1">
             <Clock className="h-3 w-3" />

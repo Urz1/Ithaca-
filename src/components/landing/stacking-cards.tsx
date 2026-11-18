@@ -218,6 +218,106 @@ function IsometricCardSurface({
   );
 }
 
+function MobileStanceCards() {
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const card = STANCE_CARDS[activeTab];
+
+  return (
+    <div className="w-full max-w-xl mx-auto space-y-4 px-4 sm:px-6">
+      {/* Interactive Stance Layer Switcher */}
+      <div className="flex items-center justify-between gap-1 p-1 rounded-2xl bg-muted/60 dark:bg-white/[0.04] border border-border/80 dark:border-white/10">
+        {STANCE_CARDS.map((c, i) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => setActiveTab(i)}
+            className={`flex-1 py-2 px-1.5 sm:px-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+              activeTab === i
+                ? "bg-background dark:bg-zinc-800 text-foreground shadow-xs font-bold"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <span
+              className={`h-2 w-2 rounded-full shrink-0 ${
+                i === 0
+                  ? "bg-emerald-500"
+                  : i === 1
+                  ? "bg-rose-500"
+                  : "bg-amber-500"
+              }`}
+            />
+            <span className="truncate text-[11px] sm:text-xs font-semibold capitalize font-sans">
+              {c.id}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Readable Card Surface */}
+      <div
+        className={`relative w-full rounded-2xl border ${card.cardBorder} ${card.cardBg} p-5 sm:p-6 shadow-md overflow-hidden transition-all duration-300`}
+      >
+        {/* Top Rim */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.topRim}`}
+        />
+
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="font-mono text-xs font-black tracking-widest text-muted-foreground/80 dark:text-white/60 uppercase">
+            LAYER {card.layerNum}/03
+          </span>
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-mono text-[10px] font-black uppercase tracking-wider ${card.badgeBg}`}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+            {card.badge}
+          </span>
+        </div>
+
+        <h3 className="text-xl sm:text-2xl font-black italic tracking-tight text-foreground dark:text-white uppercase">
+          {card.headline}
+        </h3>
+        <p className="mt-0.5 font-mono text-xs font-semibold text-muted-foreground dark:text-white/80">
+          {card.subheadline}
+        </p>
+
+        <p className="mt-3 text-xs sm:text-sm text-foreground/90 dark:text-white/90 leading-relaxed font-normal">
+          {card.description}
+        </p>
+
+        {/* Papers connection */}
+        <div className="mt-3.5 flex flex-wrap items-center gap-1.5 text-xs font-mono">
+          <span className="rounded-lg bg-muted/80 dark:bg-black/50 px-2.5 py-1 border border-border dark:border-white/10 font-semibold truncate max-w-[140px]">
+            {card.citingPaper}
+          </span>
+          <span className="text-primary dark:text-amber-400 font-bold">→</span>
+          <span className="rounded-lg bg-muted/80 dark:bg-black/50 px-2.5 py-1 border border-border dark:border-white/10 font-semibold truncate max-w-[140px]">
+            {card.citedPaper}
+          </span>
+          <span className="ml-auto text-[11px] text-muted-foreground dark:text-white/60">
+            {card.venue}
+          </span>
+        </div>
+
+        {/* Evidence Quote */}
+        <div className="mt-3 rounded-xl bg-muted/50 dark:bg-black/50 border border-border/80 dark:border-white/8 p-3 text-xs italic text-foreground/85 dark:text-white/85 leading-relaxed">
+          {card.evidenceQuote}
+        </div>
+
+        <div className="mt-3.5 flex items-center justify-between pt-2.5 border-t border-border/70 dark:border-white/10 text-xs font-mono">
+          <span className="text-muted-foreground dark:text-white/70">
+            {card.metricLabel}: <strong className="text-foreground dark:text-white">{card.metricValue}</strong>
+          </span>
+          <span className="text-primary dark:text-amber-400 font-bold text-[11px]">
+            LAYER {card.layerNum} ACTIVE
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function StackingCards() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -291,162 +391,170 @@ export function StackingCards() {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full"
-      style={{ height: shouldReduceMotion ? "auto" : "280vh" }}
-    >
-      {/* Sticky Stage Viewport - Seamless with the page canvas, overflow visible */}
-      <div className="sticky top-16 sm:top-20 flex min-h-[860px] sm:min-h-[940px] w-full flex-col items-center justify-center overflow-visible py-8 sm:py-12">
-        {/* Vibrant Amber/Orange Backlight Glow matching reference image */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-16 h-[550px] w-[850px] sm:h-[650px] sm:w-[1100px] rounded-full bg-gradient-to-tr from-amber-500/40 via-orange-500/45 to-rose-600/30 blur-[130px] opacity-90"
-        />
+    <>
+      {/* Mobile Responsive Deck (< md): Crisp, Touch-Friendly, Zero Whitespace Void */}
+      <div className="block md:hidden w-full">
+        <MobileStanceCards />
+      </div>
 
-        {/* 3D Isometric Viewport Container */}
-        <div className="relative flex w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
-          {/* Right-hand Layer Pagination */}
-          <div className="absolute right-4 sm:right-10 lg:right-14 z-40 flex flex-col items-center gap-3 font-mono text-xs text-foreground/60 dark:text-white/50">
-            <span
-              style={{ writingMode: "vertical-rl" }}
-              className="text-[11px] tracking-widest uppercase opacity-75 mb-1 rotate-180"
-            >
-              LAYERS 0{activeLayer + 1}/03
-            </span>
-            {[0, 1, 2].map((i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => jumpToLayer(i)}
-                className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                  activeLayer === i
-                    ? "bg-foreground dark:bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.9)]"
-                    : "bg-foreground/25 dark:bg-white/30 hover:bg-foreground/50 dark:hover:bg-white/60"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Isometric Deck Scene with Preserve-3D - Expansive Width */}
+      {/* Desktop 3D Isometric Scroll Deck (>= md): Full Immersive Peel */}
+      <div
+        ref={containerRef}
+        className="hidden md:block relative w-full"
+        style={{ height: shouldReduceMotion ? "auto" : "280vh" }}
+      >
+        {/* Sticky Stage Viewport - Seamless with the page canvas, overflow visible */}
+        <div className="sticky top-16 sm:top-20 flex min-h-[860px] sm:min-h-[940px] w-full flex-col items-center justify-center overflow-visible py-8 sm:py-12">
+          {/* Vibrant Amber/Orange Backlight Glow matching reference image */}
           <div
-            className="relative flex w-full max-w-5xl items-center justify-center py-6"
-            style={{
-              perspective: "1600px",
-              perspectiveOrigin: "50% 42%",
-            }}
-          >
+            aria-hidden
+            className="pointer-events-none absolute -top-16 h-[550px] w-[850px] sm:h-[650px] sm:w-[1100px] rounded-full bg-gradient-to-tr from-amber-500/40 via-orange-500/45 to-rose-600/30 blur-[130px] opacity-90"
+          />
+
+          {/* 3D Isometric Viewport Container */}
+          <div className="relative flex w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+            {/* Right-hand Layer Pagination */}
+            <div className="absolute right-4 sm:right-10 lg:right-14 z-40 flex flex-col items-center gap-3 font-mono text-xs text-foreground/60 dark:text-white/50">
+              <span
+                style={{ writingMode: "vertical-rl" }}
+                className="text-[11px] tracking-widest uppercase opacity-75 mb-1 rotate-180"
+              >
+                LAYERS 0{activeLayer + 1}/03
+              </span>
+              {[0, 1, 2].map((i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => jumpToLayer(i)}
+                  className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                    activeLayer === i
+                      ? "bg-foreground dark:bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.9)]"
+                      : "bg-foreground/25 dark:bg-white/30 hover:bg-foreground/50 dark:hover:bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Isometric Deck Scene with Preserve-3D - Expansive Width */}
             <div
-              className="relative w-full max-w-[800px] lg:max-w-[880px] transition-transform duration-700 ease-out"
+              className="relative flex w-full max-w-5xl items-center justify-center py-6"
               style={{
-                transformStyle: "preserve-3d",
-                // Balanced isometric angle for high readability and expansive presence
-                transform:
-                  "rotateX(46deg) rotateY(4deg) rotateZ(-20deg)",
+                perspective: "1600px",
+                perspectiveOrigin: "50% 42%",
               }}
             >
-              {shouldReduceMotion ? (
-                <div className="space-y-8">
-                  {STANCE_CARDS.map((card, i) => (
-                    <IsometricCardSurface
-                      key={card.id}
-                      card={card}
-                      index={i}
-                      activeLayer={activeLayer}
-                      onClick={() => setActiveLayer(i)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div
-                  className="relative w-full"
-                  style={{ minHeight: "720px", transformStyle: "preserve-3d" }}
-                >
-                  {/* Layer 3: EXTENDS (Bottom Card) */}
-                  <motion.div
-                    style={{
-                      y: card3Y,
-                      z: card3Z,
-                      zIndex: 10,
-                      transformStyle: "preserve-3d",
-                    }}
-                    className="absolute inset-x-0 top-0"
+              <div
+                className="relative w-full max-w-[800px] lg:max-w-[880px] transition-transform duration-700 ease-out"
+                style={{
+                  transformStyle: "preserve-3d",
+                  // Balanced isometric angle for high readability and expansive presence
+                  transform:
+                    "rotateX(46deg) rotateY(4deg) rotateZ(-20deg)",
+                }}
+              >
+                {shouldReduceMotion ? (
+                  <div className="space-y-8">
+                    {STANCE_CARDS.map((card, i) => (
+                      <IsometricCardSurface
+                        key={card.id}
+                        card={card}
+                        index={i}
+                        activeLayer={activeLayer}
+                        onClick={() => setActiveLayer(i)}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div
+                    className="relative w-full"
+                    style={{ minHeight: "720px", transformStyle: "preserve-3d" }}
                   >
-                    {/* Deep Volumetric Floor Shadow underneath Card 3 onto the desk */}
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute -inset-x-8 -bottom-20 h-44 rounded-[3rem] bg-black/60 dark:bg-black/95 blur-3xl -z-10"
-                      style={{ transform: "translateZ(-30px)" }}
-                    />
-                    <IsometricCardSurface
-                      card={STANCE_CARDS[2]}
-                      index={2}
-                      activeLayer={activeLayer}
-                      onClick={() => jumpToLayer(2)}
-                    />
-                  </motion.div>
+                    {/* Layer 3: EXTENDS (Bottom Card) */}
+                    <motion.div
+                      style={{
+                        y: card3Y,
+                        z: card3Z,
+                        zIndex: 10,
+                        transformStyle: "preserve-3d",
+                      }}
+                      className="absolute inset-x-0 top-0"
+                    >
+                      {/* Deep Volumetric Floor Shadow underneath Card 3 onto the desk */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute -inset-x-8 -bottom-20 h-44 rounded-[3rem] bg-black/60 dark:bg-black/95 blur-3xl -z-10"
+                        style={{ transform: "translateZ(-30px)" }}
+                      />
+                      <IsometricCardSurface
+                        card={STANCE_CARDS[2]}
+                        index={2}
+                        activeLayer={activeLayer}
+                        onClick={() => jumpToLayer(2)}
+                      />
+                    </motion.div>
 
-                  {/* Layer 2: CONTRADICTS (Middle Card) */}
-                  <motion.div
-                    style={{
-                      y: card2Y,
-                      z: card2Z,
-                      opacity: card2Opacity,
-                      zIndex: 20,
-                      transformStyle: "preserve-3d",
-                    }}
-                    className="absolute inset-x-0 top-0"
-                  >
-                    {/* Sharp Contact Shadow from Card 2 onto Card 3 */}
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/80 dark:bg-black/95 blur-xl -z-10"
-                      style={{ transform: "translateZ(-25px)" }}
-                    />
-                    <IsometricCardSurface
-                      card={STANCE_CARDS[1]}
-                      index={1}
-                      activeLayer={activeLayer}
-                      onClick={() => jumpToLayer(1)}
-                    />
-                  </motion.div>
+                    {/* Layer 2: CONTRADICTS (Middle Card) */}
+                    <motion.div
+                      style={{
+                        y: card2Y,
+                        z: card2Z,
+                        opacity: card2Opacity,
+                        zIndex: 20,
+                        transformStyle: "preserve-3d",
+                      }}
+                      className="absolute inset-x-0 top-0"
+                    >
+                      {/* Sharp Contact Shadow from Card 2 onto Card 3 */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/80 dark:bg-black/95 blur-xl -z-10"
+                        style={{ transform: "translateZ(-25px)" }}
+                      />
+                      <IsometricCardSurface
+                        card={STANCE_CARDS[1]}
+                        index={1}
+                        activeLayer={activeLayer}
+                        onClick={() => jumpToLayer(1)}
+                      />
+                    </motion.div>
 
-                  {/* Layer 1: SUPPORTS (Top Card) */}
-                  <motion.div
-                    style={{
-                      y: card1Y,
-                      z: card1Z,
-                      opacity: card1Opacity,
-                      zIndex: 30,
-                      transformStyle: "preserve-3d",
-                    }}
-                    className="absolute inset-x-0 top-0"
-                  >
-                    {/* Sharp Contact Shadow from Card 1 onto Card 2 */}
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/85 dark:bg-black/95 blur-xl -z-10"
-                      style={{ transform: "translateZ(-25px)" }}
-                    />
-                    <IsometricCardSurface
-                      card={STANCE_CARDS[0]}
-                      index={0}
-                      activeLayer={activeLayer}
-                      onClick={() => jumpToLayer(0)}
-                    />
-                  </motion.div>
-                </div>
-              )}
+                    {/* Layer 1: SUPPORTS (Top Card) */}
+                    <motion.div
+                      style={{
+                        y: card1Y,
+                        z: card1Z,
+                        opacity: card1Opacity,
+                        zIndex: 30,
+                        transformStyle: "preserve-3d",
+                      }}
+                      className="absolute inset-x-0 top-0"
+                    >
+                      {/* Sharp Contact Shadow from Card 1 onto Card 2 */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-2 -bottom-6 h-20 rounded-[2rem] bg-black/85 dark:bg-black/95 blur-xl -z-10"
+                        style={{ transform: "translateZ(-25px)" }}
+                      />
+                      <IsometricCardSurface
+                        card={STANCE_CARDS[0]}
+                        index={0}
+                        activeLayer={activeLayer}
+                        onClick={() => jumpToLayer(0)}
+                      />
+                    </motion.div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Tactile scroll hint */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground/75 dark:text-white/50 z-30">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-ping" />
-          <span>Scroll down to peel through the 3D isometric layers</span>
+          {/* Tactile scroll hint */}
+          <div className="mt-6 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground/75 dark:text-white/50 z-30">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-ping" />
+            <span>Scroll down to peel through the 3D isometric layers</span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

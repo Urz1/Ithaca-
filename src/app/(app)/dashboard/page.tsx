@@ -166,11 +166,11 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-muted/30 min-h-full pb-12">
-      <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
         {/* Workspace Hub Header */}
         <div className="flex flex-col justify-between gap-4 pt-1 pb-2 sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
               Research Hub
             </h1>
             <p className="text-muted-foreground mt-0.5 text-xs">
@@ -178,12 +178,12 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               asChild
               variant="outline"
               size="sm"
-              className="gap-1.5 text-xs shadow-sm"
+              className="flex-1 sm:flex-initial gap-1.5 text-xs shadow-sm"
             >
               <Link href="/projects">
                 <FolderOpen className="h-3.5 w-3.5 text-amber-500" />
@@ -193,7 +193,7 @@ export default function DashboardPage() {
             <Button
               asChild
               size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 text-xs shadow-sm"
+              className="flex-1 sm:flex-initial bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5 text-xs shadow-sm"
             >
               <Link href="/explore">
                 <Orbit className="h-3.5 w-3.5" />
@@ -204,7 +204,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Dialectic Inquiry Launcher */}
-        <div className="from-card to-muted/30 border-primary/20 relative overflow-hidden rounded-2xl border bg-gradient-to-br p-6 shadow-sm">
+        <div className="from-card to-muted/30 border-primary/20 relative overflow-hidden rounded-2xl border bg-gradient-to-br p-4 sm:p-6 shadow-sm">
           <div className="pointer-events-none absolute top-0 right-0 p-8 opacity-5">
             <Orbit className="text-primary h-48 w-48" />
           </div>
@@ -215,10 +215,10 @@ export default function DashboardPage() {
                 Dialectic Inquiry Launcher
               </span>
             </div>
-            <h2 className="mb-3 text-lg font-semibold tracking-tight">
+            <h2 className="mb-3 text-base sm:text-lg font-semibold tracking-tight">
               Map Scientific Controversies & Consensuses Instantly
             </h2>
-            <form onSubmit={handleInquirySubmit} className="flex gap-2">
+            <form onSubmit={handleInquirySubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-2.5">
               <div className="relative flex-1">
                 <Search className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
                 <input
@@ -231,13 +231,13 @@ export default function DashboardPage() {
               </div>
               <Button
                 type="submit"
-                className="h-11 gap-2 rounded-xl px-5 font-medium"
+                className="h-11 gap-2 rounded-xl px-5 font-medium w-full sm:w-auto shrink-0 justify-center"
               >
                 Explore Debate
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </form>
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+            <div className="mt-3 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs">
               <span className="text-muted-foreground">Quick queries:</span>
               {CURATED_PROMPTS.map((prompt) => (
                 <button
@@ -257,31 +257,31 @@ export default function DashboardPage() {
 
         {/* Navigation Tabs */}
         <Tabs value={currentTab} onValueChange={setCurrentTab}>
-          <div className="flex items-center justify-between border-b pb-1">
-            <TabsList className="bg-muted/50">
-              <TabsTrigger value="overview" className="gap-1.5 text-xs">
+          <div className="flex items-center justify-between border-b pb-1 gap-2 overflow-x-auto no-scrollbar">
+            <TabsList className="bg-muted/50 h-auto p-1 flex-nowrap shrink-0">
+              <TabsTrigger value="overview" className="gap-1.5 text-xs whitespace-nowrap shrink-0">
                 <Compass className="h-3.5 w-3.5" />
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="graphs" className="gap-1.5 text-xs">
+              <TabsTrigger value="graphs" className="gap-1.5 text-xs whitespace-nowrap shrink-0">
                 <Share2 className="h-3.5 w-3.5" />
                 Debate Maps ({savedGraphs.length})
               </TabsTrigger>
-              <TabsTrigger value="collections" className="gap-1.5 text-xs">
+              <TabsTrigger value="collections" className="gap-1.5 text-xs whitespace-nowrap shrink-0">
                 <BookOpen className="h-3.5 w-3.5" />
                 Collections ({collections.length})
               </TabsTrigger>
-              <TabsTrigger value="history" className="gap-1.5 text-xs">
+              <TabsTrigger value="history" className="gap-1.5 text-xs whitespace-nowrap shrink-0">
                 <History className="h-3.5 w-3.5" />
                 Correction History ({corrections.length})
               </TabsTrigger>
-              <TabsTrigger value="settings" className="gap-1.5 text-xs">
+              <TabsTrigger value="settings" className="gap-1.5 text-xs whitespace-nowrap shrink-0">
                 <Settings className="h-3.5 w-3.5" />
                 Settings & Privacy
               </TabsTrigger>
             </TabsList>
 
-            <span className="text-muted-foreground hidden text-xs sm:inline">
+            <span className="text-muted-foreground hidden text-xs lg:inline shrink-0">
               {stats.savedGraphs} Maps &bull; {stats.collections} Collections
             </span>
           </div>
@@ -798,7 +798,7 @@ export default function DashboardPage() {
             {corrections.length > 0 ? (
               <Card>
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full min-w-[500px]">
                     <thead>
                       <tr className="text-muted-foreground border-b text-xs uppercase">
                         <th className="p-4 text-left font-medium">

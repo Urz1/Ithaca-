@@ -61,7 +61,7 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative flex min-h-[88vh] flex-col items-center justify-center overflow-hidden py-20 sm:py-24 md:py-32 lg:py-36">
+      <section className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden pt-24 pb-12 sm:py-24 md:py-32 lg:py-36">
         {/* Subtle Atmospheric Lighting & Grid Overlay */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(120,119,198,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(120,119,198,0.18),transparent_70%)]" />
@@ -69,10 +69,10 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <Stagger className="mx-auto max-w-4xl space-y-6 sm:space-y-8 text-center">
+          <Stagger className="mx-auto max-w-4xl space-y-5 sm:space-y-8 text-center">
             {/* Announcement Badge */}
             <StaggerItem>
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-border/80 dark:border-white/10 bg-muted/40 dark:bg-white/[0.04] px-4 py-1.5 text-xs sm:text-sm font-medium text-muted-foreground shadow-xs backdrop-blur-md transition-colors hover:border-border hover:bg-muted/60">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/40 dark:bg-white/[0.04] px-3.5 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium text-muted-foreground shadow-xs backdrop-blur-md transition-colors hover:border-border hover:bg-muted/60">
                 <span className="relative flex h-2 w-2">
                   <span className="bg-emerald-500 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
                   <span className="bg-emerald-500 relative inline-flex h-2 w-2 rounded-full" />
@@ -83,7 +83,7 @@ export default function Home() {
 
             {/* Main Headline */}
             <StaggerItem>
-              <h1 className="text-4xl leading-[1.08] font-black tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              <h1 className="text-3xl leading-[1.12] font-black tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                 Navigate any research field in{" "}
                 <span className="from-primary via-amber-600 to-amber-700 dark:from-primary dark:via-amber-400 dark:to-amber-500 bg-gradient-to-r bg-clip-text text-transparent">
                   minutes, not months
@@ -225,18 +225,18 @@ export default function Home() {
       </section>
 
       {/* ===== EDGE TYPE VISUALIZATION ===== */}
-      <section className="relative py-24 sm:py-32 md:py-40">
+      <section className="relative py-14 sm:py-24 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <Reveal>
-              <div className="mb-12 sm:mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-5">
+              <div className="mb-10 sm:mb-16">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-[11px] font-bold tracking-widest text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-4">
                   ARGUMENTATION TAXONOMY
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.12]">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.15]">
                   Three relationships that unlock the conversation
                 </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
+                <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-lg text-muted-foreground leading-relaxed font-normal">
                   Every edge in Ithaca represents a peer-reviewed scientific stance,
                   giving you instant clarity on how claims evolve.
                 </p>
@@ -245,25 +245,25 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 3D Scroll-Driven Stacking Cards Deck (Full Width Continuous Flow) */}
+        {/* Stacking Cards Deck */}
         <div className="w-full">
           <StackingCards />
         </div>
       </section>
 
       {/* ===== RESEARCH WORKBENCH BENTO ===== */}
-      <section className="border-y border-border/70 dark:border-white/[0.06] bg-muted/10 dark:bg-white/[0.01] py-20 sm:py-24 md:py-28">
+      <section className="border-y border-border/70 dark:border-white/[0.06] bg-muted/10 dark:bg-white/[0.01] py-14 sm:py-20 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-[1120px]">
             <Reveal>
-              <div className="mb-12 sm:mb-14 text-center">
+              <div className="mb-10 sm:mb-14 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-white/10 bg-muted/50 dark:bg-white/[0.04] px-4 py-1 text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-xs backdrop-blur-md mb-4">
                   The Research Workbench
                 </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-[40px] leading-tight lg:leading-[44px] font-bold tracking-tight text-foreground">
+                <h2 className="text-2xl sm:text-4xl lg:text-[40px] leading-tight lg:leading-[44px] font-bold tracking-tight text-foreground">
                   Engineered for rigorous scientific inquiry
                 </h2>
-                <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
+                <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-lg text-muted-foreground leading-relaxed font-normal">
                   Everything an academic lab needs to extract claims, synchronize literature, and publish validated synthesis.
                 </p>
               </div>
@@ -276,7 +276,7 @@ export default function Home() {
       </section>
 
       {/* ===== USE CASES ===== */}
-      <section className="bg-muted/10 border-border/70 dark:border-white/[0.06] dark:bg-white/[0.01] border-y py-24 sm:py-28 md:py-32">
+      <section className="bg-muted/10 border-border/70 dark:border-white/[0.06] dark:bg-white/[0.01] border-y py-14 sm:py-20 md:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <Reveal>
